@@ -403,7 +403,7 @@
             </div>
 
             <div class="cta-asesoria-content" data-aos="fade-left" data-aos-delay="80">
-              <h3 class="cta-asesoria-title">Te brindamos asesoría legal en todas las áreas</h3>
+              <h3 class="cta-asesoria-title">¿Necesitas orientación legal? Cuéntanos tu situación</h3>
               <a href="https://wa.me/51958212450?text=${encodeURIComponent('Hola Dra. Zinthia Garay, deseo solicitar asesoría legal')}" target="_blank" rel="noopener noreferrer" class="cta-asesoria-btn">
                 <span>Solicitar asesoría</span>
                 <i class="fas fa-arrow-right"></i>
@@ -456,27 +456,19 @@
               </div>
 
               <div class="map-socials-block">
-                <h4>Redes sociales</h4>
+                <h4>Canales de contacto</h4>
                 <div class="map-socials-list">
-                  <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer" class="map-social-link">
-                    <i class="fab fa-linkedin"></i>
-                    <span>LinkedIn</span>
+                  <a href="https://wa.me/51958212450" target="_blank" rel="noopener noreferrer" class="map-social-link">
+                    <i class="fab fa-whatsapp"></i>
+                    <span>WhatsApp</span>
                   </a>
-                  <a href="https://twitter.com" target="_blank" rel="noopener noreferrer" class="map-social-link">
-                    <i class="fab fa-twitter"></i>
-                    <span>Twitter</span>
+                  <a href="mailto:zgaray30@gmail.com" class="map-social-link">
+                    <i class="fas fa-envelope"></i>
+                    <span>Correo electrónico</span>
                   </a>
-                  <a href="https://www.youtube.com" target="_blank" rel="noopener noreferrer" class="map-social-link">
-                    <i class="fab fa-youtube"></i>
-                    <span>YouTube</span>
-                  </a>
-                  <a href="https://www.facebook.com" target="_blank" rel="noopener noreferrer" class="map-social-link">
-                    <i class="fab fa-facebook"></i>
-                    <span>Facebook</span>
-                  </a>
-                  <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer" class="map-social-link">
-                    <i class="fab fa-instagram"></i>
-                    <span>Instagram</span>
+                  <a href="tel:+51958212450" class="map-social-link">
+                    <i class="fas fa-phone"></i>
+                    <span>Llamar al estudio</span>
                   </a>
                 </div>
               </div>

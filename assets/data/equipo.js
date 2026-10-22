@@ -12,8 +12,8 @@
         cargo: 'Fundadora y Directora',
         foto: 'assets/img/zinthia-garay-equipo.webp', // PNG recortado con fondo transparente
         isCutout: true,
-        bio: 'Lidera el estudio con más de 18 años de experiencia profesional y académica, atendiendo personalmente cada caso de inicio a fin.',
-        bioCompleta: 'La Zinthia Garay Paucar (Reg. CAI Nº 3534) es una prestigiosa abogada peruana egresada de la Universidad Nacional San Luis Gonzaga de Ica, con más de 18 años de experiencia profesional y académica. Magíster en Gestión Pública y especialista por el Centro de Altos Estudios Nacionales (CAEN), lidera J&N Asesoría Legal y Consultoría brindando patrocinio legal estratégico y de alta efectividad a personas naturales, empresas e instituciones públicas.',
+        bio: 'Fundadora y directora de J&N, con más de 18 años de experiencia profesional y académica. Es magíster en Gestión Pública y cuenta con formación en el CAEN.',
+        bioCompleta: 'Zinthia Garay Paucar (Reg. CAI N.º 3534) es abogada egresada de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 18 años de experiencia profesional y académica. Es magíster en Gestión Pública y cuenta con formación en el Centro de Altos Estudios Nacionales (CAEN). Como fundadora y directora de J&N Asesoría Legal y Consultoría, brinda asesoría y patrocinio legal a personas, empresas e instituciones.',
         idiomas: 'Español ' + FLAG_ES + ' • Quechua ' + FLAG_PE + ' • Inglés ' + FLAG_GB,
         cred: 'Reg. CAI Nº 3534 • Magíster en Gestión Pública • Especialista CAEN'
       },
@@ -23,8 +23,8 @@
         cargo: 'Especialista en Derecho Notarial y Registral',
         foto: 'assets/img/abg-walter-llerena.webp?v=2',
         isCutout: true,
-        bio: 'Especialista en Derecho Notarial y Registral, con más de diez años de experiencia en los sectores público y privado. También cuenta con experiencia en Derecho Penal, Procesal Penal y Ejecución Coactiva.',
-        bioCompleta: 'Abogado colegiado y habilitado (Reg. CAL Nº 72306 – CAV N° 143), especialista en Derecho Notarial y Registral, con más de diez años de trayectoria en el ámbito jurídico y experiencia en Derecho Penal y Procesal Penal. Ha brindado asesoría en casos penales, elaborado denuncias y escritos, analizado expedientes fiscales y judiciales, y realizado seguimiento de diligencias y plazos procesales, tras haber sido practicante asistente en función fiscal en el Ministerio Público de Ica. Su trayectoria comprende además el Derecho Administrativo y la ejecución coactiva, tanto en el sector público como en el privado, con sólida capacidad de análisis jurídico, redacción de documentos legales y gestión de expedientes en distintas áreas del Derecho.',
+        bio: 'Abogado con más de diez años de experiencia en los sectores público y privado. Su práctica incluye Derecho Notarial y Registral, además de experiencia en materia penal y administrativa.',
+        bioCompleta: 'David Llerena Ramos es abogado colegiado y habilitado (Reg. CAL N.º 72306 – CAV N.º 143), con más de diez años de experiencia en los sectores público y privado. Su práctica comprende Derecho Notarial y Registral, Penal, Procesal Penal, Administrativo y Ejecución Coactiva. Ha elaborado escritos, revisado expedientes fiscales y judiciales y realizado seguimiento de diligencias y plazos procesales. También cuenta con experiencia como practicante asistente en función fiscal en el Ministerio Público de Ica.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Reg. CAL Nº 72306 • CAV N° 143 • Egresado de Maestría en Derecho Notarial y Registral (USS)'
       },
@@ -34,10 +34,10 @@
         cargo: 'Abogado Asociado',
         foto: 'assets/img/abg-jhony-zapata.webp?v=2',
         isCutout: true,
-        bio: 'Abogado con una trayectoria de más de 20 años en el sistema de justicia: 10 años como secretario judicial del Poder Judicial y 10 años como defensor público.',
-        bioCompleta: 'Abogado con una amplia trayectoria de más de 20 años en el sistema de justicia peruano: 10 años como secretario judicial del Poder Judicial y 10 años como defensor público. Complementa su formación con pasantías en Medellín (Colombia), pasantías en Arica (Chile) y un curso de Derecho Global en Medellín, además de una activa participación en congresos y certámenes jurídicos nacionales e internacionales.',
+        bio: 'Cuenta con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial y diez años como defensor público.',
+        bioCompleta: 'Jhony Zapata es abogado y cuenta con más de 20 años de experiencia en el sistema de justicia peruano: diez años como secretario judicial del Poder Judicial y diez años como defensor público. Ha realizado pasantías en Medellín (Colombia) y Arica (Chile), y un curso de Derecho Global en Medellín.',
         idiomas: 'Español ' + FLAG_ES,
-        cred: 'Reg. CAL Nº (por confirmar)'
+        cred: 'Más de 20 años en el sistema de justicia • Poder Judicial • Defensa Pública'
       },
       // ================= MIEMBRO 4: WALTER LLERENA PEÑA =================
       {
@@ -45,8 +45,8 @@
         cargo: 'Especialista en Derecho Municipal, Administrativo y Laboral',
         foto: 'assets/img/abg-walter-llerena-pena-nuevo.webp',
         isCutout: true,
-        bio: 'Abogado egresado de la Universidad Nacional San Luis Gonzaga de Ica, con más de 25 años de experiencia profesional. Especialista en Derecho Municipal, Administrativo y Laboral.',
-        bioCompleta: 'Abogado egresado de la Universidad Nacional San Luis Gonzaga de Ica, con más de 25 años de experiencia profesional. Su práctica se especializa en Derecho Municipal, Administrativo y Laboral, brindando asesoría y patrocinio en procedimientos, sanciones, licencias y controversias laborales. Cuenta con estudios de maestría en Derecho Penal y realizó el mismo curso de especialización en el Centro de Altos Estudios Nacionales (CAEN) que la Dra. Zinthia Garay Paucar.',
+        bio: 'Abogado de la Universidad Nacional San Luis Gonzaga de Ica, con más de 25 años de experiencia. Se especializa en Derecho Municipal, Administrativo y Laboral.',
+        bioCompleta: 'Walter Llerena Peña es abogado egresado de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 25 años de experiencia profesional. Su práctica se enfoca en Derecho Municipal, Administrativo y Laboral. Tiene estudios de maestría en Derecho Penal y realizó el mismo curso en el Centro de Altos Estudios Nacionales (CAEN) que la Dra. Zinthia Garay Paucar.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Universidad Nacional San Luis Gonzaga de Ica • +25 años de experiencia • Estudios de maestría en Derecho Penal • Curso de especialización en el CAEN'
       },
@@ -56,8 +56,8 @@
         cargo: 'Asistente Administrativa y de Dirección',
         foto: 'assets/img/asistente-jimena-llerena.webp',
         isCutout: true,
-        bio: 'Brinda apoyo administrativo y asistencia directa a la Dra. Zinthia Garay. Cuenta con conocimientos de computación e inglés y conoce herramientas de inteligencia artificial.',
-        bioCompleta: 'Brinda apoyo administrativo y asistencia directa a la Dra. Zinthia Garay. Cuenta con conocimientos de computación e inglés, y conoce el uso de herramientas de inteligencia artificial.',
+        bio: 'Brinda apoyo administrativo y asiste a la Dra. Zinthia Garay. Cuenta con conocimientos de computación e inglés y conoce herramientas de inteligencia artificial.',
+        bioCompleta: 'Jimena Llerena brinda apoyo administrativo y asistencia a la Dra. Zinthia Garay. Cuenta con conocimientos de computación e inglés, y conoce el uso de herramientas de inteligencia artificial.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Apoyo administrativo • Computación • Inglés • Herramientas de inteligencia artificial'
       }

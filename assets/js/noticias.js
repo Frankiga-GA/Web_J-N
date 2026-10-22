@@ -209,7 +209,7 @@
           <section class="noticias section" id="noticias">
             <div class="container">
               <h3 class="section-title">Últimas noticias</h3>
-              <p class="section-subtitle">Actualidad del estudio y del mundo jurídico, siempre al día.</p>
+              <p class="section-subtitle">Novedades del estudio y una selección de titulares de medios jurídicos.</p>
 
               <div class="noticias-grid" id="noticiasGrid"></div>
               <p class="noticias-vacio" id="noticiasVacio" style="display:none;">Pronto publicaremos las primeras noticias del estudio.</p>
@@ -270,38 +270,38 @@
           img: 'assets/img/zinthia-recepcion-placa.jpg',
           imgAlt: 'Dra. Zinthia Garay frente al rótulo de J&N Asesoría Legal y Consultoría',
           esFoto: true,
-          intro: 'Orientación legal clara y directa para personas, familias y emprendedores: anticípanse al problema con el respaldo del estudio. Atendemos presencialmente en nuestro estudio de Chincha Alta o a distancia, como usted prefiera.',
+          intro: 'Orientación legal para personas, familias y emprendedores. Revisamos tu consulta y coordinamos la atención presencial en Chincha Alta o virtual, según disponibilidad.',
           items: [
             {
               icono: 'fa-shield-halved',
               titulo: 'Asesoría Legal Preventiva',
-              desc: 'Para personas y familias que quieren decidir con seguridad.',
+              desc: 'Para comprender una situación legal antes de tomar una decisión.',
               bullets: [
                 'Revisión y orientación sobre documentos y contratos',
-                'Aclaración de sus derechos y obligaciones',
-                'Ruta de acción recomendada para su caso'
+                'Explicación de derechos, obligaciones y alternativas',
+                'Orientación sobre los siguientes pasos posibles'
               ],
               chips: ['Presencial', 'Virtual']
             },
             {
               icono: 'fa-store',
               titulo: 'Asesoría a Emprendedores y Negocios',
-              desc: 'Respaldo jurídico para iniciar y operar su negocio con pie derecho.',
+              desc: 'Asesoría para organizar y atender las necesidades legales de un negocio.',
               bullets: [
-                'Elección de la forma adecuada para su negocio',
-                'Contratos claros con clientes y proveedores',
-                'Prevención de conflictos comerciales'
+                'Orientación para formalizar el negocio',
+                'Revisión de acuerdos con clientes y proveedores',
+                'Identificación de riesgos en la actividad comercial'
               ],
               chips: ['Presencial', 'Virtual']
             },
             {
               icono: 'fa-comments',
               titulo: 'Orientación y Seguimiento Continuo',
-              desc: 'Sus consultas legales recurrentes, siempre respondidas.',
+              desc: 'Atención coordinada para consultas legales recurrentes.',
               bullets: [
-                'Respuesta directa del equipo del estudio',
-                'Seguimiento de cada consulta hasta resolverla',
-                'Canal de atención a su medida'
+                'Canal de contacto acordado con el estudio',
+                'Seguimiento de los asuntos incluidos en el servicio',
+                'Coordinación según el alcance convenido'
               ],
               chips: ['Virtual', 'A distancia']
             }
@@ -312,38 +312,38 @@
           img: 'assets/img/boardroom-opt1.webp',
           imgAlt: 'Reunión de consultoría corporativa',
           esFoto: true,
-          intro: 'Soporte jurídico especializado para empresas e instituciones, con visión preventiva y estratégica. Trabajamos junto a sus equipos para que cada decisión cuente con respaldo legal.',
+          intro: 'Consultoría legal para empresas e instituciones que requieren revisar riesgos, documentos o procedimientos. El alcance se define según las necesidades de cada organización.',
           items: [
             {
               icono: 'fa-building',
               titulo: 'Consultoría Corporativa',
-              desc: 'Diagnóstico y prevención de riesgos legales de la operación.',
+              desc: 'Revisión de aspectos legales de la actividad y de sus procesos internos.',
               bullets: [
-                'Diagnóstico de riesgos legales de su actividad',
-                'Revisión de contratos y procesos internos',
-                'Recomendaciones prácticas para decidir mejor'
+                'Identificación de asuntos que requieren atención legal',
+                'Revisión de contratos y procedimientos',
+                'Recomendaciones para evaluar alternativas'
               ],
               chips: ['A medida', 'Confidencial']
             },
             {
               icono: 'fa-landmark',
               titulo: 'Entidades y Organizaciones',
-              desc: 'Acompañamiento a cajas, municipalidades, juntas y comunidades campesinas.',
+              desc: 'Asesoría a entidades y organizaciones en asuntos de gestión y procedimientos.',
               bullets: [
-                'Consultas y procesos propios de su gestión',
-                'Coordinación con sus equipos internos',
-                'Prioridad de atención a sus requerimientos'
+                'Consultas relacionadas con sus funciones y servicios',
+                'Revisión de procedimientos y documentos de gestión',
+                'Coordinación con los equipos responsables'
               ],
               chips: ['Presencial', 'Chincha y región']
             },
             {
               icono: 'fa-file-signature',
               titulo: 'Convenios y Negociaciones',
-              desc: 'Acuerdos entre partes, por escrito y sin ambigüedades.',
+              desc: 'Apoyo legal para preparar, revisar y negociar acuerdos.',
               bullets: [
                 'Redacción y revisión de convenios y actas',
-                'Acompañamiento en la mesa de negociación',
-                'Enfoque preventivo para evitar conflictos'
+                'Orientación durante la negociación',
+                'Identificación de obligaciones y posibles contingencias'
               ],
               chips: ['Presencial', 'Virtual']
             }
@@ -354,16 +354,16 @@
           img: 'assets/img/areas/area-corporativo.jpg',
           imgAlt: 'Edificios corporativos: respaldo para asesoría especializada',
           esFoto: true,
-          intro: 'Líneas especializadas que complementan nuestra asesoría legal y consultoría. Atendemos a empresas, entidades públicas y organizaciones de Chincha y la región.',
+          intro: 'Servicios legales y de consultoría para empresas, entidades públicas y organizaciones. La disponibilidad y el alcance se coordinan de acuerdo con cada requerimiento.',
           items: [
             {
               icono: 'fa-file-invoice-dollar',
               titulo: 'Tributario y Cobranza Coactiva',
-              desc: 'Orientación y defensa frente a deudas tributarias y procedimientos de cobranza.',
+              desc: 'Orientación en obligaciones tributarias y procedimientos de cobranza.',
               bullets: [
                 'Cobranza tributaria y no tributaria',
-                'Fiscalización de acreencias y recuperación de adeudos',
-                'Asesoría en cobranza coactiva y vía ordinaria'
+                'Revisión de acreencias y documentación de respaldo',
+                'Asesoría en cobranza coactiva y otras vías de cobro'
               ],
               chips: ['Empresas', 'Instituciones']
             },
@@ -373,7 +373,7 @@
               desc: 'Acompañamiento a entidades y empresas en la gestión pública y la contratación estatal.',
               bullets: [
                 'Elaboración de instrumentos de gestión municipal',
-                'Capacitación en la Ley de Procedimiento Administrativo General',
+                'Capacitación en procedimientos administrativos',
                 'Contrataciones y adquisiciones con el Estado'
               ],
               chips: ['Municipalidades', 'Empresas']
@@ -381,11 +381,11 @@
             {
               icono: 'fa-compass-drafting',
               titulo: 'Proyectos y Expedientes Técnicos',
-              desc: 'Consultoría técnica para estructurar y sustentar proyectos y obras públicas y privadas.',
+              desc: 'Consultoría para la preparación y revisión de proyectos y expedientes técnicos.',
               bullets: [
                 'Elaboración de perfiles y expedientes técnicos',
-                'Consultoría en proyectos de obras públicas y privadas',
-                'Evaluación y asesoramiento técnico en obras'
+                'Asesoría en proyectos de obras públicas y privadas',
+                'Revisión de documentación y avances de obra'
               ],
               chips: ['Público', 'Privado']
             }
@@ -394,10 +394,10 @@
       ];
 
       const PASOS_TRABAJO = [
-        { titulo: 'Cuéntanos su caso', desc: 'Escríbanos por WhatsApp o visítenos en el estudio. La primera conversación es simple y clara.' },
-        { titulo: 'Evaluamos su tema', desc: 'El equipo revisa sus documentos y le explica sus opciones sin tecnicismos.' },
-        { titulo: 'Acordamos el plan', desc: 'Definimos juntos el alcance de la asesoría o consultoría y los siguientes pasos.' },
-        { titulo: 'Lo acompañamos', desc: 'Ejecutamos y damos seguimiento hasta cerrar su consulta o proceso.' }
+        { titulo: 'Cuéntanos tu consulta', desc: 'Escríbenos por WhatsApp o visítanos en la oficina. Indica el tema y cualquier fecha importante.' },
+        { titulo: 'Revisamos la información', desc: 'El equipo identifica el asunto y te explica qué datos adicionales pueden ser necesarios.' },
+        { titulo: 'Definimos el alcance', desc: 'Coordinamos el servicio, la modalidad de atención, las condiciones y los siguientes pasos.' },
+        { titulo: 'Iniciamos el servicio', desc: 'El equipo realiza las tareas acordadas y comunica el avance conforme al alcance convenido.' }
       ];
 
       function renderAsesoriasPage() {
@@ -436,7 +436,7 @@
             <div class="container area-page-hero-content">
               <span class="equipo-hero-tag">ASESORÍA LEGAL Y CONSULTORÍA</span>
               <h1 class="area-page-hero-title">Asesorías y Consultorías</h1>
-              <p class="ases-hero-sub">Orientación jurídica clara para personas, familias y empresas de Chincha y la región.</p>
+              <p class="ases-hero-sub">Asesoría legal y consultoría para personas, empresas e instituciones. Atención presencial en Chincha Alta y consultas virtuales coordinadas.</p>
               <div class="ases-hero-registro-wrap">
                 <span class="ases-hero-registro"><i class="fas fa-certificate"></i> Objeto social inscrito en SUNARP · Partida Electrónica N° 11049198</span>
               </div>
@@ -459,7 +459,7 @@
               ${gruposHtml}
 
               <h3 class="section-title">¿Cómo trabajamos?</h3>
-              <p class="section-subtitle">Un proceso simple y transparente, de la primera consulta al cierre de su tema.</p>
+              <p class="section-subtitle">Conoce cómo coordinamos la consulta y definimos el alcance del servicio.</p>
 
               <div class="ases-steps" data-aos="fade-up">
                 ${PASOS_TRABAJO.map((p, i) => `
@@ -472,14 +472,14 @@
 
               <div class="ases-contact-strip" data-aos="fade-up">
                 <div>
-                  <h4>Hable hoy mismo con nosotros</h4>
-                  <p>Respondemos sus consultas y agendamos su visita: Calle Grau 246A, Chincha Alta.</p>
+                  <h4>Coordina una consulta</h4>
+                  <p>Escríbenos para consultar disponibilidad o visitar la oficina en Calle Grau 246A, Chincha Alta.</p>
                 </div>
                 <a class="ases-wa-btn" href="https://wa.me/51958212450" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:1.3rem;"></i> WhatsApp +51 958 212 450</a>
               </div>
 
               <div style="text-align:center; margin-top:30px;" data-aos="fade-up">
-                <button class="btn btn-dark" onclick="goContactoDesdeAsesorias()" style="display:inline-flex; align-items:center; gap:10px; cursor:pointer;">Agende su consulta <i class="fas fa-arrow-right"></i></button>
+                <button class="btn btn-dark" onclick="goContactoDesdeAsesorias()" style="display:inline-flex; align-items:center; gap:10px; cursor:pointer;">Ir al formulario de contacto <i class="fas fa-arrow-right"></i></button>
               </div>
             </div>
           </section>`;
