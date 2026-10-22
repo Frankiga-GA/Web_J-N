@@ -701,6 +701,22 @@
       } else if (hash === '#asesorias') {
         openAsesoriasPage(null, false);
       }
+
+      // Al entrar a la portada, avanzar una vez hasta las áreas. Se cancela
+      // si la persona empieza a usar la página; con movimiento reducido salta sin animación.
+      if (!hash || hash === '#inicio') {
+        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        let autoScrollCancelled = false;
+        const cancelAutoScroll = () => { autoScrollCancelled = true; };
+        ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((eventName) => {
+          window.addEventListener(eventName, cancelAutoScroll, { once: true, passive: true });
+        });
+        window.setTimeout(() => {
+          if (autoScrollCancelled) return;
+          const areas = document.getElementById('servicios');
+          areas?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth', block: 'start' });
+        }, 1200);
+      }
     });
 
     // ============ FORMULARIO DE CONTACTO (ENVÍO POR WHATSAPP) ============
