@@ -4352,6 +4352,53 @@
     @media (max-width: 760px) { .areas-discovery { grid-template-columns: 1fr; gap: 14px; padding: 21px 18px; } .areas-discovery-copy, .areas-search-wrap, .areas-filter-list, .areas-results { grid-column: 1; } .areas-filter-list { gap: 7px; } .areas-filter { padding: 8px 11px; font-size: .76rem; } }
     @media (prefers-reduced-motion: reduce) { .areas-filter, .area-card-ugaz.area-filter-reveal { animation: none; transition: none; } }
 
+    /* Buscador de áreas: jerarquía más clara y controles cómodos en móvil */
+    .areas-discovery {
+      position: relative;
+      overflow: hidden;
+      grid-template-columns: minmax(0, 1.15fr) minmax(290px, .85fr);
+      align-items: center;
+      gap: 22px 34px;
+      padding: 30px 32px 22px;
+      border-color: #dbe5f0;
+      background: radial-gradient(ellipse at 100% 0%, rgba(209, 226, 245, .52), transparent 43%), linear-gradient(135deg, #f8fafc, #eef3f9);
+      box-shadow: 0 18px 42px rgba(10, 30, 61, .08);
+    }
+    .areas-discovery-copy { align-self: end; }
+    .areas-discovery-kicker { display: inline-flex; align-items: center; gap: 8px; color: #54708e; font-size: .68rem; letter-spacing: 2px; }
+    .areas-discovery-kicker::before { width: 22px; height: 2px; border-radius: 2px; background: #c39a55; content: ''; }
+    .areas-discovery-copy h3 { margin: 9px 0 8px; font-size: clamp(1.4rem, 2vw, 1.72rem); letter-spacing: -.025em; }
+    .areas-discovery-copy p { max-width: 510px; color: #53657b; font-size: .94rem; }
+    .areas-search-block { min-width: 0; }
+    .areas-search-label { display: block; margin: 0 0 8px 2px; color: #243b59; font-size: .77rem; font-weight: 700; }
+    .areas-search-wrap { min-height: 54px; padding: 0 15px; border-color: #d5deea; border-radius: 13px; box-shadow: 0 3px 10px rgba(10, 30, 61, .035); transition: border-color .2s ease, box-shadow .2s ease, background .2s ease; }
+    .areas-search-wrap:focus-within { border-color: #6481a3; background: #fff; box-shadow: 0 0 0 4px rgba(76, 111, 151, .12); }
+    .areas-search-wrap > i { color: #59728f; }
+    .areas-search-wrap input { font-size: .9rem; }
+    .areas-search-wrap input::placeholder { color: #8998aa; }
+    .areas-search-hint { display: block; margin: 7px 2px 0; color: #718096; font-size: .72rem; }
+    .areas-search-clear { display: grid; width: 30px; height: 30px; flex: 0 0 30px; place-items: center; border: 0; border-radius: 50%; background: #edf2f7; color: #51657d; cursor: pointer; }
+    .areas-search-clear:hover { background: #dfe8f2; color: #0a1e3d; }
+    .areas-search-clear[hidden] { display: none; }
+    .areas-filter-list { align-items: center; gap: 9px; }
+    .areas-filter-label { width: 100%; margin-bottom: 1px; color: #52657d; font-size: .75rem; font-weight: 700; }
+    .areas-filter { padding: 9px 15px; border-color: #d3dce7; color: #344960; font-size: .79rem; }
+    .areas-filter:hover { border-color: #8da2bb; background: #fff; transform: translateY(-1px); }
+    .areas-filter.active { border-color: #173457; background: #173457; box-shadow: 0 5px 12px rgba(10, 30, 61, .15); }
+    .areas-results { display: inline-flex; width: fit-content; align-items: center; gap: 6px; margin: -8px 0 0; padding: 5px 10px; border: 1px solid #dfe6ee; border-radius: 999px; background: rgba(255,255,255,.68); color: #5d7087; font-size: .76rem; }
+    .areas-results strong { color: #173457; font-size: .82rem; }
+    @media (max-width: 760px) {
+      .areas-discovery { gap: 19px; padding: 24px 20px 19px; }
+      .areas-discovery-copy, .areas-search-block, .areas-filter-list, .areas-results { grid-column: 1; }
+      .areas-discovery-copy h3 { font-size: 1.42rem; }
+      .areas-discovery-copy p { font-size: .88rem; }
+      .areas-search-wrap { min-height: 52px; }
+      .areas-filter-list { gap: 8px; }
+      .areas-filter-label { margin-bottom: 3px; }
+      .areas-filter { min-height: 40px; padding: 8px 12px; font-size: .76rem; }
+      .areas-results { margin-top: -8px; }
+    }
+
     /* Parallax de imágenes de fondo (activado por JS) */
     .exp-bg-img,
     .areas-hero-bg,

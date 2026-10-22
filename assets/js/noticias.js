@@ -1,29 +1,7 @@
 (function initNoticiasModule() {
       // ============ NOTICIAS PROPIAS ============
-      // Editables en assets/data/noticias.js (window.NOTICIAS_DATA = [ { fecha, tag, titulo, texto } ]),
-      // que reemplaza a esta lista integrada cuando trae datos.
-      const NOTICIAS_BASE = [
-        {
-          fecha: '2026-10-21',
-          tag: 'Equipo',
-          titulo: 'J&N refuerza su equipo con dos nuevos abogados asociados',
-          texto: 'J&N Asesoría Legal y Consultoría anuncia la incorporación de dos abogados asociados a su equipo de trabajo: el Abg. David Llerena Ramos y el Abg. Jhony Zapata. La Dra. Zinthia Garay Paucar, Fundadora y Directora del estudio, destacó que estas incorporaciones fortalecen la atención en las áreas penal, civil y patrimonial, con el compromiso de rigor técnico, ética y cercanía que caracteriza al estudio. El equipo atiende en la Calle Grau 246A, Chincha Alta, y de manera virtual en todo el Perú.'
-        },
-        {
-          fecha: '2026-10-20',
-          tag: 'Áreas',
-          titulo: 'Nuevas áreas de especialización: Digital, Constitucional e Inmobiliaria',
-          texto: 'El estudio amplía su portafolio de servicios con tres nuevas áreas: Derecho Digital —protección de datos personales ante la Autoridad Nacional, delitos informáticos y comercio electrónico—, Derecho Constitucional —amparo, hábeas data y litigio ante el Tribunal Constitucional— y Propiedad Inmobiliaria —compraventas, saneamiento de títulos, prescripción adquisitiva y procesos ante SUNARP. Con estas áreas, J&N cubre 12 frentes de especialización jurídica para personas, empresas e instituciones de Chincha, Ica y todo el país.'
-        },
-        {
-          fecha: '2026-10-16',
-          tag: 'Estudio',
-          titulo: 'Atención presencial y virtual: consulta tu caso en minutos',
-          texto: 'Para facilitar el acceso a la justicia, el estudio mantiene su atención presencial de lunes a viernes de 9:00 a. m. a 6:00 p. m. y sábados de 9:00 a. m. a 1:00 p. m. en la Calle Grau 246A, Chincha Alta (Ica). Además, recibe consultas virtuales vía WhatsApp al +51 958 212 450 y por el formulario del sitio web. La primera evaluación de tu caso es sin compromiso. No lo dejes para después: los plazos legales corren.'
-        }
-      ];
-
-      let NOTICIAS = NOTICIAS_BASE.slice();
+      // El contenido vive en assets/data/noticias.js; este archivo solo lo presenta.
+      let NOTICIAS = Array.isArray(window.NOTICIAS_DATA) ? window.NOTICIAS_DATA.slice() : [];
 
       function formatearFecha(iso) {
         try { return new Date(iso + 'T12:00:00').toLocaleDateString('es-PE', { day: 'numeric', month: 'long', year: 'numeric' }); }
@@ -94,11 +72,9 @@
         document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { cerrar(); document.removeEventListener('keydown', esc); } });
       }
 
-      // Datos editables de assets/data/noticias.js (reemplazan las integradas si traen noticias)
+      // Datos editables de assets/data/noticias.js
       function aplicarDatosEditables() {
-        if (window.NOTICIAS_DATA && Array.isArray(window.NOTICIAS_DATA) && window.NOTICIAS_DATA.length) {
-          NOTICIAS = window.NOTICIAS_DATA;
-        }
+        NOTICIAS = Array.isArray(window.NOTICIAS_DATA) ? window.NOTICIAS_DATA.slice() : [];
         renderNoticias();
       }
 

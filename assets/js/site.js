@@ -41,6 +41,7 @@
     (function initAreaDiscovery() {
       const cards = Array.from(document.querySelectorAll('.area-card-ugaz[data-area-key]'));
       const search = document.getElementById('areaSearch');
+      const clearSearch = document.getElementById('clearAreaSearch');
       const filterButtons = Array.from(document.querySelectorAll('.areas-filter'));
       const results = document.getElementById('areasResults');
       const emptyState = document.getElementById('areasEmpty');
@@ -67,7 +68,8 @@
             }
           }
         });
-        if (results) results.textContent = `${visibleCount} ${visibleCount === 1 ? 'área disponible' : 'áreas disponibles'}`;
+        if (results) results.innerHTML = `<strong>${visibleCount}</strong> ${visibleCount === 1 ? 'área disponible' : 'áreas disponibles'}`;
+        if (clearSearch) clearSearch.hidden = !search.value;
         if (emptyState) emptyState.hidden = visibleCount > 0;
         if (typeof AOS !== 'undefined') AOS.refresh();
       }
@@ -84,6 +86,11 @@
         });
       });
       search.addEventListener('input', applyAreaFilter);
+      clearSearch?.addEventListener('click', () => {
+        search.value = '';
+        applyAreaFilter();
+        search.focus();
+      });
       document.getElementById('areasReset')?.addEventListener('click', () => {
         search.value = '';
         activeFilter = 'all';

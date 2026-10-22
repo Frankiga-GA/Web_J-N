@@ -354,20 +354,26 @@
           <div class="areas-discovery-copy">
             <span class="areas-discovery-kicker">ENCUENTRA TU ÁREA</span>
             <h3>¿Qué necesitas resolver?</h3>
-            <p>Busca por tema o filtra según tu situación. Abre cada área para ver los servicios relacionados.</p>
+            <p>Cuéntanos qué necesitas resolver: encuentra el servicio legal relacionado con tu situación.</p>
           </div>
-          <label class="areas-search-wrap">
-            <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
-            <input id="areaSearch" type="search" placeholder="Ej.: divorcio, multa, contrato..." aria-label="Buscar un área legal">
-          </label>
+          <div class="areas-search-block">
+            <label class="areas-search-label" for="areaSearch">Buscar por situación</label>
+            <div class="areas-search-wrap">
+              <i class="fas fa-magnifying-glass" aria-hidden="true"></i>
+              <input id="areaSearch" type="search" placeholder="Ej.: divorcio, multa o contrato" aria-label="Buscar un área legal">
+              <button class="areas-search-clear" id="clearAreaSearch" type="button" aria-label="Borrar búsqueda" title="Borrar búsqueda" hidden><i class="fas fa-xmark" aria-hidden="true"></i></button>
+            </div>
+            <span class="areas-search-hint">Escribe una palabra clave para filtrar las áreas.</span>
+          </div>
           <div class="areas-filter-list" role="group" aria-label="Filtrar áreas por tipo de cliente">
+            <span class="areas-filter-label">O explora por tipo de cliente</span>
             <button type="button" class="areas-filter active" data-filter="all" aria-pressed="true">Todas las áreas</button>
             <button type="button" class="areas-filter" data-filter="personas" aria-pressed="false">Personas y familias</button>
             <button type="button" class="areas-filter" data-filter="empresas" aria-pressed="false">Empresas y negocios</button>
             <button type="button" class="areas-filter" data-filter="publico" aria-pressed="false">Sector público</button>
             <button type="button" class="areas-filter" data-filter="patrimonio" aria-pressed="false">Inmuebles y tierras</button>
           </div>
-          <p class="areas-results" id="areasResults" aria-live="polite">12 áreas disponibles</p>
+          <p class="areas-results" id="areasResults" aria-live="polite"><strong>12</strong> áreas disponibles</p>
         </div>
         <div class="areas-cards-grid">
 
