@@ -2467,6 +2467,207 @@
       box-shadow: 0 6px 28px rgba(37,211,102,0.5);
     }
 
+    /* ============ RECORRIDO GUIADO AUTOMÁTICO ============ */
+    .guided-tour-dock {
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      z-index: 1001;
+      font-family: var(--font-body);
+    }
+    .guided-tour-start {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      padding: 9px 16px 9px 9px;
+      border-radius: 999px;
+      border: 1px solid rgba(226, 232, 240, 0.34);
+      background: rgba(10, 30, 61, 0.95);
+      color: var(--blanco);
+      box-shadow: 0 14px 34px rgba(7, 21, 41, 0.28);
+      backdrop-filter: blur(10px);
+      cursor: pointer;
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+    }
+    .guided-tour-start:hover {
+      transform: translateY(-2px);
+      border-color: rgba(226, 232, 240, 0.65);
+      box-shadow: 0 18px 40px rgba(7, 21, 41, 0.34);
+    }
+    .guided-tour-start-icon {
+      width: 32px;
+      height: 32px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--plata-brillante);
+      color: var(--azul-oscuro);
+      font-size: 0.78rem;
+      box-shadow: 0 0 0 4px rgba(226, 232, 240, 0.12);
+      animation: guidedTourPulse 2.8s ease-out infinite;
+    }
+    .guided-tour-start-text {
+      font-size: 0.82rem;
+      font-weight: 700;
+      letter-spacing: 0.2px;
+      white-space: nowrap;
+    }
+    .guided-tour-panel {
+      width: 340px;
+      overflow: hidden;
+      border: 1px solid rgba(226, 232, 240, 0.28);
+      border-radius: 16px;
+      background: rgba(10, 30, 61, 0.97);
+      color: var(--blanco);
+      box-shadow: 0 18px 44px rgba(7, 21, 41, 0.38);
+      backdrop-filter: blur(14px);
+    }
+    .guided-tour-panel[hidden] { display: none !important; }
+    .guided-tour-top {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px 8px;
+      border-bottom: 1px solid rgba(226, 232, 240, 0.12);
+    }
+    .guided-tour-eyebrow {
+      font-size: 0.62rem;
+      font-weight: 800;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      color: var(--plata);
+    }
+    .guided-tour-count {
+      margin-left: auto;
+      font-size: 0.68rem;
+      color: rgba(255, 255, 255, 0.62);
+      font-variant-numeric: tabular-nums;
+    }
+    .guided-tour-icon-btn {
+      width: 28px;
+      height: 28px;
+      flex: 0 0 auto;
+      display: inline-grid;
+      place-items: center;
+      border: 1px solid transparent;
+      border-radius: 50%;
+      background: transparent;
+      color: rgba(255, 255, 255, 0.72);
+      font-size: 0.78rem;
+      cursor: pointer;
+      transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+    }
+    .guided-tour-icon-btn:hover {
+      background: rgba(255, 255, 255, 0.1);
+      border-color: rgba(255, 255, 255, 0.16);
+      color: var(--blanco);
+    }
+    .guided-tour-icon-btn:disabled {
+      opacity: 0.32;
+      cursor: default;
+    }
+    .guided-tour-icon-btn:disabled:hover {
+      background: transparent;
+      border-color: transparent;
+      color: rgba(255, 255, 255, 0.72);
+    }
+    .guided-tour-main {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 12px 12px;
+    }
+    .guided-tour-current {
+      flex: 1 1 auto;
+      min-width: 0;
+      display: flex;
+      align-items: center;
+      gap: 9px;
+    }
+    .guided-tour-index {
+      flex: 0 0 auto;
+      font-size: 0.68rem;
+      font-weight: 800;
+      letter-spacing: 0.5px;
+      color: var(--plata);
+    }
+    .guided-tour-text {
+      min-width: 0;
+      display: flex;
+      flex-direction: column;
+    }
+    .guided-tour-label {
+      font-size: 0.9rem;
+      font-weight: 700;
+      line-height: 1.2;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .guided-tour-desc {
+      margin-top: 2px;
+      font-size: 0.68rem;
+      line-height: 1.3;
+      color: rgba(255, 255, 255, 0.6);
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .guided-tour-play {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      display: grid;
+      place-items: center;
+      border: none;
+      border-radius: 50%;
+      background: var(--plata-brillante);
+      color: var(--azul-oscuro);
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: transform 0.2s ease, background 0.2s ease;
+    }
+    .guided-tour-play:hover {
+      transform: scale(1.06);
+      background: var(--blanco);
+    }
+    .guided-tour-progress {
+      height: 3px;
+      background: rgba(255, 255, 255, 0.12);
+    }
+    .guided-tour-progress-fill {
+      width: 0;
+      height: 100%;
+      background: linear-gradient(90deg, var(--plata), var(--blanco));
+      transition-timing-function: linear;
+    }
+    .guided-tour-start:focus-visible,
+    .guided-tour-icon-btn:focus-visible,
+    .guided-tour-play:focus-visible {
+      outline: 2px solid var(--plata-brillante);
+      outline-offset: 3px;
+    }
+    .guided-tour-dock[data-active="true"] .guided-tour-start { display: none; }
+    @keyframes guidedTourPulse {
+      0%, 100% { box-shadow: 0 0 0 0 rgba(226, 232, 240, 0.28); }
+      50% { box-shadow: 0 0 0 8px rgba(226, 232, 240, 0); }
+    }
+    @media (max-width: 600px) {
+      .guided-tour-dock { left: 12px; bottom: 80px; }
+      .guided-tour-panel { width: min(330px, calc(100vw - 24px)); }
+      .guided-tour-start { padding: 8px 13px 8px 8px; }
+      .guided-tour-start-text { font-size: 0.76rem; }
+      .guided-tour-label { font-size: 0.82rem; }
+      .guided-tour-desc { font-size: 0.64rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .guided-tour-start-icon { animation: none; }
+      .guided-tour-start,
+      .guided-tour-play,
+      .guided-tour-icon-btn { transition: none; }
+    }
+
     /* ============ SECCIÓN CAJAS Y SECTOR FINANCIERO (ESTILO UGAZ NOTICIAS/SLIDER) ============ */
     .cajas-section {
       background: #FFFFFF;
@@ -5189,6 +5390,44 @@
     <i class="fab fa-whatsapp"></i>
   </a>
 
+  <!-- ==================== RECORRIDO GUIADO AUTOMÁTICO ==================== -->
+  <div class="guided-tour-dock" id="guidedTourDock" data-active="false" aria-label="Recorrido guiado automático">
+    <button type="button" class="guided-tour-start" id="guidedTourStartBtn" aria-label="Iniciar recorrido automático por el sitio" title="También se inicia solo a los 6 segundos si no interactúas">
+      <span class="guided-tour-start-icon" id="guidedTourStartIcon"><i class="fas fa-play"></i></span>
+      <span class="guided-tour-start-text" id="guidedTourStartText">Recorrido automático</span>
+    </button>
+    <div class="guided-tour-panel" id="guidedTourPanel" hidden>
+      <div class="guided-tour-top">
+        <span class="guided-tour-eyebrow">Recorrido guiado</span>
+        <span class="guided-tour-count" id="guidedTourCount">1 / 8</span>
+        <button type="button" class="guided-tour-icon-btn" id="guidedTourCloseBtn" aria-label="Cerrar recorrido">
+          <i class="fas fa-times"></i>
+        </button>
+      </div>
+      <div class="guided-tour-main">
+        <button type="button" class="guided-tour-icon-btn" id="guidedTourPrevBtn" aria-label="Sección anterior">
+          <i class="fas fa-chevron-left"></i>
+        </button>
+        <div class="guided-tour-current">
+          <span class="guided-tour-index" id="guidedTourIndex">01</span>
+          <span class="guided-tour-text">
+            <span class="guided-tour-label" id="guidedTourLabel">Inicio</span>
+            <span class="guided-tour-desc" id="guidedTourDesc">Bienvenida a J&N</span>
+          </span>
+        </div>
+        <button type="button" class="guided-tour-play" id="guidedTourPlayBtn" aria-label="Pausar recorrido">
+          <i class="fas fa-pause"></i>
+        </button>
+        <button type="button" class="guided-tour-icon-btn" id="guidedTourNextBtn" aria-label="Sección siguiente">
+          <i class="fas fa-chevron-right"></i>
+        </button>
+      </div>
+      <div class="guided-tour-progress">
+        <div class="guided-tour-progress-fill" id="guidedTourProgressFill"></div>
+      </div>
+    </div>
+  </div>
+
   <!-- ==================== SCRIPTS ==================== -->
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
@@ -5884,14 +6123,14 @@
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Perfil en actualización'
       },
-      // ================= MIEMBRO 5: JIMENA LLERENA (ASISTENTE) =================
+      // ================= MIEMBRO 5: JIMENA LLERENA (ASISTENTE DE MARKETING) =================
       {
         nombre: 'Jimena Llerena',
-        cargo: 'Asistente',
+        cargo: 'Asistente de Marketing',
         foto: 'assets/img/asistente-jimena-llerena.png',
         isCutout: true,
-        bio: 'Asistente del equipo de J&N Asesoría Legal y Consultoría.',
-        bioCompleta: 'Asistente del equipo de J&N Asesoría Legal y Consultoría. Su ficha está en actualización: próximamente completaremos este perfil con sus funciones y experiencia.',
+        bio: 'Asistente de Marketing del equipo de J&N Asesoría Legal y Consultoría.',
+        bioCompleta: 'Asistente de Marketing del equipo de J&N Asesoría Legal y Consultoría. Su ficha está en actualización: próximamente completaremos este perfil con sus funciones y experiencia.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Perfil en actualización'
       }
@@ -6218,6 +6457,332 @@
 
     // Start auto slide immediately
     startAutoSlide();
+
+    // ============ RECORRIDO GUIADO AUTOMÁTICO ============
+    // Avanza solo por las secciones principales del inicio. Se puede pausar,
+    // retroceder, avanzar o cerrar. Arranca solo a los 6 s si la persona no
+    // interactúa; con ?recorrido=1 arranca de inmediato (para presentaciones).
+    const guidedTourSteps = [
+      { selector: '#inicio', label: 'Inicio', desc: 'Bienvenida a J&N', duration: 5000 },
+      { selector: '#nosotros', label: 'Quiénes somos', desc: 'Dra. Zinthia Garay Paucar', duration: 8500 },
+      { selector: '#servicios', label: 'Áreas de práctica', desc: 'Especialidades legales', duration: 9500 },
+      { selector: '#experiencia', label: 'Experiencia', desc: 'Trayectoria profesional', duration: 8000 },
+      { selector: '#financiero', label: 'Sector Financiero', desc: 'Respaldo para entidades financieras', duration: 7500 },
+      { selector: '#asesoria', label: 'Asesoría legal', desc: 'Atención inmediata y cercana', duration: 6500 },
+      { selector: '#contacto', label: 'Contacto', desc: 'Chincha y cobertura nacional', duration: 7500 },
+      { selector: '#ubicacion', label: 'Ubicación', desc: 'Calle Grau 246A, Chincha Alta', duration: 7000 }
+    ];
+    const guidedTourEls = {
+      dock: document.getElementById('guidedTourDock'),
+      startBtn: document.getElementById('guidedTourStartBtn'),
+      startIcon: document.getElementById('guidedTourStartIcon'),
+      startText: document.getElementById('guidedTourStartText'),
+      panel: document.getElementById('guidedTourPanel'),
+      count: document.getElementById('guidedTourCount'),
+      index: document.getElementById('guidedTourIndex'),
+      label: document.getElementById('guidedTourLabel'),
+      desc: document.getElementById('guidedTourDesc'),
+      playBtn: document.getElementById('guidedTourPlayBtn'),
+      prevBtn: document.getElementById('guidedTourPrevBtn'),
+      nextBtn: document.getElementById('guidedTourNextBtn'),
+      closeBtn: document.getElementById('guidedTourCloseBtn'),
+      progressFill: document.getElementById('guidedTourProgressFill')
+    };
+    const guidedTourState = {
+      active: false,
+      paused: false,
+      index: 0,
+      timer: null,
+      duration: 7000,
+      startedAt: 0,
+      remaining: 0
+    };
+    let guidedTourStartToken = 0;
+    let guidedTourAutoTimer = null;
+    let guidedTourAutoDelayMs = 6000;
+
+    function guidedTourHomeVisible() {
+      const main = document.getElementById('mainSiteContent');
+      return !!(main && main.style.display !== 'none' && getComputedStyle(main).display !== 'none');
+    }
+
+    function guidedTourAutoAttempted() {
+      try { return sessionStorage.getItem('jynGuidedTourAutoAttempted') === '1'; } catch (e) { return false; }
+    }
+
+    function guidedTourMarkAutoAttempted() {
+      try { sessionStorage.setItem('jynGuidedTourAutoAttempted', '1'); } catch (e) { /* sin sessionStorage */ }
+    }
+
+    function guidedTourCancelAutoStart() {
+      if (guidedTourAutoTimer) {
+        clearTimeout(guidedTourAutoTimer);
+        guidedTourAutoTimer = null;
+      }
+    }
+
+    function guidedTourScheduleAutoStart() {
+      if (guidedTourAutoTimer || guidedTourState.active) return;
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      if (guidedTourAutoAttempted()) return;
+      if (!guidedTourHomeVisible() || window.scrollY > 40) return;
+      guidedTourMarkAutoAttempted();
+      guidedTourAutoTimer = setTimeout(() => {
+        guidedTourAutoTimer = null;
+        if (!guidedTourState.active && guidedTourHomeVisible() && window.scrollY <= 40) {
+          guidedTourStart(0);
+        }
+      }, guidedTourAutoDelayMs);
+    }
+
+    function guidedTourScrollToStep(step) {
+      const target = step ? document.querySelector(step.selector) : null;
+      if (!target) return false;
+      const headerH = header ? header.offsetHeight : 70;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - headerH - 10;
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      window.scrollTo({ top: Math.max(0, y), behavior: reduceMotion ? 'auto' : 'smooth' });
+      return true;
+    }
+
+    function guidedTourUpdateUI() {
+      const step = guidedTourSteps[guidedTourState.index];
+      if (!step) return;
+      const last = guidedTourState.index === guidedTourSteps.length - 1;
+      if (guidedTourEls.count) guidedTourEls.count.textContent = (guidedTourState.index + 1) + ' / ' + guidedTourSteps.length;
+      if (guidedTourEls.index) guidedTourEls.index.textContent = String(guidedTourState.index + 1).padStart(2, '0');
+      if (guidedTourEls.label) guidedTourEls.label.textContent = step.label;
+      if (guidedTourEls.desc) guidedTourEls.desc.textContent = step.desc || '';
+      if (guidedTourEls.playBtn) {
+        guidedTourEls.playBtn.innerHTML = guidedTourState.paused ? '<i class="fas fa-play"></i>' : '<i class="fas fa-pause"></i>';
+        guidedTourEls.playBtn.setAttribute('aria-label', guidedTourState.paused ? 'Reanudar recorrido' : 'Pausar recorrido');
+      }
+      if (guidedTourEls.prevBtn) guidedTourEls.prevBtn.disabled = guidedTourState.index === 0;
+      if (guidedTourEls.nextBtn) guidedTourEls.nextBtn.setAttribute('aria-label', last ? 'Finalizar recorrido' : 'Sección siguiente');
+    }
+
+    function guidedTourStartProgress(duration) {
+      const fill = guidedTourEls.progressFill;
+      if (!fill) return;
+      fill.style.transition = 'none';
+      fill.style.width = '0%';
+      void fill.offsetWidth;
+      fill.style.transition = 'width ' + duration + 'ms linear';
+      fill.style.width = '100%';
+    }
+
+    function guidedTourShowStep(index) {
+      const safeIndex = Math.max(0, Math.min(index, guidedTourSteps.length - 1));
+      const step = guidedTourSteps[safeIndex];
+      guidedTourState.index = safeIndex;
+      guidedTourState.paused = false;
+      guidedTourState.duration = step.duration || 7000;
+      guidedTourState.remaining = guidedTourState.duration;
+      guidedTourState.startedAt = Date.now();
+      guidedTourScrollToStep(step);
+      guidedTourUpdateUI();
+      guidedTourStartProgress(guidedTourState.duration);
+      clearTimeout(guidedTourState.timer);
+      guidedTourState.timer = setTimeout(() => guidedTourNext(), guidedTourState.duration + 500);
+    }
+
+    function guidedTourEnterActive() {
+      guidedTourState.active = true;
+      guidedTourState.paused = false;
+      guidedTourEls.dock.dataset.active = 'true';
+      guidedTourEls.panel.hidden = false;
+      guidedTourEls.startText.textContent = 'Recorrido automático';
+      guidedTourEls.startIcon.innerHTML = '<i class="fas fa-play"></i>';
+    }
+
+    function guidedTourStart(index = 0) {
+      guidedTourCancelAutoStart();
+      if (guidedTourState.active) {
+        if (guidedTourState.paused) guidedTourResume();
+        return;
+      }
+      const token = ++guidedTourStartToken;
+      const begin = () => {
+        if (token !== guidedTourStartToken) return;
+        guidedTourEnterActive();
+        guidedTourShowStep(index);
+      };
+      if (guidedTourHomeVisible()) {
+        begin();
+        return;
+      }
+      returnToHome('#inicio');
+      let attempts = 0;
+      const waitHome = setInterval(() => {
+        if (token !== guidedTourStartToken) {
+          clearInterval(waitHome);
+          return;
+        }
+        attempts++;
+        if (guidedTourHomeVisible()) {
+          clearInterval(waitHome);
+          setTimeout(begin, 350);
+        } else if (attempts > 40) {
+          clearInterval(waitHome);
+        }
+      }, 200);
+    }
+
+    function guidedTourPause() {
+      if (!guidedTourState.active || guidedTourState.paused) return;
+      clearTimeout(guidedTourState.timer);
+      guidedTourState.timer = null;
+      guidedTourState.remaining = Math.max(1200, guidedTourState.duration - (Date.now() - guidedTourState.startedAt));
+      const fill = guidedTourEls.progressFill;
+      if (fill) {
+        const track = fill.parentElement;
+        const percent = track && track.getBoundingClientRect().width
+          ? Math.min(100, (fill.getBoundingClientRect().width / track.getBoundingClientRect().width) * 100)
+          : 0;
+        fill.style.transition = 'none';
+        fill.style.width = percent + '%';
+      }
+      guidedTourState.paused = true;
+      guidedTourUpdateUI();
+    }
+
+    function guidedTourResume() {
+      if (!guidedTourState.active || !guidedTourState.paused) return;
+      const step = guidedTourSteps[guidedTourState.index];
+      guidedTourScrollToStep(step);
+      const fill = guidedTourEls.progressFill;
+      const remaining = guidedTourState.remaining;
+      if (fill) {
+        const track = fill.parentElement;
+        const percent = track && track.getBoundingClientRect().width
+          ? Math.min(100, (fill.getBoundingClientRect().width / track.getBoundingClientRect().width) * 100)
+          : 0;
+        fill.style.transition = 'none';
+        fill.style.width = percent + '%';
+        void fill.offsetWidth;
+        fill.style.transition = 'width ' + remaining + 'ms linear';
+        fill.style.width = '100%';
+      }
+      guidedTourState.paused = false;
+      guidedTourUpdateUI();
+      guidedTourState.startedAt = Date.now() - (guidedTourState.duration - remaining);
+      clearTimeout(guidedTourState.timer);
+      guidedTourState.timer = setTimeout(() => guidedTourNext(), remaining + 500);
+    }
+
+    function guidedTourNext() {
+      if (!guidedTourState.active) return;
+      if (guidedTourState.index >= guidedTourSteps.length - 1) {
+        guidedTourStop(true);
+        return;
+      }
+      guidedTourShowStep(guidedTourState.index + 1);
+    }
+
+    function guidedTourPrev() {
+      if (!guidedTourState.active) return;
+      guidedTourShowStep(Math.max(0, guidedTourState.index - 1));
+    }
+
+    function guidedTourStop(finished = false) {
+      guidedTourStartToken++;
+      clearTimeout(guidedTourState.timer);
+      guidedTourState.timer = null;
+      guidedTourState.active = false;
+      guidedTourState.paused = false;
+      if (guidedTourEls.dock) guidedTourEls.dock.dataset.active = 'false';
+      if (guidedTourEls.panel) guidedTourEls.panel.hidden = true;
+      if (guidedTourEls.progressFill) {
+        guidedTourEls.progressFill.style.transition = 'none';
+        guidedTourEls.progressFill.style.width = '0%';
+      }
+      if (guidedTourEls.startText) {
+        guidedTourEls.startText.textContent = finished ? 'Repetir recorrido' : 'Recorrido automático';
+      }
+      if (guidedTourEls.startIcon) {
+        guidedTourEls.startIcon.innerHTML = finished ? '<i class="fas fa-redo-alt"></i>' : '<i class="fas fa-play"></i>';
+      }
+    }
+
+    function guidedTourToggle() {
+      if (!guidedTourState.active) {
+        guidedTourStart(0);
+      } else if (guidedTourState.paused) {
+        guidedTourResume();
+      } else {
+        guidedTourPause();
+      }
+    }
+
+    if (guidedTourEls.startBtn) {
+      guidedTourEls.startBtn.addEventListener('click', () => guidedTourStart(0));
+    }
+    if (guidedTourEls.playBtn) {
+      guidedTourEls.playBtn.addEventListener('click', guidedTourToggle);
+    }
+    if (guidedTourEls.prevBtn) {
+      guidedTourEls.prevBtn.addEventListener('click', guidedTourPrev);
+    }
+    if (guidedTourEls.nextBtn) {
+      guidedTourEls.nextBtn.addEventListener('click', guidedTourNext);
+    }
+    if (guidedTourEls.closeBtn) {
+      guidedTourEls.closeBtn.addEventListener('click', () => guidedTourStop(false));
+    }
+
+    // Pausar si la persona interactúa (scroll manual, teclado o toque)
+    function guidedTourInteraction(e) {
+      if (!guidedTourState.active) {
+        if (guidedTourAutoTimer) guidedTourCancelAutoStart();
+        return;
+      }
+      if (guidedTourState.paused) return;
+      if (e.target && e.target.closest && e.target.closest('#guidedTourDock')) return;
+      if (e.type === 'keydown') {
+        const keys = ['ArrowDown', 'ArrowUp', 'PageDown', 'PageUp', 'Home', 'End', ' '];
+        if (!keys.includes(e.key)) return;
+      }
+      guidedTourPause();
+    }
+    window.addEventListener('wheel', guidedTourInteraction, { passive: true });
+    window.addEventListener('touchmove', guidedTourInteraction, { passive: true });
+    window.addEventListener('keydown', guidedTourInteraction);
+    window.addEventListener('scroll', () => {
+      if (guidedTourAutoTimer && window.scrollY > 40) guidedTourCancelAutoStart();
+    }, { passive: true });
+
+    // Si la persona hace clic fuera del control, el recorrido se detiene para no estorbar.
+    document.addEventListener('click', (e) => {
+      if (!guidedTourState.active) {
+        if (guidedTourAutoTimer && e.target && e.target.closest && !e.target.closest('#guidedTourDock')) {
+          guidedTourCancelAutoStart();
+        }
+        return;
+      }
+      if (e.target && e.target.closest && e.target.closest('#guidedTourDock')) return;
+      guidedTourStop(false);
+    }, true);
+
+    // Al cambiar de vista (área, equipo, noticias, asesorías) o de historial, detener.
+    window.addEventListener('popstate', () => {
+      if (guidedTourState.active) guidedTourStop(false);
+    });
+    document.addEventListener('visibilitychange', () => {
+      if (document.hidden && guidedTourState.active) guidedTourPause();
+    });
+
+    // Auto-inicio: con ?recorrido=1 arranca de inmediato; sin el parámetro,
+    // arranca solo una vez por sesión tras 6 s si la persona no ha interactuado.
+    const guidedTourAutoParam = new URLSearchParams(window.location.search).get('recorrido') === '1';
+    if (guidedTourAutoParam) {
+      const autoStartTour = () => setTimeout(() => guidedTourStart(0), 900);
+      if (document.readyState === 'complete') autoStartTour();
+      else window.addEventListener('load', autoStartTour, { once: true });
+    } else {
+      const scheduleDefaultTour = () => setTimeout(guidedTourScheduleAutoStart, 900);
+      if (document.readyState === 'complete') scheduleDefaultTour();
+      else window.addEventListener('load', scheduleDefaultTour, { once: true });
+    }
 
     // ============ ACTIVE NAV LINK ON SCROLL ============
     const trackedSections = document.querySelectorAll('section[id]');
