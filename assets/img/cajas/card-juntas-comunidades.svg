@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 240" width="100%" height="100%">
+  <defs>
+    <linearGradient id="juntasBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#FFFFFF"/>
+      <stop offset="100%" stop-color="#F8FAFC"/>
+    </linearGradient>
+    <linearGradient id="juntasBar" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0%" stop-color="#0A1E3D"/>
+      <stop offset="100%" stop-color="#475569"/>
+    </linearGradient>
+  </defs>
+  <rect width="400" height="240" fill="url(#juntasBg)"/>
+  <circle cx="200" cy="96" r="48" fill="#F1F5F9" stroke="#E2E8F0" stroke-width="2"/>
+  <!-- Water / wheat emblem -->
+  <path d="M200 78 C200 78 184 98 184 106 C184 114 191 120 200 120 C209 120 216 114 216 106 C216 98 200 78 200 78 Z" fill="#0A1E3D"/>
+  <text x="200" y="162" font-family="'Bookman Old Style', Georgia, serif" font-size="18" font-weight="bold" fill="#0A1E3D" text-anchor="middle" letter-spacing="0.5">JUNTAS DE USUARIOS</text>
+  <text x="200" y="182" font-family="'Bookman Old Style', Georgia, serif" font-size="14" font-weight="600" fill="#475569" text-anchor="middle">y Comunidades Campesinas</text>
+  <rect y="234" width="400" height="6" fill="url(#juntasBar)"/>
+</svg>

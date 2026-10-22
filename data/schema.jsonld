@@ -1,0 +1,50 @@
+{
+  "@context": "https://schema.org",
+  "@type": "LegalService",
+  "name": "J&N Asesoría Legal y Consultoría",
+  "url": "https://jynlegal.com",
+  "logo": "https://jynlegal.com/assets/img/logo-placa-clean.png",
+  "description": "Bufete especializado en derecho penal, civil-comercial, administrativo municipal, familiar, tributario, laboral, agrario-ambiental y marítimo.",
+  "address": {
+    "@type": "PostalAddress",
+    "streetAddress": "Calle Grau 246A",
+    "addressLocality": "Chincha Alta",
+    "addressRegion": "Ica",
+    "postalCode": "11702",
+    "addressCountry": "PE"
+  },
+  "telephone": "+51 984 336 221",
+  "email": "zgaray30@gmail.com",
+  "founder": {
+    "@type": "Person",
+    "name": "Zinthia Garay Paucar"
+  },
+  "areaServed": "Perú",
+  "hasMap": "https://maps.app.goo.gl/PxPZ3DqBa4GfCc3u7",
+  "priceRange": "Variable",
+  "openingHoursSpecification": [
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+      "opens": "09:00",
+      "closes": "18:00"
+    },
+    {
+      "@type": "OpeningHoursSpecification",
+      "dayOfWeek": "Saturday",
+      "opens": "09:00",
+      "closes": "13:00"
+    }
+  ],
+  "serviceType": [
+    "Defensa Penal Estratégica",
+    "Delitos contra la Administración Pública",
+    "Penal Tributario y Financiero",
+    "Derecho Civil y Patrimonial",
+    "Derecho Administrativo y Municipal",
+    "Derecho Laboral y Corporativo",
+    "Familia y Sucesiones",
+    "Derecho Agrario y Tierras",
+    "Derecho Ambiental y Marítimo"
+  ]
+}

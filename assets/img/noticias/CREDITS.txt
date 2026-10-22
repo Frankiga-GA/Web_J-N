@@ -1,0 +1,17 @@
+Imágenes referenciales de la sección de Noticias — su origen y licencia
+=========================================================================
+Todas son de uso libre (Wikimedia Commons / Openverse / Wikipedia).
+Si el cliente desea el enlace exacto de licencia de cada una, pedirnos
+los registros de descarga (fecha: 21/oct/2026).
+
+- noticia-palacio-justicia.jpg   : "Palacio De Justicia, Lima, Peru.jpg" (Wikimedia Commons)
+- noticia-martillo.jpg           : "Air Force gavel.JPG" (Wikimedia Commons) — martillo de juez en sala
+- noticia-balanza.jpg            : imagen principal del artículo "Lady Justice" (Wikipedia)
+- noticia-libros.jpg             : "Books of Journals on shelf of the Ghalib Chamber Law Library.jpg" (Commons)
+- noticia-biblioteca.jpg         : "Yale Law School Library Reading Room (L3).jpg" (Commons)
+- noticia-corte.jpg              : "Cimarron County Courthouse.jpg" (Commons)
+- noticia-constitucion.jpg       : imagen principal del artículo "Constitution" (Wikipedia)
+- noticia-firma.jpg              : "Contract" (Openverse, licencia CC)
+
+Nota: son imágenes referenciales decorativas para encabezados de noticia,
+no fotografías de los hechos reportados.

@@ -1,0 +1,5 @@
+# Backups internos y archivos del sistema
+_sin-usar/
+Thumbs.db
+desktop.ini
+*.tmp
