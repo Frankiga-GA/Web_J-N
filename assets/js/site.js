@@ -13,6 +13,11 @@
       quickNav.addEventListener('click', (event) => {
         const link = event.target.closest('a[href^="#"]');
         if (!link) return;
+        if (link.hash === '#equipo') {
+          event.preventDefault();
+          openEquipoPage();
+          return;
+        }
         const areaView = document.getElementById('areaDetailView');
         if (areaView && areaView.style.display !== 'none' && link.hash !== '#servicios') {
           event.preventDefault();
@@ -117,6 +122,12 @@
         const href = link.getAttribute('href');
         hamburger.classList.remove('active');
         navLinks.classList.remove('active');
+
+        if (href === '#equipo') {
+          e.preventDefault();
+          openEquipoPage();
+          return;
+        }
 
         // Las páginas Noticias y Asesorías se administran solas (mini-SPA): no aplicar la lógica de anchors
         if (href === '#noticias' || href === '#asesorias') {
