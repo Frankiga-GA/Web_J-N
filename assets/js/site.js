@@ -1,6 +1,81 @@
 // AOS init
     AOS.init({ once: true, duration: 800 });
 
+    // Carrusel automático de Visión y Misión en la presentación de Zinthia.
+    (function initAboutValuesCarousel() {
+      const carousel = document.getElementById('aboutValuesCarousel');
+      if (!carousel) return;
+
+      const track = carousel.querySelector('.about-values-track');
+      const slides = Array.from(carousel.querySelectorAll('[data-value-slide]'));
+      const dots = Array.from(carousel.querySelectorAll('[data-values-to]'));
+      const viewport = carousel.querySelector('.about-values-viewport');
+      if (!track || slides.length < 2) return;
+
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      let activeIndex = 0;
+      let timer = null;
+      let focused = false;
+
+      function showSlide(index) {
+        activeIndex = (index + slides.length) % slides.length;
+        track.style.transform = `translateX(-${activeIndex * 100}%)`;
+        slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== activeIndex)));
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('is-active', i === activeIndex);
+          dot.setAttribute('aria-pressed', String(i === activeIndex));
+        });
+      }
+
+      function stopAuto() {
+        window.clearInterval(timer);
+        timer = null;
+      }
+
+      function startAuto() {
+        stopAuto();
+        if (reducedMotion || focused || document.hidden) return;
+        timer = window.setInterval(() => showSlide(activeIndex + 1), 4200);
+      }
+
+      carousel.querySelector('[data-values-prev]')?.addEventListener('click', () => {
+        showSlide(activeIndex - 1);
+        startAuto();
+      });
+      carousel.querySelector('[data-values-next]')?.addEventListener('click', () => {
+        showSlide(activeIndex + 1);
+        startAuto();
+      });
+      dots.forEach((dot) => dot.addEventListener('click', () => {
+        showSlide(Number(dot.dataset.valuesTo));
+        startAuto();
+      }));
+
+      carousel.addEventListener('focusin', () => { focused = true; stopAuto(); });
+      carousel.addEventListener('focusout', (event) => {
+        if (!carousel.contains(event.relatedTarget)) {
+          focused = false;
+          startAuto();
+        }
+      });
+      document.addEventListener('visibilitychange', startAuto);
+
+      if (viewport) {
+        let touchStartX = null;
+        viewport.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
+        viewport.addEventListener('touchend', (event) => {
+          if (touchStartX === null) return;
+          const distance = event.changedTouches[0].clientX - touchStartX;
+          if (Math.abs(distance) > 45) showSlide(activeIndex + (distance < 0 ? 1 : -1));
+          touchStartX = null;
+          startAuto();
+        }, { passive: true });
+      }
+
+      showSlide(0);
+      startAuto();
+    })();
+
     // Header scroll effect
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
@@ -702,20 +777,44 @@
         openAsesoriasPage(null, false);
       }
 
-      // Al entrar a la portada, avanzar una vez hasta las áreas. Se cancela
-      // si la persona empieza a usar la página; con movimiento reducido salta sin animación.
+      // Desplazamiento automático pausado por tramos para dejar tiempo de lectura.
       if (!hash || hash === '#inicio') {
-        const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+
         let autoScrollCancelled = false;
+        let lastFrameTime = 0;
+        let pauseUntil = 0;
+        let segmentRemaining = 0;
         const cancelAutoScroll = () => { autoScrollCancelled = true; };
         ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((eventName) => {
           window.addEventListener(eventName, cancelAutoScroll, { once: true, passive: true });
         });
-        window.setTimeout(() => {
+
+        const scrollReadably = (now) => {
           if (autoScrollCancelled) return;
-          const areas = document.getElementById('servicios');
-          areas?.scrollIntoView({ behavior: reduceMotion ? 'instant' : 'smooth', block: 'start' });
-        }, 1200);
+          if (!lastFrameTime) {
+            lastFrameTime = now;
+            pauseUntil = now + 5000;
+          }
+          if (now < pauseUntil) {
+            window.requestAnimationFrame(scrollReadably);
+            return;
+          }
+
+          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+          if (window.scrollY >= maxScroll - 1) return;
+          if (segmentRemaining <= 0) segmentRemaining = Math.min(480, maxScroll - window.scrollY);
+
+          const elapsed = Math.min(50, now - lastFrameTime) / 1000;
+          lastFrameTime = now;
+          const step = Math.min(segmentRemaining, 48 * elapsed);
+          window.scrollBy(0, step);
+          segmentRemaining -= step;
+
+          if (segmentRemaining <= 1) pauseUntil = now + 7000;
+          window.requestAnimationFrame(scrollReadably);
+        };
+        window.setTimeout(() => window.requestAnimationFrame(scrollReadably), 1200);
       }
     });
 
