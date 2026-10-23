@@ -21,7 +21,7 @@
       {
         nombre: 'Abg. David Llerena Ramos',
         cargo: 'Especialista en Derecho Notarial y Registral',
-        foto: 'assets/img/abg-david-llerena-nuevo.png',
+        foto: 'assets/img/abg-david-llerena-nuevo.webp',
         isCutout: true,
         bio: 'Abogado con más de diez años de experiencia en los sectores público y privado. Su práctica incluye Derecho Notarial y Registral, además de experiencia en materia penal y administrativa.',
         bioCompleta: 'David Llerena Ramos es abogado colegiado y habilitado (Reg. CAL N.º 72306 – CAV N.º 143), con más de diez años de experiencia en los sectores público y privado. Su práctica comprende Derecho Notarial y Registral, Penal, Procesal Penal, Administrativo y Ejecución Coactiva. Ha elaborado escritos, revisado expedientes fiscales y judiciales y realizado seguimiento de diligencias y plazos procesales. También cuenta con experiencia como practicante asistente en función fiscal en el Ministerio Público de Ica.',
@@ -43,7 +43,7 @@
       {
         nombre: 'Abg. Walter Llerena Peña',
         cargo: 'Especialista en Derecho Municipal, Administrativo y Laboral',
-        foto: 'assets/img/abg-walter-llerena-pena-nuevo.png',
+        foto: 'assets/img/abg-walter-llerena-pena-nuevo.webp',
         isCutout: true,
         bio: 'Abogado de la Universidad Nacional San Luis Gonzaga de Ica, con más de 25 años de experiencia. Se especializa en Derecho Municipal, Administrativo y Laboral.',
         bioCompleta: 'Walter Llerena Peña es abogado egresado de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 25 años de experiencia profesional. Su práctica se enfoca en Derecho Municipal, Administrativo y Laboral. Tiene estudios de maestría en Derecho Penal y realizó el mismo curso en el Centro de Altos Estudios Nacionales (CAEN) que la Dra. Zinthia Garay Paucar.',

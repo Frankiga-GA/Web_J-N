@@ -2,8 +2,8 @@
     const areasPageData = {
       'penal': {
         title: 'Defensa Penal Estratégica',
-        heroImg: 'assets/img/areas/area-penal.jpg',
-        sideImg: 'assets/img/area-penal-despacho.jpg',
+        heroImg: 'assets/img/areas/area-penal.webp',
+        sideImg: 'assets/img/area-penal-despacho.webp',
         intro: '¿Recibiste una citación, una denuncia o una notificación fiscal? Brindamos asesoría y defensa en investigaciones y procesos penales ante la Policía, el Ministerio Público y los juzgados. Revisamos la información disponible y explicamos las alternativas según la etapa y las circunstancias de cada caso.',
         subcards: [
           {
@@ -22,8 +22,8 @@
       },
       'admin-publica': {
         title: 'Delitos contra la Administración Pública',
-        heroImg: 'assets/img/areas/area-admin.jpg',
-        sideImg: 'assets/img/areas/area-corporativo.jpg',
+        heroImg: 'assets/img/areas/area-admin.webp',
+        sideImg: 'assets/img/areas/area-corporativo.webp',
         intro: 'Asesoramos y ejercemos la defensa de autoridades, servidores públicos, exfuncionarios y particulares investigados por presuntos delitos vinculados con la función pública. Revisamos la imputación, los documentos y las actuaciones fiscales para explicar las opciones de defensa en cada etapa.',
         subcards: [
           {
@@ -62,8 +62,8 @@
       },
       'civil': {
         title: 'Derecho Civil y Patrimonial',
-        heroImg: 'assets/img/areas/area-civil.jpg',
-        sideImg: 'assets/img/areas/area-civil.jpg',
+        heroImg: 'assets/img/areas/area-civil.webp',
+        sideImg: 'assets/img/areas/area-civil.webp',
         intro: 'Brindamos asesoría en contratos, obligaciones y conflictos patrimoniales para personas, familias y empresas. Revisamos los documentos y los hechos para explicar las alternativas de negociación o las acciones legales que podrían corresponder.',
         subcards: [
           {
@@ -82,8 +82,8 @@
       },
       'municipal': {
         title: 'Derecho Administrativo y Municipal',
-        heroImg: 'assets/img/areas/area-corporativo.jpg',
-        sideImg: 'assets/img/areas/area-admin.jpg',
+        heroImg: 'assets/img/areas/area-corporativo.webp',
+        sideImg: 'assets/img/areas/area-admin.webp',
         intro: 'Asesoramos a personas, comercios y empresas en trámites y procedimientos ante municipalidades y otras entidades públicas. Revisamos resoluciones, notificaciones y expedientes para explicar los recursos o acciones que podrían presentarse.',
         subcards: [
           {
@@ -102,7 +102,7 @@
       },
       'laboral': {
         title: 'Derecho Laboral y Corporativo',
-        heroImg: 'assets/img/areas/area-laboral.jpg',
+        heroImg: 'assets/img/areas/area-laboral.webp',
         sideImg: 'assets/img/areas-hero-banner.webp',
         intro: 'Orientamos a trabajadores y empleadores sobre relaciones laborales, contratos, beneficios y controversias. También brindamos asesoría en procedimientos inspectivos y procesos ante las autoridades competentes.',
         subcards: [
@@ -122,8 +122,8 @@
       },
       'familia': {
         title: 'Familia y Sucesiones',
-        heroImg: 'assets/img/areas/area-familia.jpg',
-        sideImg: 'assets/img/areas/area-civil.jpg',
+        heroImg: 'assets/img/areas/area-familia.webp',
+        sideImg: 'assets/img/areas/area-civil.webp',
         intro: 'Brindamos orientación confidencial en asuntos familiares y sucesorios, con atención cuidadosa a la situación de cada persona y, cuando corresponda, al bienestar de niñas, niños y adolescentes.',
         subcards: [
           {
@@ -142,8 +142,8 @@
       },
       'agrario': {
         title: 'Derecho Agrario y Tierras',
-        heroImg: 'assets/img/areas/area-agrario.jpg',
-        sideImg: 'assets/img/areas/area-agrario.jpg',
+        heroImg: 'assets/img/areas/area-agrario.webp',
+        sideImg: 'assets/img/areas/area-agrario.webp',
         intro: 'Asesoramos a propietarios, productores y organizaciones agrarias en asuntos relacionados con predios rurales, linderos, servidumbres y uso del agua. Revisamos los antecedentes registrales y administrativos para orientar los trámites pertinentes.',
         subcards: [
           {
@@ -162,8 +162,8 @@
       },
       'ambiental-maritimo': {
         title: 'Derecho Ambiental y Marítimo',
-        heroImg: 'assets/img/areas/area-maritimo.jpg',
-        sideImg: 'assets/img/areas/area-maritimo.jpg',
+        heroImg: 'assets/img/areas/area-maritimo.webp',
+        sideImg: 'assets/img/areas/area-maritimo.webp',
         intro: 'Asesoramos a empresas y organizaciones en asuntos legales vinculados con actividades pesqueras, portuarias y ambientales, así como en procedimientos ante las autoridades competentes.',
         subcards: [
           {

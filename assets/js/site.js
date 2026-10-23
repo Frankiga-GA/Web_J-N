@@ -1,47 +1,36 @@
-// AOS init
-    AOS.init({ once: true, duration: 800 });
+// Las animaciones de aparición (data-aos / data-anim) las gestiona assets/js/animations.js.
 
-    // Header scroll effect
-    const header = document.getElementById('header');
-    window.addEventListener('scroll', () => {
-      header.classList.toggle('scrolled', window.scrollY > 50);
-    });
-
-    // Accesos de sección, lectura de avance y navegación desde las vistas internas.
-    const quickNav = document.querySelector('.section-quick-nav');
-    if (quickNav) {
-      quickNav.addEventListener('click', (event) => {
-        const link = event.target.closest('a[href^="#"]');
-        if (!link) return;
-        if (link.hash === '#equipo') {
-          event.preventDefault();
-          openEquipoPage();
-          return;
-        }
-        const areaView = document.getElementById('areaDetailView');
-        if (areaView && areaView.style.display !== 'none' && link.hash !== '#servicios') {
-          event.preventDefault();
-          returnToHome(link.hash);
-        }
-      });
-
-      const quickLinks = [...quickNav.querySelectorAll('a[href^="#"]')];
-      const quickTargets = quickLinks.map(link => document.querySelector(link.hash)).filter(Boolean);
-      if ('IntersectionObserver' in window) {
-        const quickObserver = new IntersectionObserver((entries) => {
-          entries.forEach(entry => {
-            if (!entry.isIntersecting) return;
-            quickLinks.forEach(link => {
-              const current = link.hash === `#${entry.target.id}`;
-              link.classList.toggle('active', current);
-              if (current) link.setAttribute('aria-current', 'location');
-              else link.removeAttribute('aria-current');
-            });
-          });
-        }, { rootMargin: '-35% 0px -55% 0px', threshold: 0 });
-        quickTargets.forEach(target => quickObserver.observe(target));
+    // Desplazamiento a un ancla: usa el scroll suave de animations.js si está activo.
+    function scrollToTarget(selector, immediate = false) {
+      if (window.JNMotion && window.JNMotion.scrollTo) {
+        window.JNMotion.scrollTo(selector, { immediate });
+        return;
       }
+      const target = typeof selector === 'string' ? document.querySelector(selector) : selector;
+      if (!target) return;
+      const headerEl = document.getElementById('header');
+      const headerH = headerEl ? headerEl.offsetHeight : 70;
+      const y = target.getBoundingClientRect().top + window.pageYOffset - headerH;
+      window.scrollTo({ top: y, behavior: immediate ? 'instant' : 'smooth' });
     }
+
+    // Header: fondo de vidrio al bajar; se oculta al bajar y reaparece al subir.
+    const header = document.getElementById('header');
+    let lastScrollY = window.scrollY;
+    function updateHeader() {
+      const y = window.scrollY;
+      header.classList.toggle('scrolled', y > 50);
+      const menuOpen = document.body.classList.contains('menu-open');
+      const goingDown = y > lastScrollY + 4;
+      const goingUp = y < lastScrollY - 4;
+      if (!menuOpen && goingDown && y > 160) header.classList.add('header--hidden');
+      else if (goingUp || y <= 160 || menuOpen) header.classList.remove('header--hidden');
+      if (goingDown || goingUp) lastScrollY = y;
+    }
+    window.addEventListener('scroll', updateHeader, { passive: true });
+    updateHeader();
+    // Al navegar con teclado, el header siempre debe estar visible.
+    header.addEventListener('focusin', () => header.classList.remove('header--hidden'));
     // Búsqueda y filtros del directorio de áreas legales.
     (function initAreaDiscovery() {
       const cards = Array.from(document.querySelectorAll('.area-card-ugaz[data-area-key]'));
@@ -57,6 +46,9 @@
 
       function applyAreaFilter() {
         const query = normalize(search.value.trim());
+        // Estado previo de las tarjetas para animar el reordenamiento (técnica FLIP).
+        const flipState = window.JNMotion && window.JNMotion.captureCards ? window.JNMotion.captureCards(cards) : null;
+        const useCssReveal = !flipState && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
         let visibleCount = 0;
         cards.forEach((card, index) => {
           const audiences = card.dataset.audience.split(/\s+/);
@@ -68,15 +60,15 @@
           if (matches) {
             visibleCount++;
             card.style.setProperty('--filter-delay', `${Math.min(index, 7) * 45}ms`);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+            if (useCssReveal) {
               requestAnimationFrame(() => card.classList.add('area-filter-reveal'));
             }
           }
         });
+        if (flipState) window.JNMotion.animateCards(flipState);
         if (results) results.innerHTML = `<strong>${visibleCount}</strong> ${visibleCount === 1 ? 'área disponible' : 'áreas disponibles'}`;
         if (clearSearch) clearSearch.hidden = !search.value;
         if (emptyState) emptyState.hidden = visibleCount > 0;
-        if (typeof AOS !== 'undefined') AOS.refresh();
       }
 
       filterButtons.forEach((button) => {
@@ -109,19 +101,31 @@
       });
     })();
 
-    // Mobile menu
+    // Menú móvil a pantalla completa
     const hamburger = document.getElementById('hamburger');
     const navLinks  = document.getElementById('navLinks');
+    function setMenuOpen(open) {
+      hamburger.classList.toggle('active', open);
+      navLinks.classList.toggle('active', open);
+      document.body.classList.toggle('menu-open', open);
+      hamburger.setAttribute('aria-expanded', String(open));
+      hamburger.setAttribute('aria-label', open ? 'Cerrar menú' : 'Menú');
+      if (window.JNMotion && window.JNMotion.onMenuToggle) window.JNMotion.onMenuToggle(open);
+    }
+    function closeMenu() {
+      if (navLinks.classList.contains('active')) setMenuOpen(false);
+    }
     hamburger.addEventListener('click', () => {
-      hamburger.classList.toggle('active');
-      navLinks.classList.toggle('active');
+      setMenuOpen(!navLinks.classList.contains('active'));
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeMenu();
     });
     // Intercept navbar links
     navLinks.querySelectorAll('a').forEach(link => {
       link.addEventListener('click', (e) => {
         const href = link.getAttribute('href');
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
+        closeMenu();
 
         if (href === '#equipo') {
           e.preventDefault();
@@ -141,9 +145,9 @@
         if (isAreaViewOpen) {
           e.preventDefault();
           returnToHome(href);
-        } else if (href === '#servicios') {
+        } else if (href && href.startsWith('#') && href.length > 1) {
           e.preventDefault();
-          triggerAreasLoader('#servicios');
+          scrollToTarget(href);
         }
       });
     });
@@ -169,93 +173,36 @@
           if (areaView && areaView.style.display !== 'none') {
             returnToHome('#servicios');
           } else {
-            triggerAreasLoader('#servicios');
+            scrollToTarget('#servicios');
           }
         });
       }
     });
 
-    // ============ CONTROLADOR DE PANTALLA DE CARGA (AREAS LOADER) ============
-    let isLoaderActive = false;
-    function triggerAreasLoader(targetId = '#servicios') {
-      if (isLoaderActive) return;
-      isLoaderActive = true;
-
-      const loader = document.getElementById('areasLoader');
-      if (!loader) {
-        const target = document.querySelector(targetId);
-        if (target) target.scrollIntoView({ behavior: 'smooth' });
-        isLoaderActive = false;
-        return;
-      }
-
-      if (hamburger && navLinks) {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-      }
-
-      loader.classList.add('active');
-      const bar = loader.querySelector('.areas-loader-bar');
-      if (bar) bar.style.width = '0%';
-
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          if (bar) bar.style.width = '100%';
-        }, 30);
-      });
-
-      setTimeout(() => {
-        const target = document.querySelector(targetId);
-        if (target) {
-          const headerEl = document.getElementById('header');
-          const headerH = headerEl ? headerEl.offsetHeight : 70;
-          const targetY = target.getBoundingClientRect().top + window.pageYOffset - headerH;
-          window.scrollTo({ top: targetY, behavior: 'instant' });
-        }
-      }, 850);
-
-      setTimeout(() => {
-        loader.classList.remove('active');
-        setTimeout(() => {
-          if (bar) bar.style.width = '0%';
-          isLoaderActive = false;
-          if (typeof AOS !== 'undefined') AOS.refresh();
-        }, 350);
-      }, 1150);
-    }
-
+    // ============ CORTINA DE TRANSICIÓN ENTRE VISTAS ============
+    // La cortina sube y cubre la pantalla, se cambia la vista y luego sale por arriba.
+    let isCurtainActive = false;
     function triggerAreasLoaderCustom(callback) {
       const loader = document.getElementById('areasLoader');
-      if (!loader) {
+      const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      closeMenu();
+      if (!loader || reduceMotion || isCurtainActive) {
         if (callback) callback();
         return;
       }
-
-      if (hamburger && navLinks) {
-        hamburger.classList.remove('active');
-        navLinks.classList.remove('active');
-      }
-
+      isCurtainActive = true;
+      loader.classList.remove('leaving');
       loader.classList.add('active');
-      const bar = loader.querySelector('.areas-loader-bar');
-      if (bar) bar.style.width = '0%';
-
-      requestAnimationFrame(() => {
-        setTimeout(() => {
-          if (bar) bar.style.width = '100%';
-        }, 30);
-      });
 
       setTimeout(() => {
         if (callback) callback();
-      }, 750);
-
-      setTimeout(() => {
         loader.classList.remove('active');
+        loader.classList.add('leaving');
         setTimeout(() => {
-          if (bar) bar.style.width = '0%';
-        }, 300);
-      }, 1050);
+          loader.classList.remove('leaving');
+          isCurtainActive = false;
+        }, 750);
+      }, 650);
     }
 
     // ============ CONTROLADOR DE APERTURA DE PÁGINA DE ÁREA ============
@@ -272,7 +219,7 @@
           areaView.style.display = 'block';
 
           renderAreaPage(areaKey, data);
-          window.scrollTo(0, 0);
+          scrollToTarget(document.body, true);
 
           if (pushHistory) {
             history.pushState({ view: 'area', id: areaKey }, '', '#area-' + areaKey);
@@ -293,22 +240,14 @@
           main.style.display = 'block';
 
           history.pushState({ view: 'home' }, '', window.location.pathname + (targetAnchor || ''));
-
-          if (targetAnchor) {
-            setTimeout(() => {
-              const target = document.querySelector(targetAnchor);
-              if (target) {
-                const header = document.getElementById('header');
-                const headerH = header ? header.offsetHeight : 70;
-                const y = target.getBoundingClientRect().top + window.pageYOffset - headerH;
-                window.scrollTo({ top: y, behavior: 'smooth' });
-              }
-            }, 60);
-          } else {
-            window.scrollTo({ top: 0, behavior: 'instant' });
-          }
-
           if (typeof AOS !== 'undefined') AOS.refresh();
+
+          // Saltar directo al destino mientras la cortina aún lo cubre.
+          if (targetAnchor) {
+            requestAnimationFrame(() => scrollToTarget(targetAnchor, true));
+          } else {
+            scrollToTarget(document.body, true);
+          }
         }
       });
     }
@@ -347,7 +286,7 @@
               
               <!-- Columna Izquierda: Detalle y 3 Subcards -->
               <div class="area-page-text-col">
-                <h2 class="area-page-detail-title" data-aos="fade-right">Detalle</h2>
+                <h2 class="area-page-detail-title">Detalle</h2>
                 <p class="area-page-detail-intro" data-aos="fade-right" data-aos-delay="80">${data.intro}</p>
 
                 <div class="area-page-subcards-grid">
@@ -361,8 +300,8 @@
               </div>
 
               <!-- Columna Derecha: Foto de Consulta / Oficina -->
-              <div class="area-page-media-col" data-aos="fade-left" data-aos-delay="100">
-                <div class="area-detail-img-wrap">
+              <div class="area-page-media-col">
+                <div class="area-detail-img-wrap" data-anim="mask">
                   <img loading="lazy" decoding="async" src="${data.sideImg}" alt="${data.title}, J&N Asesoría Legal" class="area-detail-img">
                 </div>
               </div>
@@ -382,7 +321,7 @@
         <section class="cta-asesoria-section">
           <div class="cta-asesoria-container">
             
-            <div class="cta-asesoria-visual">
+            <div class="cta-asesoria-visual" data-anim="mask">
               <svg class="cta-asesoria-curve-svg" viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
                 <defs>
                   <linearGradient id="ctaNavyGradArea" x1="0%" y1="0%" x2="100%" y2="80%">
@@ -402,9 +341,9 @@
               <img loading="lazy" decoding="async" src="assets/img/cta-consultor-phone-jn2.webp" alt="Asesor de J&N mostrando la asesoría legal por celular" class="cta-asesoria-img">
             </div>
 
-            <div class="cta-asesoria-content" data-aos="fade-left" data-aos-delay="80">
-              <h3 class="cta-asesoria-title">¿Necesitas orientación legal? Cuéntanos tu situación</h3>
-              <a href="https://wa.me/51958212450?text=${encodeURIComponent('Hola Dra. Zinthia Garay, deseo solicitar asesoría legal')}" target="_blank" rel="noopener noreferrer" class="cta-asesoria-btn">
+            <div class="cta-asesoria-content">
+              <h3 class="cta-asesoria-title" data-anim="scrub-words">¿Necesitas orientación legal? Cuéntanos tu situación</h3>
+              <a href="https://wa.me/51958212450?text=${encodeURIComponent('Hola Dra. Zinthia Garay, deseo solicitar asesoría legal')}" target="_blank" rel="noopener noreferrer" class="cta-asesoria-btn" data-anim="fade" data-magnetic>
                 <span>Solicitar asesoría</span>
                 <i class="fas fa-arrow-right"></i>
               </a>
@@ -416,15 +355,15 @@
         <!-- ==================== FOOTER MAPA (ESTILO UGAZ) ==================== -->
         <footer class="map-footer-section">
           <a href="https://maps.app.goo.gl/PxPZ3DqBa4GfCc3u7" target="_blank" rel="noopener noreferrer" class="map-link-wrapper" aria-label="Abrir Calle Grau 246A en Google Maps">
-            <img loading="lazy" decoding="async" src="assets/img/mapa-chincha-alta.webp" alt="Ubicación del Estudio J&N, Calle Grau 246A, Chincha Alta" class="map-background-img">
+            <img loading="lazy" decoding="async" src="assets/img/mapa-chincha-alta.webp" alt="Ubicación del Estudio J&N, Calle Grau 246A, Chincha Alta" class="map-background-img" width="1536" height="512">
           </a>
           <div class="map-gradient-overlay"></div>
 
           <div class="map-content-container">
-            <div class="map-content-inner">
+            <div class="map-content-inner" data-anim="stagger">
               
               <div class="map-brand-logo">
-                <img loading="lazy" decoding="async" src="assets/img/logo-placa-clean.webp" alt="J&N Asesoría Legal y Consultoría">
+                <img loading="lazy" decoding="async" src="assets/img/logo-placa-clean.webp" alt="J&N Asesoría Legal y Consultoría" width="920" height="300">
                 <div class="map-brand-text">
                   <span class="map-brand-title">J&N ASESORÍA LEGAL</span>
                   <span class="map-brand-sub">Y CONSULTORÍA • DRA. ZINTHIA GARAY</span>
@@ -476,6 +415,8 @@
             </div>
           </div>
 
+          <div class="footer-signature" aria-hidden="true"><span>J&amp;N</span></div>
+
           <div class="map-footer-bottom">
             <div class="map-footer-bottom-inner">
               <div>
@@ -485,7 +426,7 @@
                 <a href="https://maps.app.goo.gl/PxPZ3DqBa4GfCc3u7" target="_blank" rel="noopener noreferrer">
                   <i class="fas fa-map-marked-alt"></i>
                   <span>Cómo llegar / Abrir en Google Maps</span>
-                  <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+                  <i class="fas fa-external-link-alt icon-xs" aria-hidden="true"></i>
                 </a>
               </div>
             </div>
@@ -503,7 +444,8 @@
           areaView.style.display = 'block';
 
           renderEquipoPage();
-          window.scrollTo(0, 0);
+          initEquipoCarousel();
+          scrollToTarget(document.body, true);
 
           if (pushHistory) {
             history.pushState({ view: 'equipo' }, '', '#equipo');
@@ -542,21 +484,31 @@
           </div>
         </div>
 
-        <!-- Grilla de Miembros del Equipo -->
+        <!-- Carrusel del equipo: la persona activa al centro (grande) y las demás a los lados -->
         <section class="equipo-section">
           <div class="container">
-            <div class="equipo-grid">
-              ${equipoPageData.map((m, i) => `
-                <div class="equipo-card ${m.isCutout ? 'is-cutout' : ''}" data-aos="fade-up" data-aos-delay="${(i % 4) * 100}" onclick="openMemberModal(${i})" role="button" tabindex="0" aria-label="Ver perfil de ${m.nombre}" onkeydown="if(event.key === 'Enter'){ openMemberModal(${i}); }">
-                  <div class="equipo-card-photo">
-                    <img loading="lazy" decoding="async" src="${m.foto}" alt="${m.nombre}" class="${m.isCutout ? 'equipo-card-cutout' : ''}">
-                  </div>
-                  <div class="equipo-card-body">
-                    <h4 class="equipo-card-name">${m.nombre}</h4>
-                    <div class="equipo-card-role" title="${m.cargo}">${m.cargo}</div>
-                  </div>
-                </div>
-              `).join('')}
+            <div class="equipo-carousel" id="equipoCarousel" data-aos="fade-up" role="region" aria-roledescription="carrusel" aria-label="Nuestro equipo">
+              <div class="equipo-stage" id="equipoStage">
+                ${equipoPageData.map((m, i) => `
+                  <button type="button" class="equipo-slide" data-index="${i}" aria-label="Ver a ${m.nombre}">
+                    <img loading="lazy" decoding="async" src="${m.foto}" alt="${m.nombre}" draggable="false">
+                  </button>
+                `).join('')}
+                <button type="button" class="equipo-nav equipo-nav--prev" id="equipoPrev" aria-label="Integrante anterior"><i class="fas fa-arrow-left" aria-hidden="true"></i></button>
+                <button type="button" class="equipo-nav equipo-nav--next" id="equipoNext" aria-label="Integrante siguiente"><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+              </div>
+
+              <div class="equipo-info" id="equipoInfo" aria-live="polite">
+                <span class="eyebrow equipo-info-count"><span class="section-index" id="equipoCount">01</span> de ${String(equipoPageData.length).padStart(2, '0')}</span>
+                <h2 class="equipo-info-name" id="equipoName"></h2>
+                <p class="equipo-info-role" id="equipoRole"></p>
+                <p class="equipo-info-bio" id="equipoBio"></p>
+                <button type="button" class="btn-pill btn-pill--dark" id="equipoProfile"><span>Ver perfil completo</span><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
+              </div>
+
+              <div class="equipo-dots" aria-label="Elegir integrante">
+                ${equipoPageData.map((m, i) => `<button type="button" class="equipo-dot" data-index="${i}" aria-label="Ver a ${m.nombre}"></button>`).join('')}
+              </div>
             </div>
           </div>
         </section>
@@ -566,7 +518,7 @@
              se ancle a la pantalla SIEMPRE (independiente de la vista). -->
         <template id="memberModalTpl">
           <div class="member-modal-overlay" id="memberModal" onclick="closeMemberModal()">
-            <div class="member-modal-panel" role="dialog" aria-modal="true" onclick="event.stopPropagation();">
+            <div class="member-modal-panel" role="dialog" aria-modal="true" data-lenis-prevent onclick="event.stopPropagation();">
               <div class="member-modal-body">
                 <div class="member-modal-photo" id="memberModalPhoto"></div>
                 <div class="member-modal-info">
@@ -590,6 +542,141 @@
         ${viewCtaAndFooterHtml()}
       `;
     }
+    // ---------- Carrusel del equipo ----------
+    // Cada foto recibe data-pos (0 = centro, ±1 y ±2 = laterales) y el CSS la ubica y escala.
+    function initEquipoCarousel() {
+      const root = document.getElementById('equipoCarousel');
+      if (!root) return;
+      if (window.__equipoCarouselStop) {
+        window.__equipoCarouselStop();
+      }
+      const slides = Array.from(root.querySelectorAll('.equipo-slide'));
+      const dots = Array.from(root.querySelectorAll('.equipo-dot'));
+      const info = document.getElementById('equipoInfo');
+      const stage = document.getElementById('equipoStage');
+      const total = slides.length;
+      const AUTOPLAY_MS = 3500;
+      let current = 0;
+      let timer = null;
+      let paused = false;
+
+      // Distancia circular al activo: con 5 integrantes va de -2 a 2.
+      function relative(i) {
+        let d = (i - current) % total;
+        if (d > total / 2) d -= total;
+        if (d < -total / 2) d += total;
+        return d;
+      }
+
+      function fillInfo() {
+        const m = equipoPageData[current];
+        document.getElementById('equipoCount').textContent = String(current + 1).padStart(2, '0');
+        document.getElementById('equipoName').textContent = m.nombre;
+        document.getElementById('equipoRole').textContent = m.cargo;
+        document.getElementById('equipoBio').textContent = m.bio;
+      }
+
+      function render(animateInfo) {
+        slides.forEach((slide, i) => {
+          const pos = relative(i);
+          slide.dataset.pos = Math.abs(pos) > 2 ? 'hidden' : String(pos);
+          slide.setAttribute('aria-current', pos === 0 ? 'true' : 'false');
+          slide.tabIndex = Math.abs(pos) <= 1 ? 0 : -1;
+          slide.setAttribute('aria-label', pos === 0
+            ? 'Ver perfil completo de ' + equipoPageData[i].nombre
+            : 'Ver a ' + equipoPageData[i].nombre);
+        });
+        dots.forEach((dot, i) => {
+          dot.classList.toggle('active', i === current);
+          dot.setAttribute('aria-current', i === current ? 'true' : 'false');
+        });
+        if (!animateInfo) {
+          fillInfo();
+          return;
+        }
+        info.classList.add('is-changing');
+        setTimeout(() => {
+          fillInfo();
+          info.classList.remove('is-changing');
+        }, 280);
+      }
+
+      function stop() {
+        if (timer) clearInterval(timer);
+        timer = null;
+      }
+      window.__equipoCarouselStop = stop;
+
+      function restart() {
+        stop();
+        timer = setInterval(() => {
+          // Si se cerró la vista de equipo, el carrusel ya no existe: se detiene solo.
+          if (!root.isConnected) return stop();
+          const modal = document.getElementById('memberModal');
+          if (modal && modal.style.display === 'flex') return;
+          if (!document.hidden && !paused) goTo(current + 1);
+        }, AUTOPLAY_MS);
+      }
+
+      function goTo(index) {
+        const next = (index + total) % total;
+        if (next === current) return;
+        current = next;
+        render(true);
+        restart();
+      }
+
+      slides.forEach((slide, i) => {
+        slide.addEventListener('click', () => {
+          if (stage.dataset.swiped === '1') { stage.dataset.swiped = ''; return; }
+          if (i === current) openMemberModal(i);
+          else goTo(i);
+        });
+      });
+      dots.forEach((dot, i) => dot.addEventListener('click', () => goTo(i)));
+      document.getElementById('equipoPrev').addEventListener('click', () => goTo(current - 1));
+      document.getElementById('equipoNext').addEventListener('click', () => goTo(current + 1));
+
+      const profileBtn = document.getElementById('equipoProfile');
+      if (profileBtn) {
+        profileBtn.addEventListener('click', () => openMemberModal(current));
+        profileBtn.addEventListener('mouseenter', () => { paused = true; });
+        profileBtn.addEventListener('mouseleave', () => { paused = false; restart(); });
+      }
+
+      // Teclado: flechas izquierda/derecha cuando el foco está dentro del carrusel.
+      root.addEventListener('keydown', (e) => {
+        if (e.key === 'ArrowLeft') { e.preventDefault(); goTo(current - 1); }
+        if (e.key === 'ArrowRight') { e.preventDefault(); goTo(current + 1); }
+      });
+
+      // Deslizar con el dedo (o arrastrar con el mouse) sobre las fotos.
+      let startX = null;
+      stage.addEventListener('pointerdown', (e) => {
+        paused = true;
+        startX = e.clientX;
+      });
+      window.addEventListener('pointerup', () => {
+        if (paused) {
+          paused = false;
+          restart();
+        }
+      });
+      stage.addEventListener('pointerup', (e) => {
+        if (startX === null) return;
+        const dx = e.clientX - startX;
+        startX = null;
+        if (Math.abs(dx) > 45) {
+          stage.dataset.swiped = '1'; // el clic que sigue al deslizamiento no abre nada
+          setTimeout(() => { stage.dataset.swiped = ''; }, 0);
+          goTo(current + (dx < 0 ? 1 : -1));
+        }
+      });
+
+      render(false);
+      restart();
+    }
+
     // ---------- Modal de Perfil del Miembro del Equipo ----------
     // El modal se monta DIRECTO en document.body (fuera de la vista de equipo),
     // garantizando que el position:fixed se ancle al viewport al 100%.
@@ -642,6 +729,7 @@
 
       modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
+      if (window.JNMotion && window.JNMotion.lockScroll) window.JNMotion.lockScroll(true);
     }
 
     function closeMemberModal() {
@@ -649,6 +737,7 @@
       if (modal && modal.style.display === 'flex') {
         modal.style.display = 'none';
         document.body.style.overflow = '';
+        if (window.JNMotion && window.JNMotion.lockScroll) window.JNMotion.lockScroll(false);
       }
     }
 
@@ -702,89 +791,6 @@
         openAsesoriasPage(null, false);
       }
 
-      // Desplazamiento automático por paradas definidas y control visible de pausa.
-      const autoScrollToggle = document.getElementById('autoScrollToggle');
-      const isInternalView = hash === '#equipo' || hash === '#noticias' || hash === '#asesorias' || hash.startsWith('#area-');
-      if (autoScrollToggle && !isInternalView) {
-        autoScrollToggle.hidden = false;
-        let paused = false;
-        let pauseUntil = performance.now() + 8000;
-        let stopIndex = 0;
-        const stopIds = ['nosotros', 'servicios', 'experiencia', 'financiero', 'proceso', 'contacto', 'ubicacion'];
-        const getStopPosition = (id) => {
-          const element = document.getElementById(id);
-          if (!element) return null;
-          const header = document.getElementById('header');
-          const headerHeight = header ? header.offsetHeight : 0;
-          return Math.max(0, element.getBoundingClientRect().top + window.scrollY - headerHeight - 14);
-        };
-        const findNextStop = () => stopIds.findIndex((id) => {
-          const position = getStopPosition(id);
-          return position !== null && position > window.scrollY + 24;
-        });
-        // En Inicio, el primer salto debe ir a Zinthia; con un ancla, continuar desde allí.
-        stopIndex = (!hash || hash === '#inicio') ? 0 : findNextStop();
-
-        const updatePauseButton = () => {
-          autoScrollToggle.setAttribute('aria-pressed', String(paused));
-          autoScrollToggle.querySelector('.auto-scroll-label').textContent = paused
-            ? 'Reanudar desplazamiento'
-            : 'Pausar desplazamiento';
-          autoScrollToggle.querySelector('span:first-child').textContent = paused ? '▶' : 'Ⅱ';
-        };
-        autoScrollToggle.addEventListener('click', () => {
-          paused = !paused;
-          if (!paused) {
-            stopIndex = findNextStop();
-            pauseUntil = performance.now() + 900;
-          }
-          updatePauseButton();
-          if (!paused) window.requestAnimationFrame(scrollReadably);
-        });
-
-        const pauseForManualUse = () => {
-          if (!paused) {
-            paused = true;
-            updatePauseButton();
-          }
-        };
-        ['wheel', 'touchstart', 'keydown'].forEach((eventName) => {
-          window.addEventListener(eventName, (event) => {
-            if (autoScrollToggle.contains(event.target)) return;
-            pauseForManualUse();
-          }, { passive: true });
-        });
-
-        const scrollReadably = (now) => {
-          if (paused) return;
-          if (now < pauseUntil) {
-            window.requestAnimationFrame(scrollReadably);
-            return;
-          }
-
-          if (stopIndex < 0 || stopIndex >= stopIds.length) {
-            paused = true;
-            updatePauseButton();
-            autoScrollToggle.querySelector('.auto-scroll-label').textContent = 'Desplazamiento finalizado';
-            autoScrollToggle.disabled = true;
-            return;
-          }
-
-          const stopId = stopIds[stopIndex];
-          const target = getStopPosition(stopId);
-          if (target === null) {
-            stopIndex += 1;
-            window.requestAnimationFrame(scrollReadably);
-            return;
-          }
-          window.scrollTo({ top: target, behavior: 'instant' });
-          stopIndex += 1;
-          pauseUntil = now + 8000;
-          window.requestAnimationFrame(scrollReadably);
-        };
-        updatePauseButton();
-        window.requestAnimationFrame(scrollReadably);
-      }
     });
 
     // ============ FORMULARIO DE CONTACTO (ENVÍO POR WHATSAPP) ============
@@ -809,96 +815,28 @@
         '*Área:* ' + area + '\n' +
         '*Mensaje:* ' + mensaje;
 
+      // window.open debe ir dentro del mismo gesto del usuario para que el navegador no lo bloquee.
       window.open('https://wa.me/' + CONTACT_WHATSAPP_NUM + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
 
-      alert('¡Gracias por su consulta! Se abrirá WhatsApp para que envíe su mensaje con los datos de su caso.');
-      this.reset();
-    });
-
-    // ============ HERO SLIDER CONTROLLER ============
-    const slides = document.querySelectorAll('.hero-slider .slide');
-    const dots = document.querySelectorAll('.slider-dot');
-    const prevBtn = document.getElementById('sliderPrev');
-    const nextBtn = document.getElementById('sliderNext');
-    const progressBar = document.getElementById('sliderProgress');
-
-    let currentSlide = 0;
-    const totalSlides = slides.length;
-    const slideDuration = 6000; // 6 seconds per slide
-    let slideTimer = null;
-
-    function goToSlide(index) {
-      slides[currentSlide].classList.remove('active');
-      dots[currentSlide].classList.remove('active');
-
-      currentSlide = (index + totalSlides) % totalSlides;
-
-      slides[currentSlide].classList.add('active');
-      dots[currentSlide].classList.add('active');
-
-      resetProgress();
-    }
-
-    function nextSlide() {
-      goToSlide(currentSlide + 1);
-    }
-
-    function prevSlide() {
-      goToSlide(currentSlide - 1);
-    }
-
-    function resetProgress() {
-      if (progressBar) {
-        progressBar.style.transition = 'none';
-        progressBar.style.width = '0%';
-        setTimeout(() => {
-          progressBar.style.transition = `width ${slideDuration}ms linear`;
-          progressBar.style.width = '100%';
-        }, 50);
+      const form = this;
+      const submitBtn = form.querySelector('.btn-submit');
+      const status = document.getElementById('formStatus');
+      if (submitBtn) {
+        submitBtn.classList.add('is-loading');
+        submitBtn.disabled = true;
       }
-    }
-
-    function startAutoSlide() {
-      stopAutoSlide();
-      resetProgress();
-      slideTimer = setInterval(nextSlide, slideDuration);
-    }
-
-    function stopAutoSlide() {
-      if (slideTimer) clearInterval(slideTimer);
-    }
-
-    if (nextBtn) {
-      nextBtn.addEventListener('click', () => {
-        nextSlide();
-        startAutoSlide();
-      });
-    }
-
-    if (prevBtn) {
-      prevBtn.addEventListener('click', () => {
-        prevSlide();
-        startAutoSlide();
-      });
-    }
-
-    dots.forEach((dot) => {
-      dot.addEventListener('click', (e) => {
-        const idx = parseInt(e.target.dataset.index);
-        goToSlide(idx);
-        startAutoSlide();
-      });
+      setTimeout(() => {
+        if (submitBtn) {
+          submitBtn.classList.remove('is-loading');
+          submitBtn.disabled = false;
+        }
+        if (status) {
+          status.textContent = '¡Gracias por su consulta! Se abrirá WhatsApp para que envíe su mensaje con los datos de su caso.';
+          status.classList.add('is-visible');
+        }
+        form.reset();
+      }, 900);
     });
-
-    // Pause on hover
-    const sliderElem = document.getElementById('inicio');
-    if (sliderElem) {
-      sliderElem.addEventListener('mouseenter', stopAutoSlide);
-      sliderElem.addEventListener('mouseleave', startAutoSlide);
-    }
-
-    // Start auto slide immediately
-    startAutoSlide();
 
     // ============ ACTIVE NAV LINK ON SCROLL ============
     const trackedSections = document.querySelectorAll('section[id]');
@@ -917,40 +855,6 @@
         }
       });
     });
-
-    // ============ ANIMATED STATS COUNTER ON SCROLL ============
-    const counterElements = document.querySelectorAll('.counter-num');
-    let countersStarted = false;
-
-    if ('IntersectionObserver' in window && counterElements.length > 0) {
-      const expObserver = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting && !countersStarted) {
-            countersStarted = true;
-            counterElements.forEach(el => {
-              const target = parseInt(el.getAttribute('data-target'), 10);
-              const duration = 1600;
-              const stepTime = 30;
-              const steps = duration / stepTime;
-              const increment = target / steps;
-              let current = 0;
-              const timer = setInterval(() => {
-                current += increment;
-                if (current >= target) {
-                  el.textContent = target;
-                  clearInterval(timer);
-                } else {
-                  el.textContent = Math.floor(current);
-                }
-              }, stepTime);
-            });
-          }
-        });
-      }, { threshold: 0.25 });
-
-      const expSec = document.querySelector('.experiencia-section');
-      if (expSec) expObserver.observe(expSec);
-    }
 
     // Cinta continua de entidades: dos grupos idénticos permiten un bucle sin cortes.
     (function initCajasMarquee() {

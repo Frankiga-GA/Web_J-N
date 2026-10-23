@@ -10,14 +10,40 @@
   <meta property="og:type" content="website" />
   <link rel="icon" type="image/webp" href="assets/img/logo-placa-clean.webp">
 
-  <!-- Tipografía: el sitio usa 'Bookman Old Style' (fuente de sistema con fallback a Georgia),
-       por lo que no se cargan Google Fonts (Montserrat/Inter no se usaban) -->
+  <!-- Activa los estados iniciales de animación solo si hay JS y el usuario no pidió reducir movimiento.
+       - js-anim: oculta lo que GSAP revelará al hacer scroll. Si GSAP no carga en 4 s, se retira y todo queda visible.
+       - js-intro: intro con el logo (solo la primera visita de la sesión). Es CSS puro: no espera a ninguna librería. -->
+  <script>
+    (function () {
+      var root = document.documentElement;
+      if (window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      root.classList.add('js-anim');
+      try {
+        if (!sessionStorage.getItem('jn-intro')) {
+          sessionStorage.setItem('jn-intro', '1');
+          root.classList.add('js-intro', 'intro-lock');
+          setTimeout(function () { root.classList.remove('intro-lock'); }, 1450);
+        }
+      } catch (e) {}
+      setTimeout(function () {
+        if (!window.__jnAnimReady) root.classList.remove('js-anim');
+      }, 4000);
+    })();
+  </script>
 
-  <!-- Estilos locales: contenido y animaciones -->
-  <link rel="stylesheet" href="assets/css/site.css?v=nav-centered">
+  <!-- Tipografía: Fraunces (títulos) + Inter (texto), alojadas en assets/fonts/web (ver modern.css) -->
+  <link rel="preload" href="assets/fonts/web/fraunces-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/web/fraunces-italic-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="assets/fonts/web/inter-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
 
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+
+  <!-- Estilos locales: base del sitio + capa de diseño moderno -->
+  <link rel="stylesheet" href="assets/css/site.css?v=20261023-justified-all">
+  <link rel="stylesheet" href="assets/css/modern.css?v=20261023-justified-all">
+
+  <!-- Íconos: subconjunto local de Font Awesome con solo los íconos que usa el sitio -->
+  <link rel="stylesheet" href="assets/vendor/fontawesome/icons.css?v=20261023">
 
 
 
@@ -62,34 +88,32 @@
 <body>
 
   <div class="scroll-progress" id="scrollProgress" aria-hidden="true"><span></span></div>
-  <nav class="section-quick-nav" aria-label="Ir a una sección">
-    <a href="#inicio" aria-label="Ir al inicio"><span>Inicio</span></a>
-    <a href="#servicios" aria-label="Ir a áreas legales"><span>Áreas legales</span></a>
-    <a href="#equipo" aria-label="Ir a quiénes somos"><span>Quiénes somos</span></a>
-    <a href="#proceso" aria-label="Ir a cómo trabajamos"><span>Cómo trabajamos</span></a>
-    <a href="#preguntas" aria-label="Ir a preguntas frecuentes"><span>Preguntas frecuentes</span></a>
-    <a href="#contacto" aria-label="Ir a contacto"><span>Contacto</span></a>
-  </nav>
 
-  <!-- ==================== PANTALLA DE CARGA CON LOGO (AREAS PRELOADER) ==================== -->
-  <div id="areasLoader" class="areas-loader-overlay">
-    <div class="areas-loader-modal">
-      <div class="areas-loader-logo-wrap">
-        <img loading="eager" fetchpriority="high" decoding="async" src="assets/img/logo-transparent.png" alt="J&N Asesoría Legal y Consultoría" class="areas-loader-logo">
-      </div>
-      <div class="areas-loader-bar-wrap">
-        <div class="areas-loader-bar"></div>
-      </div>
-      <p class="areas-loader-text">Accediendo a Nuestras Áreas Legales...</p>
-      <span class="areas-loader-sub">ESTUDIO JURÍDICO J&N • DRA. ZINTHIA GARAY</span>
+  <!-- ==================== INTRO (solo primera visita de la sesión) ==================== -->
+  <div class="intro-curtain" id="introCurtain" aria-hidden="true">
+    <div class="intro-curtain-inner">
+      <img src="assets/img/logo-transparent.webp" alt="" class="intro-logo" width="920" height="300">
+      <span class="intro-line"></span>
     </div>
   </div>
+
+  <!-- ==================== CORTINA DE TRANSICIÓN ENTRE VISTAS ==================== -->
+  <div id="areasLoader" class="areas-loader-overlay" aria-hidden="true">
+    <div class="areas-loader-modal">
+      <img loading="lazy" decoding="async" src="assets/img/logo-transparent.webp" alt="" class="areas-loader-logo" width="920" height="300">
+      <span class="areas-loader-line"></span>
+    </div>
+  </div>
+
+  <!-- ==================== CURSOR PERSONALIZADO (solo escritorio) ==================== -->
+  <div class="cursor-dot" aria-hidden="true"></div>
+  <div class="cursor-ring" aria-hidden="true"></div>
 
   <!-- ==================== HEADER ==================== -->
   <header class="header" id="header">
     <div class="container">
       <a href="#" class="header-logo">
-        <img loading="eager" fetchpriority="high" decoding="async" src="assets/img/logo-transparent.png" alt="J&N Asesoría Legal y Consultoría">
+        <img loading="eager" fetchpriority="high" decoding="async" src="assets/img/logo-transparent.webp" alt="J&N Asesoría Legal y Consultoría" width="920" height="300">
       </a>
       <nav class="nav-links" id="navLinks">
         <a href="#inicio" class="active">Inicio</a>
@@ -101,7 +125,7 @@
         <a href="#noticias" onclick="openNoticiasPage(event)">Noticias</a>
         <a href="#contacto" class="nav-btn-contact">Contacto</a>
       </nav>
-      <button class="hamburger" id="hamburger" aria-label="Menú">
+      <button class="hamburger" id="hamburger" aria-label="Menú" aria-expanded="false" aria-controls="navLinks">
         <span></span><span></span><span></span>
       </button>
     </div>
@@ -110,138 +134,41 @@
   <!-- ==================== CONTENIDO PRINCIPAL DEL SITIO ==================== -->
   <main id="mainSiteContent">
 
-  <!-- ==================== HERO SLIDER ==================== -->
-  <section class="hero-slider" id="inicio">
+  <!-- ==================== HERO ==================== -->
+  <section class="hero" id="inicio">
+    <div class="hero-media" aria-hidden="true">
+      <img class="hero-bg" src="assets/img/boardroom-executive.webp" alt="" width="1376" height="768" fetchpriority="high" decoding="async">
+    </div>
+    <div class="hero-overlay" aria-hidden="true"></div>
 
-    <!-- Slide 1 -->
-    <div class="slide active">
-      <div class="slide-bg" style="background-image: url('assets/img/areas-hero-banner.webp');"></div>
-      <div class="slide-overlay"></div>
-      <div class="slide-content">
-        <div class="slide-grid">
-          <div class="slide-text">
-            <span class="slide-tagline">J&N ASESORÍA LEGAL Y CONSULTORÍA</span>
-            <h1 class="slide-title">Asesoría legal clara y cercana</h1>
-            <div class="slide-sublink">
-              <a href="#servicios">Defensa y asesoría legal</a>: <span>Acompañamiento en distintas áreas del Derecho.</span>
-            </div>
-          </div>
-          <div class="slide-badge">
-            <div class="badge-label">Nuestro compromiso:</div>
-            <div class="badge-icon-box">
-              <i class="fas fa-award badge-wreath"></i>
-              <div class="badge-title">Atención responsable</div>
-              <div class="badge-sub">Análisis de cada caso</div>
-              <div class="badge-desc">J&N Asesoría Legal y Consultoría</div>
-            </div>
-          </div>
-        </div>
+    <div class="container hero-content">
+      <span class="eyebrow eyebrow--light hero-eyebrow">J&N Asesoría Legal y Consultoría</span>
+      <!-- Cada palabra va en su propia máscara para la animación de entrada (CSS) -->
+      <h1 class="hero-title"><span class="hw"><span>Asesoría</span></span> <span class="hw"><span>legal</span></span> <em><span class="hw"><span>clara</span></span></em> <span class="hw"><span>y</span></span> <span class="hw"><span>cercana</span></span></h1>
+      <p class="hero-lead">
+        <a href="#servicios">Defensa y asesoría legal</a>: acompañamiento en distintas áreas del Derecho.
+      </p>
+      <div class="hero-actions">
+        <a href="#contacto" class="btn-pill btn-pill--light" data-magnetic>
+          <span>Solicitar asesoría</span><i class="fas fa-arrow-right" aria-hidden="true"></i>
+        </a>
+        <a href="https://wa.me/51958212450?text=Hola%20Dra.%20Zinthia%20Garay,%20deseo%20solicitar%20asesor%C3%ADa%20legal" target="_blank" rel="noopener noreferrer" class="btn-pill btn-pill--ghost" data-magnetic>
+          <i class="fab fa-whatsapp" aria-hidden="true"></i><span>WhatsApp</span>
+        </a>
       </div>
+      <ul class="hero-trust">
+        <li><strong>18+</strong><span>años de experiencia</span></li>
+        <li><strong>Reg. CAI 3534</strong><span>colegiatura y trayectoria</span></li>
+        <li><strong>12</strong><span>áreas legales</span></li>
+        <li><strong>Chincha e Ica</strong><span>presencial y virtual</span></li>
+      </ul>
     </div>
-
-    <!-- Slide 2 -->
-    <div class="slide">
-      <div class="slide-bg" style="background-image: url('assets/img/boardroom-executive.webp');"></div>
-      <div class="slide-overlay"></div>
-      <div class="slide-content">
-        <div class="slide-grid">
-          <div class="slide-text">
-            <span class="slide-tagline">J&N ASESORÍA LEGAL Y CONSULTORÍA</span>
-            <h2 class="slide-title">Experiencia y criterio jurídico</h2>
-            <div class="slide-sublink">
-              <a href="#servicios">Asesoría para organizaciones</a>: <span>Orientación legal para empresas e instituciones.</span>
-            </div>
-          </div>
-          <div class="slide-badge">
-            <div class="badge-label">Compromiso:</div>
-            <div class="badge-icon-box">
-              <i class="fas fa-balance-scale badge-wreath"></i>
-              <div class="badge-title">Defensa técnica</div>
-              <div class="badge-sub">Sector público y privado</div>
-              <div class="badge-desc">Información clara durante el proceso</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 3 -->
-    <div class="slide">
-      <div class="slide-bg" style="background-image: url('assets/img/boardroom-opt1.webp');"></div>
-      <div class="slide-overlay"></div>
-      <div class="slide-content">
-        <div class="slide-grid">
-          <div class="slide-text">
-            <span class="slide-tagline">J&N ASESORÍA LEGAL Y CONSULTORÍA</span>
-            <h2 class="slide-title">Orientación en distintas áreas del Derecho</h2>
-            <div class="slide-sublink">
-              <a href="#servicios">Conoce nuestros servicios</a>: <span>Áreas penal, civil, laboral, municipal y más.</span>
-            </div>
-          </div>
-          <div class="slide-badge">
-              <div class="badge-label">Áreas de práctica:</div>
-            <div class="badge-icon-box">
-              <i class="fas fa-shield-alt badge-wreath"></i>
-              <div class="badge-title">12 áreas legales</div>
-              <div class="badge-sub">Personas y organizaciones</div>
-              <div class="badge-desc">Atención según las necesidades del caso</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Slide 4 -->
-    <div class="slide">
-      <div class="slide-bg" style="background-image: url('assets/img/boardroom-opt1.webp');"></div>
-      <div class="slide-overlay"></div>
-      <div class="slide-content">
-        <div class="slide-grid">
-          <div class="slide-text">
-            <span class="slide-tagline">J&N ASESORÍA LEGAL Y CONSULTORÍA</span>
-            <h2 class="slide-title">Acompañamiento durante cada etapa</h2>
-            <div class="slide-sublink">
-              <a href="#contacto">Coordina una consulta</a>: <span>Conoce las opciones de atención y los siguientes pasos.</span>
-            </div>
-          </div>
-          <div class="slide-badge">
-              <div class="badge-label">Atención en:</div>
-            <div class="badge-icon-box">
-              <i class="fas fa-handshake badge-wreath"></i>
-              <div class="badge-title">Chincha e Ica</div>
-              <div class="badge-sub">Atención presencial y virtual</div>
-              <div class="badge-desc">Consultas para personas y organizaciones</div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Navigation Arrows -->
-    <button class="slider-arrow prev" id="sliderPrev" aria-label="Anterior">
-      <i class="fas fa-chevron-left"></i>
-    </button>
-    <button class="slider-arrow next" id="sliderNext" aria-label="Siguiente">
-      <i class="fas fa-chevron-right"></i>
-    </button>
-
-    <!-- Dots -->
-    <div class="slider-dots" id="sliderDots">
-      <button class="slider-dot active" data-index="0" aria-label="Slide 1"></button>
-      <button class="slider-dot" data-index="1" aria-label="Slide 2"></button>
-      <button class="slider-dot" data-index="2" aria-label="Slide 3"></button>
-      <button class="slider-dot" data-index="3" aria-label="Slide 4"></button>
-    </div>
-
-    <!-- Progress bar -->
-    <div class="slider-progress" id="sliderProgress"></div>
 
     <!-- Indicador de scroll -->
-    <div class="hero-scroll-cue" aria-hidden="true">
-      <span class="hero-scroll-mouse"><span></span></span>
+    <a href="#nosotros" class="hero-scroll-cue" aria-label="Bajar a la siguiente sección">
+      <span class="hero-scroll-line" aria-hidden="true"></span>
       <span class="hero-scroll-label">Desliza</span>
-    </div>
-
+    </a>
   </section>
 
   <!-- ==================== CINTA DE ÁREAS DE PRÁCTICA ==================== -->
@@ -286,36 +213,40 @@
       <div class="about-grid">
 
         <!-- Columna Izquierda: Información, Misión, Visión y Botón -->
-        <div class="about-text-col" data-aos="fade-right">
-          <div class="about-tagline-ugaz">
-            ASESORÍA JURÍDICA CON RESPONSABILIDAD
+        <div class="about-text-col">
+          <div class="about-tagline-ugaz eyebrow" data-anim="eyebrow">
+            <span class="section-index">01</span> Asesoría jurídica con responsabilidad
           </div>
           <h2 class="about-title-ugaz">Zinthia Garay Paucar</h2>
-          <p class="about-p-ugaz">
+          <p class="about-p-ugaz" data-anim="fade" style="text-align: justify !important; text-justify: inter-word !important;">
             La abogada <strong>Zinthia Garay Paucar</strong> (Reg. CAI N.º 3534) es egresada de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 18 años de experiencia profesional y académica. Es <strong>magíster en Gestión Pública</strong> y cuenta con formación en el <strong>Centro de Altos Estudios Nacionales (CAEN)</strong>. Como fundadora y directora de <strong>J&N Asesoría Legal y Consultoría</strong>, brinda asesoría y patrocinio legal a personas, empresas e instituciones.
           </p>
 
           <div class="about-mision-vision" aria-label="Visión y misión del estudio">
-            <article class="mv-item">
-              <h4>Visión</h4>
+            <article class="mv-item" data-anim="fade">
+              <span class="mv-num" aria-hidden="true">01</span>
+              <h3>Visión</h3>
               <p>Consolidar un estudio jurídico que acompañe a personas y organizaciones con criterio profesional, trato cercano y respeto por las normas y la ética del ejercicio legal.</p>
             </article>
-            <article class="mv-item">
-              <h4>Misión</h4>
+            <article class="mv-item" data-anim="fade">
+              <span class="mv-num" aria-hidden="true">02</span>
+              <h3>Misión</h3>
               <p>Brindar asesoría y patrocinio legal con responsabilidad, rigor técnico y comunicación clara, atendiendo las necesidades de cada persona u organización.</p>
             </article>
           </div>
 
-          <a href="javascript:void(0)" class="btn-ugaz-staff" onclick="openEquipoPage()" aria-label="Ver el equipo del estudio">
+          <a href="#equipo" class="btn-ugaz-staff" data-anim="fade" data-magnetic onclick="event.preventDefault();openEquipoPage()" aria-label="Ver el equipo del estudio">
             <span>Mostrar Equipo</span>
             <i class="fas fa-users"></i>
           </a>
         </div>
 
         <!-- Columna Derecha: Foto Recortada Sin Fondo sobre Curva Plateada -->
-        <div class="about-figure-col" data-aos="fade-left">
-          <div class="figure-curve-bg"></div>
-          <img loading="lazy" decoding="async" src="assets/img/zinthia-garay-cutout.webp" alt="Zinthia Garay Paucar" class="figure-cutout-img">
+        <div class="about-figure-col">
+          <div class="figure-curve-bg" aria-hidden="true"></div>
+          <div class="figure-mask" data-anim="mask">
+            <img loading="lazy" decoding="async" src="assets/img/zinthia-garay-cutout.webp" alt="Zinthia Garay Paucar" class="figure-cutout-img" width="794" height="1024">
+          </div>
 
           <div class="figure-badge-float">
             <i class="fas fa-award"></i>
@@ -335,18 +266,18 @@
 
     <!-- Hero Banner de la Sección -->
     <div class="areas-hero-banner">
-      <img loading="lazy" decoding="async" src="assets/img/areas-hero-banner.webp" alt="Especialistas en cada Área Legal" class="areas-hero-bg">
+      <img loading="lazy" decoding="async" src="assets/img/areas-hero-banner.webp" alt="" class="areas-hero-bg" width="1376" height="768">
       <div class="areas-hero-overlay"></div>
-      <div class="container areas-hero-content" data-aos="fade-up">
-        <span class="areas-hero-tag">ESPECIALISTAS EN CADA ÁREA LEGAL</span>
-        <h2 class="areas-hero-title">Nuestras Áreas</h2>
+      <div class="container areas-hero-content">
+        <span class="areas-hero-tag eyebrow eyebrow--light" data-anim="eyebrow"><span class="section-index">02</span> Especialistas en cada área legal</span>
+        <h2 class="areas-hero-title">Nuestras <em>Áreas</em></h2>
       </div>
     </div>
 
     <!-- Grid de Tarjetas de Áreas -->
     <div class="areas-cards-section">
       <div class="container">
-        <div class="areas-discovery" data-aos="fade-up">
+        <div class="areas-discovery" data-anim="fade">
           <div class="areas-discovery-copy">
             <span class="areas-discovery-kicker">ENCUENTRA TU ÁREA</span>
             <h3>¿Qué necesitas resolver?</h3>
@@ -374,13 +305,13 @@
         <div class="areas-cards-grid">
 
           <!-- 1. Defensa Penal Estratégica -->
-          <a href="#area-penal" class="area-card-ugaz" data-area-key="penal" data-audience="personas empresas" data-search="denuncia citación investigacion fiscalia policía detencion acusado juicio" data-aos="fade-up" aria-label="Ver detalles de Defensa Penal Estratégica" onclick="event.preventDefault();openAreaPage('penal')">
+          <a href="#area-penal" class="area-card-ugaz" data-area-key="penal" data-audience="personas empresas" data-search="denuncia citación investigacion fiscalia policía detencion acusado juicio" aria-label="Ver detalles de Defensa Penal Estratégica" onclick="event.preventDefault();openAreaPage('penal')">
             <div class="card-badge-icon">
               <i class="fas fa-gavel"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-penal.jpg" alt="Defensa Penal Estratégica">
+              <picture><source srcset="assets/img/areas/area-penal.webp" type="image/webp"><img width="700" height="1050" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-penal.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Defensa Penal Estratégica</h4>
@@ -400,13 +331,13 @@
           </a>
 
           <!-- 2. Delitos contra la Administración Pública -->
-          <a href="#area-admin-publica" class="area-card-ugaz" data-area-key="admin-publica" data-audience="publico" data-search="corrupcion funcionario contratacion colusion peculado cohecho obra publica" data-aos="fade-up" data-aos-delay="100" aria-label="Ver detalles de Delitos contra la Administración Pública" onclick="event.preventDefault();openAreaPage('admin-publica')">
+          <a href="#area-admin-publica" class="area-card-ugaz" data-area-key="admin-publica" data-audience="publico" data-search="corrupcion funcionario contratacion colusion peculado cohecho obra publica" aria-label="Ver detalles de Delitos contra la Administración Pública" onclick="event.preventDefault();openAreaPage('admin-publica')">
             <div class="card-badge-icon">
               <i class="fas fa-landmark"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-admin.jpg" alt="Delitos contra la Administración Pública">
+              <picture><source srcset="assets/img/areas/area-admin.webp" type="image/webp"><img width="700" height="504" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-admin.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Delitos contra la Administración Pública</h4>
@@ -426,13 +357,13 @@
           </a>
 
           <!-- 3. Penal Tributario y Financiero -->
-          <a href="#area-penal-tributario" class="area-card-ugaz" data-area-key="penal-tributario" data-audience="empresas" data-search="sunat impuestos tributario fiscalizacion fraude lavado activos banco financiero" data-aos="fade-up" data-aos-delay="200" aria-label="Ver detalles de Penal Tributario y Financiero" onclick="event.preventDefault();openAreaPage('penal-tributario')">
+          <a href="#area-penal-tributario" class="area-card-ugaz" data-area-key="penal-tributario" data-audience="empresas" data-search="sunat impuestos tributario fiscalizacion fraude lavado activos banco financiero" aria-label="Ver detalles de Penal Tributario y Financiero" onclick="event.preventDefault();openAreaPage('penal-tributario')">
             <div class="card-badge-icon">
               <i class="fas fa-chart-line"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-tributario-nueva.webp" alt="Penal Tributario y Financiero">
+              <img width="600" height="400" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-tributario-nueva.webp" alt="">
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Penal Tributario y Financiero</h4>
@@ -452,13 +383,13 @@
           </a>
 
           <!-- 4. Derecho Civil y Patrimonial -->
-          <a href="#area-civil" class="area-card-ugaz" data-area-key="civil" data-audience="personas empresas patrimonio" data-search="contrato deuda cobro indemnizacion patrimonio daños perjuicios propiedad" data-aos="fade-up" aria-label="Ver detalles de Derecho Civil y Patrimonial" onclick="event.preventDefault();openAreaPage('civil')">
+          <a href="#area-civil" class="area-card-ugaz" data-area-key="civil" data-audience="personas empresas patrimonio" data-search="contrato deuda cobro indemnizacion patrimonio daños perjuicios propiedad" aria-label="Ver detalles de Derecho Civil y Patrimonial" onclick="event.preventDefault();openAreaPage('civil')">
             <div class="card-badge-icon">
               <i class="fas fa-file-contract"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-civil.jpg" alt="Derecho Civil y Patrimonial">
+              <picture><source srcset="assets/img/areas/area-civil.webp" type="image/webp"><img width="700" height="467" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-civil.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Derecho Civil y Patrimonial</h4>
@@ -478,13 +409,13 @@
           </a>
 
           <!-- 5. Derecho Administrativo y Municipal -->
-          <a href="#area-municipal" class="area-card-ugaz" data-area-key="municipal" data-audience="empresas publico" data-search="multa clausura licencia municipalidad municipal cobranza coactiva embargo permiso" data-aos="fade-up" data-aos-delay="100" aria-label="Ver detalles de Derecho Administrativo y Municipal" onclick="event.preventDefault();openAreaPage('municipal')">
+          <a href="#area-municipal" class="area-card-ugaz" data-area-key="municipal" data-audience="empresas publico" data-search="multa clausura licencia municipalidad municipal cobranza coactiva embargo permiso" aria-label="Ver detalles de Derecho Administrativo y Municipal" onclick="event.preventDefault();openAreaPage('municipal')">
             <div class="card-badge-icon">
               <i class="fas fa-building-columns"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-corporativo.jpg" alt="Derecho Administrativo y Municipal">
+              <picture><source srcset="assets/img/areas/area-corporativo.webp" type="image/webp"><img width="700" height="467" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-corporativo.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Derecho Administrativo y Municipal</h4>
@@ -504,13 +435,13 @@
           </a>
 
           <!-- 6. Derecho Laboral y Corporativo -->
-          <a href="#area-laboral" class="area-card-ugaz" data-area-key="laboral" data-audience="personas empresas" data-search="despido trabajador empleador beneficios sociales sunafil contrato laboral sueldo" data-aos="fade-up" data-aos-delay="200" aria-label="Ver detalles de Derecho Laboral y Corporativo" onclick="event.preventDefault();openAreaPage('laboral')">
+          <a href="#area-laboral" class="area-card-ugaz" data-area-key="laboral" data-audience="personas empresas" data-search="despido trabajador empleador beneficios sociales sunafil contrato laboral sueldo" aria-label="Ver detalles de Derecho Laboral y Corporativo" onclick="event.preventDefault();openAreaPage('laboral')">
             <div class="card-badge-icon">
               <i class="fas fa-briefcase"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-laboral.jpg" alt="Derecho Laboral y Corporativo">
+              <picture><source srcset="assets/img/areas/area-laboral.webp" type="image/webp"><img width="700" height="467" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-laboral.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Derecho Laboral y Corporativo</h4>
@@ -530,13 +461,13 @@
           </a>
 
           <!-- 7. Familia y Sucesiones -->
-          <a href="#area-familia" class="area-card-ugaz" data-area-key="familia" data-audience="personas patrimonio" data-search="divorcio alimentos pension tenencia visitas herencia sucesion hijos" data-aos="fade-up" aria-label="Ver detalles de Familia y Sucesiones" onclick="event.preventDefault();openAreaPage('familia')">
+          <a href="#area-familia" class="area-card-ugaz" data-area-key="familia" data-audience="personas patrimonio" data-search="divorcio alimentos pension tenencia visitas herencia sucesion hijos" aria-label="Ver detalles de Familia y Sucesiones" onclick="event.preventDefault();openAreaPage('familia')">
             <div class="card-badge-icon">
               <i class="fas fa-users"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-familia.jpg" alt="Familia y Sucesiones">
+              <picture><source srcset="assets/img/areas/area-familia.webp" type="image/webp"><img width="700" height="467" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-familia.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Familia y Sucesiones</h4>
@@ -556,13 +487,13 @@
           </a>
 
           <!-- 8. Derecho Agrario y Tierras -->
-          <a href="#area-agrario" class="area-card-ugaz" data-area-key="agrario" data-audience="empresas patrimonio" data-search="campo fundo rural agrario parcela agua riego linderos tierra titulacion" data-aos="fade-up" data-aos-delay="100" aria-label="Ver detalles de Derecho Agrario y Tierras" onclick="event.preventDefault();openAreaPage('agrario')">
+          <a href="#area-agrario" class="area-card-ugaz" data-area-key="agrario" data-audience="empresas patrimonio" data-search="campo fundo rural agrario parcela agua riego linderos tierra titulacion" aria-label="Ver detalles de Derecho Agrario y Tierras" onclick="event.preventDefault();openAreaPage('agrario')">
             <div class="card-badge-icon">
               <i class="fas fa-seedling"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-agrario.jpg" alt="Derecho Agrario y Tierras">
+              <picture><source srcset="assets/img/areas/area-agrario.webp" type="image/webp"><img width="700" height="394" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-agrario.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Derecho Agrario y Tierras</h4>
@@ -582,13 +513,13 @@
           </a>
 
           <!-- 9. Derecho Ambiental y Marítimo -->
-          <a href="#area-ambiental-maritimo" class="area-card-ugaz" data-area-key="ambiental-maritimo" data-audience="empresas publico" data-search="ambiente ambiental oefa pesca puerto pesquero permisos maritimo" data-aos="fade-up" data-aos-delay="200" aria-label="Ver detalles de Derecho Ambiental y Marítimo" onclick="event.preventDefault();openAreaPage('ambiental-maritimo')">
+          <a href="#area-ambiental-maritimo" class="area-card-ugaz" data-area-key="ambiental-maritimo" data-audience="empresas publico" data-search="ambiente ambiental oefa pesca puerto pesquero permisos maritimo" aria-label="Ver detalles de Derecho Ambiental y Marítimo" onclick="event.preventDefault();openAreaPage('ambiental-maritimo')">
             <div class="card-badge-icon">
               <i class="fas fa-anchor"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-maritimo.jpg" alt="Derecho Ambiental y Marítimo">
+              <picture><source srcset="assets/img/areas/area-maritimo.webp" type="image/webp"><img width="700" height="875" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-maritimo.jpg" alt=""></picture>
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Derecho Ambiental y Marítimo</h4>
@@ -608,13 +539,13 @@
           </a>
 
           <!-- 10. Derecho Digital -->
-          <a href="#area-digital" class="area-card-ugaz" data-area-key="digital" data-audience="personas empresas" data-search="internet datos privacidad datos personales fraude digital suplantacion ecommerce comercio electronico" data-aos="fade-up" aria-label="Ver detalles de Derecho Digital" onclick="event.preventDefault();openAreaPage('digital')">
+          <a href="#area-digital" class="area-card-ugaz" data-area-key="digital" data-audience="personas empresas" data-search="internet datos privacidad datos personales fraude digital suplantacion ecommerce comercio electronico" aria-label="Ver detalles de Derecho Digital" onclick="event.preventDefault();openAreaPage('digital')">
             <div class="card-badge-icon">
               <i class="fas fa-laptop-code"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-digital.webp" alt="Derecho Digital">
+              <img width="750" height="409" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-digital.webp" alt="">
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Derecho Digital</h4>
@@ -634,13 +565,13 @@
           </a>
 
           <!-- 11. Derecho Constitucional -->
-          <a href="#area-constitucional" class="area-card-ugaz" data-area-key="constitucional" data-audience="personas publico" data-search="derechos fundamentales amparo habeas corpus data detencion autoridad" data-aos="fade-up" data-aos-delay="100" aria-label="Ver detalles de Derecho Constitucional" onclick="event.preventDefault();openAreaPage('constitucional')">
+          <a href="#area-constitucional" class="area-card-ugaz" data-area-key="constitucional" data-audience="personas publico" data-search="derechos fundamentales amparo habeas corpus data detencion autoridad" aria-label="Ver detalles de Derecho Constitucional" onclick="event.preventDefault();openAreaPage('constitucional')">
             <div class="card-badge-icon">
               <i class="fas fa-landmark"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-constitucional.webp" alt="Derecho Constitucional">
+              <img width="1600" height="900" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-constitucional.webp" alt="">
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Derecho Constitucional</h4>
@@ -660,13 +591,13 @@
           </a>
 
           <!-- 12. Propiedad Inmobiliaria -->
-          <a href="#area-inmobiliario" class="area-card-ugaz" data-area-key="inmobiliario" data-audience="personas empresas patrimonio" data-search="inmueble terreno casa compraventa alquiler arrendamiento desalojo sunarp titulo posesion" data-aos="fade-up" data-aos-delay="200" aria-label="Ver detalles de Propiedad Inmobiliaria" onclick="event.preventDefault();openAreaPage('inmobiliario')">
+          <a href="#area-inmobiliario" class="area-card-ugaz" data-area-key="inmobiliario" data-audience="personas empresas patrimonio" data-search="inmueble terreno casa compraventa alquiler arrendamiento desalojo sunarp titulo posesion" aria-label="Ver detalles de Propiedad Inmobiliaria" onclick="event.preventDefault();openAreaPage('inmobiliario')">
             <div class="card-badge-icon">
               <i class="fas fa-home"></i>
             </div>
             <!-- Default View -->
             <div class="card-default-view">
-              <img loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-inmobiliario.webp" alt="Derecho de Propiedad Inmobiliaria">
+              <img width="900" height="500" loading="lazy" decoding="async" class="card-bg-img" src="assets/img/areas/area-inmobiliario.webp" alt="">
               <div class="card-default-overlay"></div>
               <div class="card-default-content">
                 <h4 class="card-title">Propiedad Inmobiliaria</h4>
@@ -717,7 +648,7 @@
   <!-- ==================== EXPERIENCIA COMPROBADA / ASESORÍA LEGAL (ESTILO UGAZ ZEGARRA) ==================== -->
   <section class="experiencia-section" id="experiencia">
     <div class="exp-bg-container">
-      <img loading="lazy" decoding="async" src="assets/img/boardroom-executive.webp" alt="Sala de Juntas Ejecutiva J&N" class="exp-bg-img">
+      <img loading="lazy" decoding="async" src="assets/img/boardroom-opt1.webp" alt="" class="exp-bg-img" width="1600" height="1068">
       <div class="exp-overlay"></div>
     </div>
 
@@ -725,59 +656,59 @@
       <div class="exp-grid">
 
         <!-- Columna Izquierda: retrato de la Dra. Zinthia Garay -->
-        <div class="exp-figure-col" data-aos="fade-up" data-aos-duration="800">
-          <div class="exp-figure-wrapper">
-            <img loading="lazy" decoding="async" src="assets/img/zinthia-cta-figure.webp"
-                 alt="Dra. Zinthia Garay Paucar"
-                 class="exp-cutout-img">
+        <div class="exp-figure-col">
+          <div class="exp-figure-wrapper" data-anim="mask">
+            <img loading="lazy" decoding="async" src="assets/img/zinthia-experiencia-retrato.webp"
+                 alt="Dra. Zinthia Garay Paucar en las oficinas del estudio"
+                 class="exp-portrait-img" width="960" height="780">
           </div>
         </div>
 
         <!-- Columna Derecha: Título, Métricas 2x2 en Cruz y Botones CTA -->
-        <div class="exp-content-col" data-aos="fade-left" data-aos-duration="800">
-          <div class="exp-tagline">
-            EXPERIENCIA PROFESIONAL
+        <div class="exp-content-col">
+          <div class="exp-tagline eyebrow eyebrow--light" data-anim="eyebrow">
+            <span class="section-index">03</span> Experiencia profesional
           </div>
           <h2 class="exp-title">Experiencia al servicio de cada caso</h2>
-          <p class="exp-subtitle">
+          <p class="exp-subtitle" data-anim="fade">
             Analizamos la situación, explicamos las alternativas disponibles y coordinamos el acompañamiento legal de acuerdo con las necesidades del caso.
           </p>
 
-          <div class="exp-stats-grid">
+          <div class="exp-stats-grid" data-anim="stagger">
             <!-- Métrica 1 -->
-            <div class="exp-stat-item" data-aos="zoom-in" data-aos-delay="50">
+            <div class="exp-stat-item">
               <div class="exp-stat-number"><span class="counter-num" data-target="12">12</span></div>
               <div class="exp-stat-label">Áreas de práctica</div>
             </div>
 
             <!-- Métrica 2 -->
-            <div class="exp-stat-item" data-aos="zoom-in" data-aos-delay="140">
+            <div class="exp-stat-item">
               <div class="exp-stat-number"><span class="counter-num" data-target="18">18</span>+</div>
               <div class="exp-stat-label">Años de experiencia de la directora</div>
             </div>
 
             <!-- Métrica 3 -->
-            <div class="exp-stat-item" data-aos="zoom-in" data-aos-delay="230">
+            <div class="exp-stat-item">
               <div class="exp-stat-number"><span class="counter-num" data-target="25">25</span>+</div>
               <div class="exp-stat-label">Años de experiencia de Walter Llerena Peña</div>
             </div>
 
             <!-- Métrica 4 -->
-            <div class="exp-stat-item" data-aos="zoom-in" data-aos-delay="320">
-              <div class="exp-stat-number"><span class="counter-num" data-target="2">2</span></div>
-              <div class="exp-stat-label">Modalidades: presencial y virtual</div>
+            <div class="exp-stat-item">
+              <div class="exp-stat-number exp-stat-number--text">Presencial y virtual</div>
+              <div class="exp-stat-label">Modalidades de atención</div>
             </div>
           </div>
 
-          <div class="exp-cta-actions">
-            <a href="#contacto" class="btn-exp-primary">
+          <div class="exp-cta-actions" data-anim="fade">
+            <a href="#contacto" class="btn-exp-primary" data-magnetic>
               <span>Solicitar Asesoría</span>
               <i class="fas fa-arrow-right"></i>
             </a>
             <a href="https://wa.me/51958212450?text=Hola%20Dra.%20Zinthia%20Garay,%20deseo%20solicitar%20asesor%C3%ADa%20legal%20especializada" 
                target="_blank" 
                rel="noopener noreferrer" 
-               class="btn-exp-whatsapp">
+               class="btn-exp-whatsapp" data-magnetic>
               <i class="fab fa-whatsapp"></i>
               <span>Escribir por WhatsApp</span>
             </a>
@@ -793,25 +724,25 @@
   <section class="cajas-section section" id="financiero">
     <div class="container">
 
-      <div class="cajas-header" data-aos="fade-up">
-        <div class="cajas-tagline">
-          RESPALDO Y TRAYECTORIA EN CHINCHA
+      <div class="cajas-header">
+        <div class="cajas-tagline eyebrow" data-anim="eyebrow">
+          <span class="section-index">04</span> Respaldo y trayectoria en Chincha
         </div>
         <h3 class="cajas-title">Brindamos servicios</h3>
-        <p class="cajas-subtitle">
+        <p class="cajas-subtitle" data-anim="fade">
             Asesoría y patrocinio en recuperación de cartera, cobranza coactiva y ejecución de garantías para entidades financieras y organizaciones de la región. La experiencia del estudio también comprende asuntos municipales y de gestión pública.
         </p>
       </div>
 
-      <h4 class="clientes-cinta-titulo">Entidades y organizaciones atendidas</h4>
-      <div class="cajas-carousel-wrapper" data-aos="fade-up" data-aos-delay="100">
+      <h4 class="clientes-cinta-titulo" data-anim="fade">Entidades y organizaciones atendidas</h4>
+      <div class="cajas-carousel-wrapper" data-anim="fade">
         <div class="cajas-stage" id="cajasStage" role="region" aria-label="Entidades y organizaciones con experiencia de servicio">
           <div class="cajas-track" id="cajasTrack">
 
             <!-- Card 1: Caja Municipal de Ica (CENTRAL INICIAL) -->
             <div class="caja-card" data-index="0">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/caja-municipal-ica.png" alt="Logo de Caja Municipal Ica" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/caja-municipal-ica.webp" alt="Logo de Caja Municipal Ica" class="caja-card-img">
               </a>
 
             </div>
@@ -819,7 +750,7 @@
             <!-- Card 2: Caja Municipal Arequipa -->
             <div class="caja-card" data-index="1">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/card-caja-arequipa.png" alt="Caja Municipal Arequipa Sede Chincha" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/card-caja-arequipa.webp" alt="Caja Municipal Arequipa Sede Chincha" class="caja-card-img">
               </a>
 
             </div>
@@ -827,7 +758,7 @@
             <!-- Card 3: Caja Municipal de Sullana -->
             <div class="caja-card" data-index="2">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/caja-sullana-logo.png" alt="Caja Municipal de Sullana" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/caja-sullana-logo.webp" alt="Caja Municipal de Sullana" class="caja-card-img">
               </a>
 
             </div>
@@ -835,7 +766,7 @@
             <!-- Card 4: Caja Señor de Luren -->
             <div class="caja-card" data-index="3">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/caja-luren-logo.png" alt="Caja Señor de Luren" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/caja-luren-logo.webp" alt="Caja Señor de Luren" class="caja-card-img">
               </a>
 
             </div>
@@ -843,7 +774,7 @@
             <!-- Card 5: Financiera Efectiva -->
             <div class="caja-card" data-index="4">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/efe-financiera-efectiva.png" alt="Financiera Efectiva" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/efe-financiera-efectiva.webp" alt="Financiera Efectiva" class="caja-card-img">
               </a>
 
             </div>
@@ -851,7 +782,7 @@
             <!-- Card 6: Elektra del Perú -->
             <div class="caja-card" data-index="5">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/elektra-logo.png" alt="Elektra del Perú" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/elektra-logo.webp" alt="Elektra del Perú" class="caja-card-img">
               </a>
 
             </div>
@@ -859,7 +790,7 @@
             <!-- Card 7: Banco Agropecuario (Agrobanco) -->
             <div class="caja-card" data-index="6">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/agrobanco-logo.png" alt="Banco Agropecuario Agrobanco" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/agrobanco-logo.webp" alt="Banco Agropecuario Agrobanco" class="caja-card-img">
               </a>
 
             </div>
@@ -867,7 +798,7 @@
             <!-- Card 8: Inversiones Kaliptra -->
             <div class="caja-card" data-index="7">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/inversiones-kaliptra.png" alt="Inversiones Kaliptra" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/inversiones-kaliptra.webp" alt="Inversiones Kaliptra" class="caja-card-img">
               </a>
 
             </div>
@@ -875,7 +806,7 @@
             <!-- Card 9: Municipalidades Provinciales y Distritales -->
             <div class="caja-card" data-index="8">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar asesoría para municipalidades">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/municipalidad-distrital.jpg" alt="Edificio de una municipalidad distrital" class="caja-card-img municipalidad-card-img">
+                <picture><source srcset="assets/img/cajas/municipalidad-distrital.webp" type="image/webp"><img width="768" height="886" loading="lazy" decoding="async" src="assets/img/cajas/municipalidad-distrital.jpg" alt="Edificio de una municipalidad distrital" class="caja-card-img municipalidad-card-img"></picture>
               </a>
 
             </div>
@@ -883,7 +814,7 @@
             <!-- Card 10: Juntas de Usuarios y Comunidades Campesinas -->
             <div class="caja-card" data-index="9">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/card-juntas-comunidades.svg" alt="Juntas de Usuarios y Comunidades Campesinas" class="caja-card-img">
+                <img width="400" height="240" loading="lazy" decoding="async" src="assets/img/cajas/card-juntas-comunidades.svg" alt="Juntas de Usuarios y Comunidades Campesinas" class="caja-card-img">
               </a>
 
             </div>
@@ -891,7 +822,7 @@
             <!-- Card 11: Caja Huancayo -->
             <div class="caja-card" data-index="10">
               <a href="#contacto" class="caja-card-image-box" aria-label="Consultar servicio financiero">
-                <img loading="lazy" decoding="async" src="assets/img/cajas/caja-huancayo-logo.png" alt="Caja Huancayo, La Caja del Perú" class="caja-card-img">
+                <img width="640" height="400" loading="lazy" decoding="async" src="assets/img/cajas/norm/caja-huancayo-logo.webp" alt="Caja Huancayo, La Caja del Perú" class="caja-card-img">
               </a>
 
             </div>
@@ -908,7 +839,7 @@
     <div class="cta-asesoria-container">
 
       <!-- Visual: Silueta con teléfono y curva orgánica estilo Ugaz -->
-      <div class="cta-asesoria-visual" data-aos="fade-right">
+      <div class="cta-asesoria-visual" data-anim="mask">
         <svg class="cta-asesoria-curve-svg" viewBox="0 0 460 340" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
           <defs>
             <linearGradient id="ctaNavyGrad" x1="0%" y1="0%" x2="100%" y2="80%">
@@ -928,13 +859,13 @@
           <!-- Diagonal inferior (ala de remate idéntica a Ugaz) -->
           <path d="M -30,340 L 85,340 L 155,245 L 45,245 L -30,340 Z" fill="url(#ctaNavyGrad)" opacity="0.92" />
         </svg>
-        <img loading="lazy" decoding="async" src="assets/img/cta-consultor-phone-jn2.webp" alt="Asesor de J&N mostrando la asesoría legal por celular" class="cta-asesoria-img">
+        <img width="649" height="700" loading="lazy" decoding="async" src="assets/img/cta-consultor-phone-jn2.webp" alt="Asesor de J&N mostrando la asesoría legal por celular" class="cta-asesoria-img">
       </div>
 
       <!-- Contenido: Título y Botón idénticos a la referencia -->
-      <div class="cta-asesoria-content" data-aos="fade-left">
-        <h3 class="cta-asesoria-title">¿Necesitas orientación legal? Cuéntanos tu situación</h3>
-        <a href="#contacto" class="cta-asesoria-btn">
+      <div class="cta-asesoria-content">
+        <h3 class="cta-asesoria-title" data-anim="scrub-words">¿Necesitas orientación legal? Cuéntanos tu situación</h3>
+        <a href="#contacto" class="cta-asesoria-btn" data-anim="fade" data-magnetic>
           <span>Solicitar asesoría</span>
           <i class="fas fa-arrow-right"></i>
         </a>
@@ -945,37 +876,48 @@
 
   <!-- ==================== NOTICIAS ==================== -->
 
-  <!-- Datos de noticias como JS (funciona también en file:// , sin CORS) -->
-  <script src="assets/data/noticias.js"></script>
-  <script src="assets/data/noticias-medios.js"></script>
+  <!-- Datos de noticias como JS (funciona también en file:// , sin CORS). defer: no bloquean el pintado. -->
+  <script defer src="assets/data/noticias.js"></script>
+  <script defer src="assets/data/noticias-medios.js"></script>
 
-  <script src="assets/js/noticias.js"></script>
+  <script defer src="assets/js/noticias.js"></script>
 
   <!-- ==================== ORIENTACIÓN PARA NUEVOS CLIENTES ==================== -->
   <section class="process-section" id="proceso">
     <div class="container">
-      <h2 class="section-title" data-aos="fade-up">¿Cómo podemos ayudarte?</h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="80">Así puedes iniciar una consulta y conocer las alternativas para tu situación.</p>
-      <div class="process-grid">
-        <article class="process-card" data-aos="fade-up" data-aos-delay="100"><span class="process-card-number">1</span><h3>Cuéntanos lo esencial</h3><p>Escríbenos por WhatsApp o usa el formulario. Indica el tema, la ciudad y si tienes una fecha o notificación próxima. No envíes documentos sensibles en el primer mensaje.</p></article>
-        <article class="process-card" data-aos="fade-up" data-aos-delay="180"><span class="process-card-number">2</span><h3>Revisamos tu consulta</h3><p>El equipo identifica el área relacionada y, si hace falta, te indicará qué información adicional puede ayudar a entender el caso.</p></article>
-        <article class="process-card" data-aos="fade-up" data-aos-delay="260"><span class="process-card-number">3</span><h3>Coordinamos cómo avanzar</h3><p>Te explicamos las opciones de atención, el alcance del servicio y las condiciones antes de iniciar el patrocinio.</p></article>
+      <div class="section-head">
+        <div class="section-head-main">
+          <span class="eyebrow" data-anim="eyebrow"><span class="section-index">05</span> Cómo trabajamos</span>
+          <h2 class="section-title">¿Cómo podemos ayudarte?</h2>
+        </div>
+        <p class="section-subtitle" data-anim="fade">Así puedes iniciar una consulta y conocer las alternativas para tu situación.</p>
       </div>
-      <p class="process-note">Atendemos de forma presencial en Calle Grau 246A, Chincha Alta, y también coordinamos consultas virtuales. Enviar un mensaje no inicia por sí solo una relación abogado-cliente.</p>
-      <div style="text-align:center;margin-top:24px"><a class="btn btn-dark" href="#contacto">Cuéntanos tu caso <i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
+      <div class="process-grid">
+        <span class="process-line" aria-hidden="true"><span class="process-line-fill"></span></span>
+        <article class="process-card" data-anim="fade"><span class="process-card-number">01</span><h3>Cuéntanos lo esencial</h3><p>Escríbenos por WhatsApp o usa el formulario. Indica el tema, la ciudad y si tienes una fecha o notificación próxima. No envíes documentos sensibles en el primer mensaje.</p></article>
+        <article class="process-card" data-anim="fade"><span class="process-card-number">02</span><h3>Revisamos tu consulta</h3><p>El equipo identifica el área relacionada y, si hace falta, te indicará qué información adicional puede ayudar a entender el caso.</p></article>
+        <article class="process-card" data-anim="fade"><span class="process-card-number">03</span><h3>Coordinamos cómo avanzar</h3><p>Te explicamos las opciones de atención, el alcance del servicio y las condiciones antes de iniciar el patrocinio.</p></article>
+      </div>
+      <p class="process-note" data-anim="fade">Atendemos de forma presencial en Calle Grau 246A, Chincha Alta, y también coordinamos consultas virtuales. Enviar un mensaje no inicia por sí solo una relación abogado-cliente.</p>
+      <div class="process-cta" data-anim="fade"><a class="btn-pill btn-pill--dark" href="#contacto" data-magnetic><span>Cuéntanos tu caso</span><i class="fas fa-arrow-right" aria-hidden="true"></i></a></div>
     </div>
   </section>
 
   <section class="faq-section" id="preguntas">
     <div class="container">
-      <h2 class="section-title" data-aos="fade-up">Preguntas frecuentes</h2>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="80">Información práctica antes de comunicarte con el estudio.</p>
-      <div class="faq-list">
-        <details><summary>¿Dónde atiende el estudio?</summary><p>La atención presencial es en Calle Grau 246A, Chincha Alta, Ica. También puedes consultar por atención virtual; escríbenos para coordinar la modalidad disponible.</p></details>
-        <details><summary>¿Qué debo contar en el primer mensaje?</summary><p>Resume qué ocurrió, en qué ciudad y cuáles son las fechas importantes. Si recibiste una notificación o tienes una audiencia próxima, indícalo. No envíes números de documento, datos bancarios ni archivos confidenciales antes de coordinar con el estudio.</p></details>
-        <details><summary>¿Atienden consultas urgentes?</summary><p>Al contactarnos, menciona cualquier plazo, citación o audiencia cercana. El equipo revisará la disponibilidad y te indicará cómo coordinar. El mensaje no garantiza atención inmediata.</p></details>
-        <details><summary>¿Cómo coordino una cita y conozco el costo?</summary><p>Escríbenos al +51 958 212 450 o usa el formulario. Antes de iniciar el servicio, podrás coordinar la modalidad, conocer su alcance y consultar las condiciones y honorarios aplicables.</p></details>
-        <details><summary>¿La información de esta página es asesoría para mi caso?</summary><p>No. El contenido del sitio es informativo y no reemplaza la revisión de las circunstancias concretas de un caso por un profesional.</p></details>
+      <div class="section-head">
+        <div class="section-head-main">
+          <span class="eyebrow" data-anim="eyebrow"><span class="section-index">06</span> Dudas comunes</span>
+          <h2 class="section-title">Preguntas frecuentes</h2>
+        </div>
+        <p class="section-subtitle" data-anim="fade">Información práctica antes de comunicarte con el estudio.</p>
+      </div>
+      <div class="faq-list" data-anim="stagger">
+        <details><summary>¿Dónde atiende el estudio?</summary><div class="faq-answer"><p>La atención presencial es en Calle Grau 246A, Chincha Alta, Ica. También puedes consultar por atención virtual; escríbenos para coordinar la modalidad disponible.</p></div></details>
+        <details><summary>¿Qué debo contar en el primer mensaje?</summary><div class="faq-answer"><p>Resume qué ocurrió, en qué ciudad y cuáles son las fechas importantes. Si recibiste una notificación o tienes una audiencia próxima, indícalo. No envíes números de documento, datos bancarios ni archivos confidenciales antes de coordinar con el estudio.</p></div></details>
+        <details><summary>¿Atienden consultas urgentes?</summary><div class="faq-answer"><p>Al contactarnos, menciona cualquier plazo, citación o audiencia cercana. El equipo revisará la disponibilidad y te indicará cómo coordinar. El mensaje no garantiza atención inmediata.</p></div></details>
+        <details><summary>¿Cómo coordino una cita y conozco el costo?</summary><div class="faq-answer"><p>Escríbenos al +51 958 212 450 o usa el formulario. Antes de iniciar el servicio, podrás coordinar la modalidad, conocer su alcance y consultar las condiciones y honorarios aplicables.</p></div></details>
+        <details><summary>¿La información de esta página es asesoría para mi caso?</summary><div class="faq-answer"><p>No. El contenido del sitio es informativo y no reemplaza la revisión de las circunstancias concretas de un caso por un profesional.</p></div></details>
       </div>
     </div>
   </section>
@@ -983,11 +925,16 @@
   <!-- ==================== CONTACTO ==================== -->
   <section class="contacto section" id="contacto">
     <div class="container">
-      <h3 class="section-title" data-aos="fade-up">Contacta con el estudio</h3>
-      <p class="section-subtitle" data-aos="fade-up" data-aos-delay="80">Cuéntanos brevemente qué necesitas y te indicaremos cómo coordinar una consulta.</p>
+      <div class="section-head">
+        <div class="section-head-main">
+          <span class="eyebrow" data-anim="eyebrow"><span class="section-index">07</span> Contacto</span>
+          <h2 class="section-title">Contacta con el estudio</h2>
+        </div>
+        <p class="section-subtitle" data-anim="fade">Cuéntanos brevemente qué necesitas y te indicaremos cómo coordinar una consulta.</p>
+      </div>
 
       <div class="contacto-grid">
-        <div class="contacto-info" data-aos="fade-right">
+        <div class="contacto-info" data-anim="stagger">
           <h3>Información de contacto</h3>
 
           <div class="contacto-item">
@@ -1002,7 +949,7 @@
             <i class="fas fa-phone-alt"></i>
             <div class="contacto-item-text">
               <h4>Teléfono y WhatsApp</h4>
-              <p><a href="tel:+51958212450" style="color:inherit; font-weight:600;">+51 958 212 450</a></p>
+              <p><a href="tel:+51958212450" class="contacto-link contacto-link--strong">+51 958 212 450</a></p>
             </div>
           </div>
 
@@ -1010,7 +957,7 @@
             <i class="fas fa-envelope"></i>
             <div class="contacto-item-text">
               <h4>Correo electrónico</h4>
-              <p><a href="mailto:asesorialegal.jyn@gmail.com" style="color:inherit;">asesorialegal.jyn@gmail.com</a></p>
+              <p><a href="mailto:asesorialegal.jyn@gmail.com" class="contacto-link">asesorialegal.jyn@gmail.com</a></p>
             </div>
           </div>
 
@@ -1022,18 +969,18 @@
             </div>
           </div>
 
-          <div class="footer-social" style="margin-top: 24px;">
+          <div class="footer-social contacto-social">
             <a href="https://wa.me/51958212450" target="_blank" rel="noopener noreferrer" aria-label="Escribir por WhatsApp"><i class="fab fa-whatsapp"></i></a>
             <a href="mailto:asesorialegal.jyn@gmail.com" aria-label="Enviar correo electrónico"><i class="fas fa-envelope"></i></a>
           </div>
 
           <!-- Foto del despacho de la Dra. -->
-          <div class="contacto-photo" style="margin-top: 26px; border-radius: 10px; overflow: hidden; border: 2px solid #CBD5E1; box-shadow: 0 8px 24px rgba(10,30,61,0.09);">
-            <img loading="lazy" decoding="async" src="assets/img/area-penal-despacho.jpg" alt="Dra. Zinthia Garay en su despacho" style="width: 100%; height: 320px; object-fit: cover; object-position: center 20%; display: block;">
+          <div class="contacto-photo" data-anim="mask">
+            <img loading="lazy" decoding="async" src="assets/img/area-penal-despacho.webp" alt="Dra. Zinthia Garay en su despacho" width="820" height="983">
           </div>
         </div>
 
-        <div class="contacto-form" data-aos="fade-left">
+        <div class="contacto-form" data-anim="fade">
           <form id="contactForm">
             <div class="contact-first-contact" id="contactFormGuidance">
               <strong>Para orientarnos mejor</strong>
@@ -1077,7 +1024,11 @@
               <label for="mensaje">Mensaje</label>
               <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente tu situación, ciudad y fechas importantes. No incluyas datos sensibles." aria-describedby="contactFormGuidance" required></textarea>
             </div>
-            <button type="submit" class="btn btn-dark" style="width:100%;">Continuar en WhatsApp <i class="fab fa-whatsapp" aria-hidden="true"></i></button>
+            <button type="submit" class="btn-submit">
+              <span class="btn-submit-label">Continuar en WhatsApp <i class="fab fa-whatsapp" aria-hidden="true"></i></span>
+              <span class="btn-submit-loading" aria-hidden="true"><span class="btn-spinner"></span> Abriendo WhatsApp…</span>
+            </button>
+            <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
           </form>
         </div>
       </div>
@@ -1088,7 +1039,7 @@
   <footer class="map-footer-section" id="ubicacion">
     <!-- Mapa estático de alta resolución centrado en Calle Grau 246A -->
     <a href="https://maps.app.goo.gl/PxPZ3DqBa4GfCc3u7" target="_blank" rel="noopener noreferrer" class="map-link-wrapper" aria-label="Abrir Calle Grau 246A en Google Maps">
-      <img loading="lazy" decoding="async" src="assets/img/mapa-chincha-alta.webp" alt="Mapa de ubicación del Estudio J&N, Calle Grau 246A, Chincha Alta" class="map-background-img">
+      <img loading="lazy" decoding="async" src="assets/img/mapa-chincha-alta.webp" alt="Mapa de ubicación del Estudio J&N, Calle Grau 246A, Chincha Alta" class="map-background-img" width="1536" height="512">
     </a>
 
     <!-- Degradado azul oscuro sobre el mapa (Ugaz Zegarra aesthetic) -->
@@ -1096,11 +1047,11 @@
 
     <!-- Contenedor frontal con Logo, Dirección, Teléfonos y Redes Sociales -->
     <div class="map-content-container">
-      <div class="map-content-inner" data-aos="fade-right">
+      <div class="map-content-inner" data-anim="stagger">
 
         <!-- Logo institucional en blanco -->
         <div class="map-brand-logo">
-          <img loading="lazy" decoding="async" src="assets/img/logo-placa-clean.webp" alt="J&N Asesoría Legal y Consultoría">
+          <img loading="lazy" decoding="async" src="assets/img/logo-placa-clean.webp" alt="J&N Asesoría Legal y Consultoría" width="920" height="300">
           <div class="map-brand-text">
             <span class="map-brand-title">J&N ASESORÍA LEGAL</span>
             <span class="map-brand-sub">Y CONSULTORÍA • DRA. ZINTHIA GARAY</span>
@@ -1154,6 +1105,9 @@
       </div>
     </div>
 
+    <!-- Firma grande del estudio: aparece al llegar al final de la página -->
+    <div class="footer-signature" aria-hidden="true"><span>J&amp;N</span></div>
+
     <!-- Barra inferior con derechos y botón directo para abrir la ruta en Google Maps -->
     <div class="map-footer-bottom">
       <div class="map-footer-bottom-inner">
@@ -1164,7 +1118,7 @@
           <a href="https://maps.app.goo.gl/PxPZ3DqBa4GfCc3u7" target="_blank" rel="noopener noreferrer">
             <i class="fas fa-map-marked-alt"></i>
             <span>Cómo llegar / Abrir en Google Maps</span>
-            <i class="fas fa-external-link-alt" style="font-size:0.75rem;"></i>
+            <i class="fas fa-external-link-alt icon-xs" aria-hidden="true"></i>
           </a>
         </div>
       </div>
@@ -1180,19 +1134,22 @@
   <a href="https://wa.me/51958212450" class="whatsapp-float" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
     <i class="fab fa-whatsapp"></i>
   </a>
-  <button type="button" id="autoScrollToggle" class="auto-scroll-toggle" aria-pressed="false" hidden>
-    <span aria-hidden="true">Ⅱ</span><span class="auto-scroll-label">Pausar desplazamiento</span>
-  </button>
 
   <!-- ==================== SCRIPTS ==================== -->
-  <script src="assets/js/reveal.js"></script>
-  <script src="assets/data/areas.js"></script>
-  <script src="assets/data/equipo.js"></script>
-  <script src="assets/js/site.js?v=20261023-stops"></script>
+  <!-- Todos usan defer: se ejecutan en este orden cuando el HTML ya está listo.
+       Los scripts propios van primero para que el sitio (menú, filtros, formulario) nunca
+       dependa del CDN. animations.js define window.AOS y window.JNMotion antes de site.js
+       y arranca GSAP en DOMContentLoaded, cuando las librerías del CDN ya cargaron. -->
+  <script defer src="assets/js/animations.js?v=20261023-justified"></script>
+  <script defer src="assets/data/areas.js"></script>
+  <script defer src="assets/data/equipo.js"></script>
+  <script defer src="assets/js/site.js?v=20261023-modern"></script>
 
-  <!-- ============================================================
-       MOVIMIENTO DINÁMICO: progreso, parallax, títulos y tilt 3D
-       ============================================================ -->
-  <script src="assets/js/motion.js"></script>
+  <!-- Librerías de animación (CDN). Si no cargan, el sitio funciona igual y sin animaciones. -->
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/gsap.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/ScrollTrigger.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/SplitText.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/gsap@3.15.0/dist/Flip.min.js"></script>
+  <script defer src="https://cdn.jsdelivr.net/npm/lenis@1.3.27/dist/lenis.min.js"></script>
 </body>
 </html>

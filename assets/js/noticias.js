@@ -12,8 +12,8 @@
       // Áreas y Estudio usan fotos de noticias propias (NO las de la sección de áreas)
       const IMG_POR_TAG = {
         'Equipo': 'assets/img/boardroom-executive.webp',
-        'Áreas': 'assets/img/noticias/noticia-martillo.jpg',
-        'Estudio': 'assets/img/noticias/noticia-firma.jpg'
+        'Áreas': 'assets/img/noticias/noticia-martillo.webp',
+        'Estudio': 'assets/img/noticias/noticia-firma.webp'
       };
 
       function renderNoticias() {
@@ -22,8 +22,8 @@
         if (!grid) return;
         NOTICIAS.sort((a, b) => String(b.fecha).localeCompare(String(a.fecha)));
         grid.innerHTML = '';
-        if (!NOTICIAS.length) { vacio.style.display = 'block'; return; }
-        vacio.style.display = 'none';
+        if (!NOTICIAS.length) { vacio.hidden = false; return; }
+        vacio.hidden = true;
         NOTICIAS.forEach((n, i) => {
           const card = document.createElement('article');
           card.className = 'noticia-card';
@@ -48,25 +48,33 @@
         document.getElementById('noticiaModal')?.remove();
         const ov = document.createElement('div');
         ov.id = 'noticiaModal';
-        ov.style.cssText = 'position:fixed; inset:0; z-index:3000; background:rgba(10,30,61,0.55); display:flex; align-items:center; justify-content:center; padding:20px; overflow-y:auto;';
+        ov.className = 'noticia-modal-overlay';
         const card = document.createElement('div');
-        card.style.cssText = 'background:#FFFFFF; border-radius:14px; max-width:640px; width:100%; max-height:82vh; overflow-y:auto; box-shadow:0 30px 70px rgba(0,0,0,0.35);';
+        card.className = 'noticia-modal-card';
+        card.setAttribute('role', 'dialog');
+        card.setAttribute('aria-modal', 'true');
+        card.setAttribute('data-lenis-prevent', '');
         card.innerHTML =
-          '<div style="display:flex; justify-content:space-between; align-items:center; background:var(--azul-oscuro); padding:16px 22px; border-radius:14px 14px 0 0;">' +
-            '<span style="color:#FFFFFF; font-family:var(--font-heading); font-weight:700; font-size:0.95rem;"><i class="far fa-newspaper" style="margin-right:8px;"></i>Noticia</span>' +
-            '<button id="noticiaModalCerrar" aria-label="Cerrar" style="background:rgba(255,255,255,0.14); border:none; cursor:pointer; color:#FFFFFF; font-size:1.05rem; padding:6px 12px; border-radius:8px;"><i class="fas fa-times"></i></button>' +
+          '<div class="noticia-modal-head">' +
+            '<span class="noticia-modal-kicker"><i class="far fa-newspaper" aria-hidden="true"></i>Noticia</span>' +
+            '<button id="noticiaModalCerrar" class="noticia-modal-close" aria-label="Cerrar"><i class="fas fa-times" aria-hidden="true"></i></button>' +
           '</div>' +
-          '<div style="padding:28px 30px;">' +
-            '<img loading="lazy" decoding="async" src="' + (n.imagen || IMG_POR_TAG[String(n.tag || '')] || 'assets/img/areas-hero-banner.webp') + '" alt="Imagen referencial" style="width:100%; height:200px; object-fit:cover; border-radius:10px; margin-bottom:18px;">' +
+          '<div class="noticia-modal-body">' +
+            '<img loading="lazy" decoding="async" class="noticia-modal-img" src="' + (n.imagen || IMG_POR_TAG[String(n.tag || '')] || 'assets/img/areas-hero-banner.webp') + '" alt="Imagen referencial">' +
             '<span class="noticia-tag">' + (n.tag || 'Noticia') + '</span>' +
-            '<h4 style="font-family:var(--font-heading); font-size:1.3rem; color:var(--azul-oscuro); margin:16px 0 6px; line-height:1.35;">' + n.titulo + '</h4>' +
-            '<p style="font-size:0.8rem; color:#64748B; margin-bottom:16px;"><i class="far fa-calendar" style="margin-right:6px;"></i>' + formatearFecha(n.fecha) + '</p>' +
-            '<p style="font-size:0.95rem; color:#334155; line-height:1.75;">' + n.texto + '</p>' +
+            '<h4 class="noticia-modal-title">' + n.titulo + '</h4>' +
+            '<p class="noticia-modal-date"><i class="far fa-calendar" aria-hidden="true"></i>' + formatearFecha(n.fecha) + '</p>' +
+            '<p class="noticia-modal-text">' + n.texto + '</p>' +
           '</div>';
         ov.appendChild(card);
         document.body.appendChild(ov);
         document.body.style.overflow = 'hidden';
-        function cerrar() { ov.remove(); document.body.style.overflow = ''; }
+        if (window.JNMotion && window.JNMotion.lockScroll) window.JNMotion.lockScroll(true);
+        function cerrar() {
+          ov.remove();
+          document.body.style.overflow = '';
+          if (window.JNMotion && window.JNMotion.lockScroll) window.JNMotion.lockScroll(false);
+        }
         document.getElementById('noticiaModalCerrar')?.addEventListener('click', cerrar);
         ov.addEventListener('click', (e) => { if (e.target === ov) cerrar(); });
         document.addEventListener('keydown', function esc(e) { if (e.key === 'Escape') { cerrar(); document.removeEventListener('keydown', esc); } });
@@ -104,14 +112,14 @@
       // Imágenes referenciales PROPIAS de noticias (fotos libres de Wikimedia Commons / Openverse)
       // NO reutilizan las fotos de áreas. Créditos: assets/img/noticias/CREDITS.txt
       const IMG_TITULARES = [
-        'assets/img/noticias/noticia-palacio-justicia.jpg',
-        'assets/img/noticias/noticia-martillo.jpg',
-        'assets/img/noticias/noticia-balanza.jpg',
-        'assets/img/noticias/noticia-libros.jpg',
+        'assets/img/noticias/noticia-palacio-justicia.webp',
+        'assets/img/noticias/noticia-martillo.webp',
+        'assets/img/noticias/noticia-balanza.webp',
+        'assets/img/noticias/noticia-libros.webp',
         'assets/img/noticias/noticia-biblioteca.webp',
         'assets/img/noticias/noticia-corte.webp',
-        'assets/img/noticias/noticia-constitucion.jpg',
-        'assets/img/noticias/noticia-firma.jpg'
+        'assets/img/noticias/noticia-constitucion.webp',
+        'assets/img/noticias/noticia-firma.webp'
       ];
 
       function renderTitulares(items) {
@@ -178,7 +186,7 @@
 
         const listaFb = document.getElementById('noticiasMediaList');
         if (!listaFb) return;
-        listaFb.innerHTML = '<li class="media-cargando"><i class="fas fa-rss" style="margin-right:8px; color:#94A3B8;"></i>Titulares legales en camino — se activan al publicar el sitio en internet.</li>';
+        listaFb.innerHTML = '<li class="media-cargando"><i class="fas fa-rss media-cargando-icon" aria-hidden="true"></i>Titulares legales en camino — se activan al publicar el sitio en internet.</li>';
       }
       // ============ PÁGINA SEPARADA "NOTICIAS" (mini-SPA, mismo sistema que Equipo) ============
       function renderNoticiasPage() {
@@ -187,7 +195,7 @@
         container.innerHTML = `
           <!-- Hero Banner: Noticias -->
           <section class="area-page-hero">
-            <img loading="lazy" decoding="async" src="assets/img/area-penal-despacho.jpg" alt="Noticias J&N" class="area-page-hero-bg">
+            <img loading="lazy" decoding="async" src="assets/img/area-penal-despacho.webp" alt="Noticias J&N" class="area-page-hero-bg">
             <div class="area-page-hero-overlay"></div>
             <div class="container area-page-hero-content">
               <span class="equipo-hero-tag">ACTUALIDAD JURÍDICA</span>
@@ -212,7 +220,7 @@
               <p class="section-subtitle">Novedades del estudio y una selección de titulares de medios jurídicos.</p>
 
               <div class="noticias-grid" id="noticiasGrid"></div>
-              <p class="noticias-vacio" id="noticiasVacio" style="display:none;">Pronto publicaremos las primeras noticias del estudio.</p>
+              <p class="noticias-vacio" id="noticiasVacio" hidden>Pronto publicaremos las primeras noticias del estudio.</p>
 
               <div class="noticias-media">
                 <h4 class="noticias-media-title">
@@ -251,7 +259,7 @@
 
           renderNoticiasPage();
           initPaginaNoticias();
-          window.scrollTo(0, 0);
+          scrollToTarget(document.body, true);
 
           if (pushHistory) {
             history.pushState({ view: 'noticias' }, '', '#noticias');
@@ -267,7 +275,7 @@
       const GRUPOS_ASESORIAS = [
         {
           titulo: 'Asesoría Legal',
-          img: 'assets/img/zinthia-recepcion-placa.jpg',
+          img: 'assets/img/zinthia-recepcion-placa.webp',
           imgAlt: 'Dra. Zinthia Garay frente al rótulo de J&N Asesoría Legal y Consultoría',
           esFoto: true,
           intro: 'Orientación legal para personas, familias y emprendedores. Revisamos tu consulta y coordinamos la atención presencial en Chincha Alta o virtual, según disponibilidad.',
@@ -351,7 +359,7 @@
         },
         {
           titulo: 'Asesoría Especializada',
-          img: 'assets/img/areas/area-corporativo.jpg',
+          img: 'assets/img/areas/area-corporativo.webp',
           imgAlt: 'Edificios corporativos: respaldo para asesoría especializada',
           esFoto: true,
           intro: 'Servicios legales y de consultoría para empresas, entidades públicas y organizaciones. La disponibilidad y el alcance se coordinan de acuerdo con cada requerimiento.',
@@ -409,16 +417,16 @@
                   <img loading="lazy" decoding="async" src="${g.img}" alt="${g.imgAlt}" class="${g.esFoto ? 'foto' : ''}">
                 </div>
                 <div class="ases-intro-text">
-                  <h3 class="section-title" style="margin-bottom:12px;">${g.titulo}</h3>
-                  <p class="section-subtitle" style="margin-bottom:0;">${g.intro}</p>
+                  <h3 class="section-title ases-group-title">${g.titulo}</h3>
+                  <p class="section-subtitle ases-group-intro">${g.intro}</p>
                 </div>
               </div>
 
-              <div class="area-page-subcards-grid" style="max-width: 980px; margin: 0 auto 44px;">
+              <div class="area-page-subcards-grid ases-subcards-grid">
                 ${g.items.map(it => `
                   <div class="area-subcard" data-aos="fade-up">
-                    <h4 class="area-subcard-title"><i class="fas ${it.icono}" style="color:var(--azul-oscuro); margin-right:8px;"></i>${it.titulo}</h4>
-                    <p class="area-subcard-desc" style="font-style:italic;">${it.desc}</p>
+                    <h4 class="area-subcard-title"><i class="fas ${it.icono} ases-item-icon" aria-hidden="true"></i>${it.titulo}</h4>
+                    <p class="area-subcard-desc ases-item-desc">${it.desc}</p>
                     <ul class="ases-bullets">
                       ${it.bullets.map(b => `<li>${b}</li>`).join('')}
                     </ul>
@@ -454,7 +462,7 @@
             </div>
           </div>
 
-          <section class="section" id="asesoriasRoot" style="padding-top: 55px;">
+          <section class="section ases-root" id="asesoriasRoot">
             <div class="container">
               ${gruposHtml}
 
@@ -475,11 +483,11 @@
                   <h4>Coordina una consulta</h4>
                   <p>Escríbenos para consultar disponibilidad o visitar la oficina en Calle Grau 246A, Chincha Alta.</p>
                 </div>
-                <a class="ases-wa-btn" href="https://wa.me/51958212450" target="_blank" rel="noopener"><i class="fab fa-whatsapp" style="font-size:1.3rem;"></i> WhatsApp +51 958 212 450</a>
+                <a class="ases-wa-btn" href="https://wa.me/51958212450" target="_blank" rel="noopener"><i class="fab fa-whatsapp icon-lg" aria-hidden="true"></i> WhatsApp +51 958 212 450</a>
               </div>
 
-              <div style="text-align:center; margin-top:30px;" data-aos="fade-up">
-                <button class="btn btn-dark" onclick="goContactoDesdeAsesorias()" style="display:inline-flex; align-items:center; gap:10px; cursor:pointer;">Ir al formulario de contacto <i class="fas fa-arrow-right"></i></button>
+              <div class="ases-cta-wrap" data-aos="fade-up">
+                <button class="btn-pill btn-pill--dark" onclick="goContactoDesdeAsesorias()" data-magnetic><span>Ir al formulario de contacto</span><i class="fas fa-arrow-right" aria-hidden="true"></i></button>
               </div>
             </div>
           </section>`;
@@ -491,11 +499,7 @@
         [400, 1000, 1800].forEach(ms => setTimeout(() => {
           const m = document.getElementById('mainSiteContent');
           if (!m || m.style.display === 'none') return;
-          const t = document.querySelector('#contacto');
-          if (!t) return;
-          const h = document.getElementById('header');
-          const y = t.getBoundingClientRect().top + window.pageYOffset - (h ? h.offsetHeight : 70);
-          window.scrollTo({ top: y, behavior: 'instant' }); /* instant: el smooth del sitio anula scrolls largos */
+          scrollToTarget('#contacto', true); /* instant: un scroll suave largo se ve lento tras la cortina */
         }, ms));
       };
 
@@ -517,7 +521,7 @@
           areaView.style.display = 'block';
 
           renderAsesoriasPage();
-          window.scrollTo(0, 0);
+          scrollToTarget(document.body, true);
 
           if (pushHistory) {
             history.pushState({ view: 'asesorias' }, '', '#asesorias');
