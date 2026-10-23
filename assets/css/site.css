@@ -162,26 +162,32 @@
       padding: 10px 0;
     }
     .header .container {
-      display: flex;
-      justify-content: space-between;
+      max-width: none;
+      padding: 0 34px;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
       align-items: center;
     }
     .header-logo {
+      grid-column: 1;
+      justify-self: start;
       display: flex;
       align-items: center;
       flex-shrink: 0; /* evita que el nav aplaste el logo */
     }
     .header-logo img {
-      height: 76px;
+      height: 112px;
       width: auto;
       object-fit: contain;
       transition: height 0.3s ease;
     }
-    .header.scrolled .header-logo img { height: 60px; }
+    .header.scrolled .header-logo img { height: 88px; }
 
     .nav-links {
+      grid-column: 2;
+      justify-self: center;
       display: flex;
-      gap: 28px;
+      gap: 22px;
       align-items: center;
     }
     .nav-links a {
@@ -230,6 +236,8 @@
 
     /* Hamburger (mobile) */
     .hamburger {
+      grid-column: 3;
+      justify-self: end;
       display: none;
       flex-direction: column;
       gap: 5px;
@@ -510,10 +518,6 @@
       margin-bottom: 12px;
       display: inline-block;
     }
-    .about-tagline-ugaz span {
-      color: var(--plomo-claro);
-      margin: 0 4px;
-    }
     .about-title-ugaz {
       font-family: var(--font-heading);
       font-size: 2.8rem;
@@ -529,60 +533,26 @@
       margin-bottom: 30px;
     }
     .about-mision-vision {
-      display: block;
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 28px;
       margin-bottom: 36px;
     }
-    .about-values-viewport { overflow: hidden; border-radius: 12px; }
-    .about-values-track { display: flex; transition: transform 650ms cubic-bezier(.2,.75,.25,1); will-change: transform; }
     .mv-item {
-      box-sizing: border-box;
-      flex: 0 0 100%;
-      min-height: 150px;
-      padding: 15px 18px;
-      border: 1px solid #E2E8F0;
-      border-left: 3px solid var(--plata);
-      border-radius: 12px;
-      background: linear-gradient(110deg, #F8FAFC, #FFFFFF);
+      min-width: 0;
     }
     .mv-item h4 {
-      display: flex;
-      align-items: center;
-      gap: 10px;
       font-family: var(--font-heading);
       font-size: 1.3rem;
       font-weight: 700;
       color: var(--azul-oscuro);
-      margin-bottom: 7px;
+      margin-bottom: 10px;
     }
-    .mv-item:nth-child(1) h4::before,
-    .mv-item:nth-child(2) h4::before {
-      display: inline-grid;
-      place-items: center;
-      width: 27px;
-      height: 27px;
-      flex: 0 0 27px;
-      border-radius: 50%;
-      background: var(--azul-oscuro);
-      color: #FFFFFF;
-      font: 700 0.7rem var(--font-body);
-    }
-    .mv-item:nth-child(1) h4::before { content: '01'; }
-    .mv-item:nth-child(2) h4::before { content: '02'; }
-    .mv-item p {
-      margin-left: 37px;
-    }
-    .about-values-controls { display: flex; align-items: center; justify-content: space-between; gap: 14px; margin-top: 12px; }
-    .about-values-arrow { display: grid; place-items: center; width: 34px; height: 34px; border: 1px solid #CBD5E1; border-radius: 50%; background: #FFFFFF; color: var(--azul-oscuro); font: 400 1.45rem/1 var(--font-body); cursor: pointer; transition: background .2s ease, color .2s ease, transform .2s ease; }
-    .about-values-arrow:hover { background: var(--azul-oscuro); color: #FFFFFF; transform: scale(1.06); }
-    .about-values-arrow:focus-visible, .about-values-dots button:focus-visible { outline: 3px solid #2563EB; outline-offset: 3px; }
-    .about-values-dots { display: flex; align-items: center; justify-content: center; gap: 8px; }
-    .about-values-dots button { width: 9px; height: 9px; padding: 0; border: 0; border-radius: 99px; background: #CBD5E1; cursor: pointer; transition: width .25s ease, background .25s ease; }
-    .about-values-dots button.is-active { width: 25px; background: var(--azul-oscuro); }
-    @media (prefers-reduced-motion: reduce) { .about-values-track, .about-values-arrow, .about-values-dots button { transition: none; } }
     .mv-item p {
       color: var(--plomo-medio);
       font-size: 0.88rem;
       line-height: 1.65;
+      margin: 0;
     }
     .btn-ugaz-staff {
       background: var(--azul-oscuro);
@@ -1963,31 +1933,32 @@
       position: relative;
       display: inline-block;
       line-height: 0;
+      transform: translateY(60px);
+    }
+
+    .exp-figure-wrapper::after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: 16%;
+      right: 16%;
+      bottom: 24px;
+      height: 22px;
+      border-radius: 50%;
+      background: radial-gradient(ellipse, rgba(0, 0, 0, 0.58) 0%, rgba(0, 0, 0, 0.24) 48%, transparent 76%);
+      filter: blur(8px);
+      pointer-events: none;
     }
 
     .exp-cutout-img {
-      max-height: 530px;
+      position: relative;
+      z-index: 1;
       width: auto;
+      height: 590px;
       max-width: 100%;
       object-fit: contain;
-      filter: drop-shadow(0 20px 35px rgba(0, 0, 0, 0.6));
+      filter: drop-shadow(0 14px 22px rgba(0, 0, 0, 0.52));
       display: block;
-    }
-
-    .exp-plaque-img {
-      position: absolute;
-      top: -75px;
-      left: 50%;
-      transform: translateX(-50%);
-      width: 210px;
-      height: auto;
-      opacity: 0.96;
-      filter: drop-shadow(0 8px 16px rgba(0, 0, 0, 0.45));
-      z-index: 2;
-      transition: transform 0.3s ease;
-    }
-    .exp-figure-wrapper:hover .exp-plaque-img {
-      transform: translateX(-50%) translateY(-3px);
     }
 
     /* Columna Contenido Derecha */
@@ -2008,9 +1979,6 @@
       gap: 6px;
     }
 
-    .exp-tagline span {
-      color: var(--plomo-claro);
-    }
 
     .exp-title {
       font-family: var(--font-heading);
@@ -2485,6 +2453,27 @@
       transform: scale(1.1);
       box-shadow: 0 6px 28px rgba(37,211,102,0.5);
     }
+    .auto-scroll-toggle {
+      position: fixed;
+      left: 24px;
+      bottom: 24px;
+      z-index: 1000;
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      padding: 12px 17px;
+      border: 1px solid rgba(255,255,255,.28);
+      border-radius: 999px;
+      background: var(--azul-oscuro);
+      color: #FFFFFF;
+      box-shadow: 0 6px 20px rgba(10,30,61,.25);
+      font: 700 .82rem var(--font-body);
+      cursor: pointer;
+    }
+    .auto-scroll-toggle:hover { background: var(--azul-medio); }
+    .auto-scroll-toggle:focus-visible { outline: 3px solid #2563EB; outline-offset: 3px; }
+    .auto-scroll-toggle[hidden] { display: none; }
+    .auto-scroll-toggle > span:first-child { font: 700 1rem/1 Arial, sans-serif; }
 
     /* ============ SECCIÓN CAJAS Y SECTOR FINANCIERO (ESTILO UGAZ NOTICIAS/SLIDER) ============ */
     .cajas-section {
@@ -2505,10 +2494,6 @@
       letter-spacing: 2px;
       color: var(--plomo-oscuro);
       margin-bottom: 10px;
-    }
-    .cajas-tagline span {
-      color: var(--plomo-claro);
-      margin: 0 4px;
     }
     .cajas-title {
       font-family: var(--font-heading);
@@ -2611,6 +2596,10 @@
       object-fit: contain; /* antes cover recortaba los banners anchos (Caja Ica, etc.) */
       background: #FFFFFF;
       transition: transform 0.6s ease;
+    }
+    .caja-card-img.municipalidad-card-img {
+      object-fit: cover;
+      object-position: center 38%;
     }
     .caja-card:hover .caja-card-img {
       transform: scale(1.06);
@@ -2931,6 +2920,7 @@
     }
 
     @media (max-width: 480px) {
+      .about-mision-vision { grid-template-columns: 1fr; gap: 16px; }
       .cta-asesoria-title {
         font-size: 1.5rem;
       }
@@ -3033,12 +3023,14 @@
         padding-top: 60px;
         margin-top: 10px;
       }
-      .exp-plaque-img {
-        top: -55px;
-        width: 180px;
+      .exp-figure-wrapper {
+        transform: none;
       }
       .exp-cutout-img {
-        max-height: 440px;
+        height: 440px;
+      }
+      .exp-figure-wrapper::after {
+        bottom: 8px;
       }
       .cajas-section {
         padding: 70px 0 85px;
@@ -3074,8 +3066,9 @@
         padding: 0 16px;
       }
       .header-logo img {
-        height: 62px;
+        height: 74px;
       }
+      .header.scrolled .header-logo img { height: 64px; }
       .nav-links {
         display: none;
       }
@@ -3168,8 +3161,8 @@
         margin-bottom: 24px;
       }
       .about-mision-vision {
-        grid-template-columns: 1fr;
-        gap: 18px;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 20px;
         margin-bottom: 28px;
       }
       .mv-item h4 {
@@ -3322,11 +3315,7 @@
         font-size: 0.92rem;
       }
       .exp-cutout-img {
-        max-height: 390px;
-      }
-      .exp-plaque-img {
-        width: 160px;
-        top: -50px;
+        height: 390px;
       }
 
       /* Contacto en móvil */
@@ -3376,6 +3365,7 @@
         height: 52px;
         font-size: 1.6rem;
       }
+      .auto-scroll-toggle { left: 14px; bottom: 18px; padding: 11px 14px; font-size: .75rem; }
       .footer {
         padding-top: 55px;
       }
@@ -3463,6 +3453,7 @@
       .figure-cutout-img,
       .exp-cutout-img {
         max-height: 340px;
+        height: 340px;
       }
       .figure-badge-float {
         width: calc(100% - 20px);
@@ -3470,10 +3461,6 @@
       }
       .figure-badge-float .badge-text-main {
         font-size: 0.78rem;
-      }
-      .exp-plaque-img {
-        width: 140px;
-        top: -45px;
       }
       .cajas-title {
         font-size: 1.75rem;
@@ -4364,6 +4351,7 @@
     .caja-card:hover, .caja-card.is-center:hover { width: 270px; transform: none; opacity: 1; z-index: auto; }
     .caja-card-image-box { height: 170px; }
     .caja-card-img { box-sizing: border-box; object-fit: contain !important; padding: 4px; transform: none !important; transition: none; }
+    .caja-card-img.municipalidad-card-img { object-fit: cover !important; object-position: center 38%; padding: 0; }
     .caja-card:hover .caja-card-img { transform: none !important; }
     @keyframes cajasMarquee { from { transform: translateX(0); } to { transform: translateX(-50%); } }
     @media (max-width: 600px) { .cajas-marquee-group { gap: 16px; padding-right: 16px; } .caja-card, .caja-card.is-center, .caja-card.is-neighbor, .caja-card.is-far, .caja-card:hover, .caja-card.is-center:hover { width: 220px; } .caja-card-image-box { height: 145px; } }
@@ -4462,4 +4450,8 @@
 .contact-first-contact p { margin: 0 0 7px; font-size: .9rem; }
 .contact-first-contact span { color: #64748B; font-size: .82rem; }
 .area-card-ugaz:focus-visible { outline: 3px solid #2563EB; outline-offset: 5px; }
+@media (max-width: 380px) {
+  .header-logo img { height: 58px; max-width: calc(100vw - 82px); }
+  .header.scrolled .header-logo img { height: 52px; }
+}
 

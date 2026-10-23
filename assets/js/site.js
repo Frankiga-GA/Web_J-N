@@ -1,81 +1,6 @@
 // AOS init
     AOS.init({ once: true, duration: 800 });
 
-    // Carrusel automático de Visión y Misión en la presentación de Zinthia.
-    (function initAboutValuesCarousel() {
-      const carousel = document.getElementById('aboutValuesCarousel');
-      if (!carousel) return;
-
-      const track = carousel.querySelector('.about-values-track');
-      const slides = Array.from(carousel.querySelectorAll('[data-value-slide]'));
-      const dots = Array.from(carousel.querySelectorAll('[data-values-to]'));
-      const viewport = carousel.querySelector('.about-values-viewport');
-      if (!track || slides.length < 2) return;
-
-      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      let activeIndex = 0;
-      let timer = null;
-      let focused = false;
-
-      function showSlide(index) {
-        activeIndex = (index + slides.length) % slides.length;
-        track.style.transform = `translateX(-${activeIndex * 100}%)`;
-        slides.forEach((slide, i) => slide.setAttribute('aria-hidden', String(i !== activeIndex)));
-        dots.forEach((dot, i) => {
-          dot.classList.toggle('is-active', i === activeIndex);
-          dot.setAttribute('aria-pressed', String(i === activeIndex));
-        });
-      }
-
-      function stopAuto() {
-        window.clearInterval(timer);
-        timer = null;
-      }
-
-      function startAuto() {
-        stopAuto();
-        if (reducedMotion || focused || document.hidden) return;
-        timer = window.setInterval(() => showSlide(activeIndex + 1), 4200);
-      }
-
-      carousel.querySelector('[data-values-prev]')?.addEventListener('click', () => {
-        showSlide(activeIndex - 1);
-        startAuto();
-      });
-      carousel.querySelector('[data-values-next]')?.addEventListener('click', () => {
-        showSlide(activeIndex + 1);
-        startAuto();
-      });
-      dots.forEach((dot) => dot.addEventListener('click', () => {
-        showSlide(Number(dot.dataset.valuesTo));
-        startAuto();
-      }));
-
-      carousel.addEventListener('focusin', () => { focused = true; stopAuto(); });
-      carousel.addEventListener('focusout', (event) => {
-        if (!carousel.contains(event.relatedTarget)) {
-          focused = false;
-          startAuto();
-        }
-      });
-      document.addEventListener('visibilitychange', startAuto);
-
-      if (viewport) {
-        let touchStartX = null;
-        viewport.addEventListener('touchstart', (event) => { touchStartX = event.changedTouches[0].clientX; }, { passive: true });
-        viewport.addEventListener('touchend', (event) => {
-          if (touchStartX === null) return;
-          const distance = event.changedTouches[0].clientX - touchStartX;
-          if (Math.abs(distance) > 45) showSlide(activeIndex + (distance < 0 ? 1 : -1));
-          touchStartX = null;
-          startAuto();
-        }, { passive: true });
-      }
-
-      showSlide(0);
-      startAuto();
-    })();
-
     // Header scroll effect
     const header = document.getElementById('header');
     window.addEventListener('scroll', () => {
@@ -438,7 +363,7 @@
               <!-- Columna Derecha: Foto de Consulta / Oficina -->
               <div class="area-page-media-col" data-aos="fade-left" data-aos-delay="100">
                 <div class="area-detail-img-wrap">
-                  <img loading="lazy" decoding="async" src="${data.sideImg}" alt="${data.title} - J&N Asesoría Legal" class="area-detail-img">
+                  <img loading="lazy" decoding="async" src="${data.sideImg}" alt="${data.title}, J&N Asesoría Legal" class="area-detail-img">
                 </div>
               </div>
 
@@ -491,7 +416,7 @@
         <!-- ==================== FOOTER MAPA (ESTILO UGAZ) ==================== -->
         <footer class="map-footer-section">
           <a href="https://maps.app.goo.gl/PxPZ3DqBa4GfCc3u7" target="_blank" rel="noopener noreferrer" class="map-link-wrapper" aria-label="Abrir Calle Grau 246A en Google Maps">
-            <img loading="lazy" decoding="async" src="assets/img/mapa-chincha-alta.webp" alt="Ubicación Estudio J&N - Calle Grau 246A, Chincha Alta" class="map-background-img">
+            <img loading="lazy" decoding="async" src="assets/img/mapa-chincha-alta.webp" alt="Ubicación del Estudio J&N, Calle Grau 246A, Chincha Alta" class="map-background-img">
           </a>
           <div class="map-gradient-overlay"></div>
 
@@ -537,7 +462,7 @@
                     <i class="fab fa-whatsapp"></i>
                     <span>WhatsApp</span>
                   </a>
-                  <a href="mailto:zgaray30@gmail.com" class="map-social-link">
+                  <a href="mailto:asesorialegal.jyn@gmail.com" class="map-social-link">
                     <i class="fas fa-envelope"></i>
                     <span>Correo electrónico</span>
                   </a>
@@ -777,44 +702,88 @@
         openAsesoriasPage(null, false);
       }
 
-      // Desplazamiento automático pausado por tramos para dejar tiempo de lectura.
-      if (!hash || hash === '#inicio') {
-        if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      // Desplazamiento automático por paradas definidas y control visible de pausa.
+      const autoScrollToggle = document.getElementById('autoScrollToggle');
+      const isInternalView = hash === '#equipo' || hash === '#noticias' || hash === '#asesorias' || hash.startsWith('#area-');
+      if (autoScrollToggle && !isInternalView) {
+        autoScrollToggle.hidden = false;
+        let paused = false;
+        let pauseUntil = performance.now() + 8000;
+        let stopIndex = 0;
+        const stopIds = ['nosotros', 'servicios', 'experiencia', 'financiero', 'proceso', 'contacto', 'ubicacion'];
+        const getStopPosition = (id) => {
+          const element = document.getElementById(id);
+          if (!element) return null;
+          const header = document.getElementById('header');
+          const headerHeight = header ? header.offsetHeight : 0;
+          return Math.max(0, element.getBoundingClientRect().top + window.scrollY - headerHeight - 14);
+        };
+        const findNextStop = () => stopIds.findIndex((id) => {
+          const position = getStopPosition(id);
+          return position !== null && position > window.scrollY + 24;
+        });
+        // En Inicio, el primer salto debe ir a Zinthia; con un ancla, continuar desde allí.
+        stopIndex = (!hash || hash === '#inicio') ? 0 : findNextStop();
 
-        let autoScrollCancelled = false;
-        let lastFrameTime = 0;
-        let pauseUntil = 0;
-        let segmentRemaining = 0;
-        const cancelAutoScroll = () => { autoScrollCancelled = true; };
-        ['pointerdown', 'wheel', 'touchstart', 'keydown'].forEach((eventName) => {
-          window.addEventListener(eventName, cancelAutoScroll, { once: true, passive: true });
+        const updatePauseButton = () => {
+          autoScrollToggle.setAttribute('aria-pressed', String(paused));
+          autoScrollToggle.querySelector('.auto-scroll-label').textContent = paused
+            ? 'Reanudar desplazamiento'
+            : 'Pausar desplazamiento';
+          autoScrollToggle.querySelector('span:first-child').textContent = paused ? '▶' : 'Ⅱ';
+        };
+        autoScrollToggle.addEventListener('click', () => {
+          paused = !paused;
+          if (!paused) {
+            stopIndex = findNextStop();
+            pauseUntil = performance.now() + 900;
+          }
+          updatePauseButton();
+          if (!paused) window.requestAnimationFrame(scrollReadably);
+        });
+
+        const pauseForManualUse = () => {
+          if (!paused) {
+            paused = true;
+            updatePauseButton();
+          }
+        };
+        ['wheel', 'touchstart', 'keydown'].forEach((eventName) => {
+          window.addEventListener(eventName, (event) => {
+            if (autoScrollToggle.contains(event.target)) return;
+            pauseForManualUse();
+          }, { passive: true });
         });
 
         const scrollReadably = (now) => {
-          if (autoScrollCancelled) return;
-          if (!lastFrameTime) {
-            lastFrameTime = now;
-            pauseUntil = now + 5000;
-          }
+          if (paused) return;
           if (now < pauseUntil) {
             window.requestAnimationFrame(scrollReadably);
             return;
           }
 
-          const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
-          if (window.scrollY >= maxScroll - 1) return;
-          if (segmentRemaining <= 0) segmentRemaining = Math.min(480, maxScroll - window.scrollY);
+          if (stopIndex < 0 || stopIndex >= stopIds.length) {
+            paused = true;
+            updatePauseButton();
+            autoScrollToggle.querySelector('.auto-scroll-label').textContent = 'Desplazamiento finalizado';
+            autoScrollToggle.disabled = true;
+            return;
+          }
 
-          const elapsed = Math.min(50, now - lastFrameTime) / 1000;
-          lastFrameTime = now;
-          const step = Math.min(segmentRemaining, 48 * elapsed);
-          window.scrollBy(0, step);
-          segmentRemaining -= step;
-
-          if (segmentRemaining <= 1) pauseUntil = now + 7000;
+          const stopId = stopIds[stopIndex];
+          const target = getStopPosition(stopId);
+          if (target === null) {
+            stopIndex += 1;
+            window.requestAnimationFrame(scrollReadably);
+            return;
+          }
+          window.scrollTo({ top: target, behavior: 'instant' });
+          stopIndex += 1;
+          pauseUntil = now + 8000;
           window.requestAnimationFrame(scrollReadably);
         };
-        window.setTimeout(() => window.requestAnimationFrame(scrollReadably), 1200);
+        updatePauseButton();
+        window.requestAnimationFrame(scrollReadably);
       }
     });
 
