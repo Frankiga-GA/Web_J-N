@@ -1998,11 +1998,11 @@ body::after {
   border: 1px solid var(--silver-200);
   border-radius: 9px;
   background: #fff;
-  color: var(--text);
+  color: var(--navy-800);
   font-size: 0.76rem;
+  font-weight: 600;
   line-height: 1.4;
 }
-.member-modal-credentials.is-highlighted .member-modal-credential { color: var(--navy-800); font-weight: 700; }
 .member-modal-bio { padding-top: 22px; border-top: 1px solid var(--silver-200); font-size: 0.94rem; line-height: 1.8; }
 .member-modal-bio-text { color: var(--muted); text-align: left !important; }
 .member-modal-bio-text strong { display: inline; margin: 0; color: var(--navy-800); font-weight: 700; }
