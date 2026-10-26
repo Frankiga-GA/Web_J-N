@@ -20,13 +20,13 @@
       // ================= MIEMBRO 2: WALTER LLERENA =================
       {
         nombre: 'Abg. David Llerena Ramos',
-        cargo: 'Especialista en Derecho Notarial y Registral',
+        cargo: 'Abogado especialista en Derecho Notarial, Registral y Civil',
         foto: 'assets/img/abg-david-llerena-nuevo.webp',
         isCutout: true,
-        bio: 'Abogado con más de diez años de experiencia en los sectores público y privado. Su práctica incluye Derecho Notarial y Registral, además de experiencia en materia penal y administrativa.',
-        bioCompleta: 'David Llerena Ramos es abogado colegiado y habilitado (Reg. CAL N.º 72306 – CAV N.º 143), con más de diez años de experiencia en los sectores público y privado. Su práctica comprende Derecho Notarial y Registral, Penal, Procesal Penal, Administrativo y Ejecución Coactiva. Ha elaborado escritos, revisado expedientes fiscales y judiciales y realizado seguimiento de diligencias y plazos procesales. También cuenta con experiencia como practicante asistente en función fiscal en el Ministerio Público de Ica.',
+        bio: 'Abogado con más de 10 años de experiencia profesional. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo. Es especialista en Derecho Notarial, Registral y Civil.',
+        bioCompleta: 'David Llerena Ramos es abogado colegiado y habilitado (Reg CAL 72306, CAV 143), con más de 10 años de experiencia profesional. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo. Es especialista en Derecho Notarial, Registral y Civil.',
         idiomas: 'Español ' + FLAG_ES,
-        cred: 'Reg. CAL Nº 72306 • CAV N° 143 • Egresado de Maestría en Derecho Notarial y Registral (USS)'
+        cred: 'Reg CAL 72306, CAV 143, estudios de maestría en Derecho Notarial y Registral, especialización en Derecho Administrativo'
       },
       // ================= MIEMBRO 3: JHONY ZAPATA =================
       {
