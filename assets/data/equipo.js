@@ -31,7 +31,7 @@
       // ================= MIEMBRO 3: JHONY ZAPATA =================
       {
         nombre: 'Abg. Jhony Zapata',
-        cargo: 'Abogado Asociado',
+        cargo: 'Abogado penal',
         foto: 'assets/img/abg-jhony-zapata.webp?v=2',
         isCutout: true,
         bio: 'Cuenta con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial y diez años como defensor público.',
