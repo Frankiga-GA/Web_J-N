@@ -12,10 +12,10 @@
         cargo: 'Directora',
         foto: 'assets/img/zinthia-garay-equipo.webp', // PNG recortado con fondo transparente
         isCutout: true,
-        bio: 'Directora de J&N Asesoría Legal y Consultoría. Cuenta con más de 18 años de experiencia profesional y académica, es Magíster en Gestión Pública y especialista en Derecho Civil, Derecho Comercial y Recursos Hídricos.',
-        bioCompleta: 'Zinthia Garay Paucar (Reg. CAI 3534) es egresada de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 18 años de experiencia profesional y académica. Es Magíster en Gestión Pública y cuenta con una especialización en Gestión Pública por el Centro de Altos Estudios Nacionales (CAEN). Dirige J&N Asesoría Legal y Consultoría y es especialista en Derecho Civil, Derecho Comercial y Recursos Hídricos.',
+        bio: 'Abogada y directora de J&N Asesoría Legal y Consultoría. Tiene más de 18 años de experiencia profesional. Es Magíster en Gestión Pública y especialista en Derecho Civil - Comercial y Recursos Hídricos.',
+        bioCompleta: 'Abogada egresada de la Universidad Nacional San Luis Gonzaga de Ica, con más de 18 años de experiencia profesional. Es Magíster en Gestión Pública y tiene especialización en Gestión Pública por el CAEN. Dirige J&N Asesoría Legal y Consultoría. Sus especialidades son Derecho Civil - Comercial y Recursos Hídricos.',
         idiomas: 'Español ' + FLAG_ES + ' • Quechua ' + FLAG_PE + ' • Inglés ' + FLAG_GB,
-        cred: 'Reg. CAI 3534 • Magíster en Gestión Pública • Especialización en Gestión Pública (CAEN) • Derecho Civil, Comercial y Recursos Hídricos'
+        cred: 'Reg. CAI 3534 • Magíster en Gestión Pública • Especialización en Gestión Pública (CAEN) • Derecho Civil - Comercial • Recursos Hídricos'
       },
       // ================= MIEMBRO 2: WALTER LLERENA =================
       {
@@ -23,10 +23,10 @@
         cargo: 'Abogado especialista en Derecho Notarial, Registral y Civil',
         foto: 'assets/img/abg-david-llerena-nuevo.webp',
         isCutout: true,
-        bio: 'Abogado con más de 10 años de experiencia profesional. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo. Es especialista en Derecho Notarial, Registral y Civil.',
-        bioCompleta: 'David Llerena Ramos es abogado colegiado y habilitado (Reg CAL 72306, CAV 143), con más de 10 años de experiencia profesional. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo. Es especialista en Derecho Notarial, Registral y Civil.',
+        bio: 'Abogado con más de 10 años de experiencia. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo. Sus especialidades son Derecho Notarial, Registral y Civil.',
+        bioCompleta: 'Abogado colegiado y habilitado (Reg. CAL 72306, CAV 143), con más de 10 años de experiencia profesional. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo. Sus especialidades son Derecho Notarial, Registral y Civil.',
         idiomas: 'Español ' + FLAG_ES,
-        cred: 'Reg CAL 72306, CAV 143, estudios de maestría en Derecho Notarial y Registral, especialización en Derecho Administrativo'
+        cred: 'Reg. CAL 72306 • CAV 143 • Estudios de maestría en Derecho Notarial y Registral • Especialización en Derecho Administrativo'
       },
       // ================= MIEMBRO 3: JHONY ZAPATA =================
       {
@@ -34,8 +34,8 @@
         cargo: 'Abogado penal',
         foto: 'assets/img/abg-jhony-zapata.webp?v=2',
         isCutout: true,
-        bio: 'Cuenta con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial y diez años como defensor público.',
-        bioCompleta: 'Jhony Zapata es abogado y cuenta con más de 20 años de experiencia en el sistema de justicia peruano: diez años como secretario judicial del Poder Judicial y diez años como defensor público. Ha realizado pasantías en Medellín (Colombia) y Arica (Chile), y un curso de Derecho Global en Medellín.',
+        bio: 'Abogado con más de 20 años de experiencia en el sistema de justicia: diez como secretario judicial y diez como defensor público.',
+        bioCompleta: 'Abogado con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial del Poder Judicial y diez como defensor público.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Más de 20 años en el sistema de justicia • Poder Judicial • Defensa Pública'
       },
@@ -57,9 +57,9 @@
         cargo: 'Asistente Administrativa y de Dirección',
         foto: 'assets/img/asistente-jimena-llerena.webp',
         isCutout: true,
-        bio: 'Brinda apoyo administrativo y asiste a la Dra. Zinthia Garay. Cuenta con conocimientos de computación e inglés y conoce herramientas de inteligencia artificial.',
-        bioCompleta: 'Jimena Llerena brinda apoyo administrativo y asistencia a la Dra. Zinthia Garay. Cuenta con conocimientos de computación e inglés, y conoce el uso de herramientas de inteligencia artificial.',
+        bio: 'Apoya la gestión administrativa y asiste a la Dra. Zinthia. Tiene conocimientos de computación, inglés y herramientas de inteligencia artificial.',
+        bioCompleta: 'Asistente administrativa y de dirección. Apoya la gestión administrativa y asiste a la Dra. Zinthia. Tiene conocimientos de computación, inglés y herramientas de inteligencia artificial.',
         idiomas: 'Español ' + FLAG_ES,
-        cred: 'Apoyo administrativo • Computación • Inglés • Herramientas de inteligencia artificial'
+        cred: 'Apoyo administrativo • Computación • Inglés • Herramientas de IA'
       }
     ];
