@@ -809,11 +809,11 @@
 
       const texto =
         'Hola Dra. Zinthia Garay, deseo solicitar asesoría legal.' + '\n\n' +
-        '*Nombre:* ' + nombre + '\n' +
-        '*Teléfono:* ' + (telefono || 'No indicado') + '\n' +
-        '*Correo:* ' + email + '\n' +
-        '*Área:* ' + area + '\n' +
-        '*Mensaje:* ' + mensaje;
+        'Nombre: ' + nombre + '\n' +
+        'Teléfono: ' + (telefono || 'No indicado') + '\n' +
+        'Correo: ' + email + '\n' +
+        'Área: ' + area + '\n\n' +
+        'Mensaje:\n' + mensaje;
 
       // window.open debe ir dentro del mismo gesto del usuario para que el navegador no lo bloquee.
       window.open('https://wa.me/' + CONTACT_WHATSAPP_NUM + '?text=' + encodeURIComponent(texto), '_blank', 'noopener');
