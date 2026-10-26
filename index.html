@@ -982,6 +982,8 @@
 
         <div class="contacto-form" data-anim="fade">
           <form id="contactForm">
+            <h3 class="contact-form-title">Solicita una consulta</h3>
+            <p class="contact-form-note">Completa tus datos y elige el servicio que necesitas.</p>
             <div class="contact-first-contact" id="contactFormGuidance">
               <strong>Para orientarnos mejor</strong>
               <p>Cuéntanos brevemente qué ocurrió, en qué ciudad y si hay alguna fecha o notificación próxima. No incluyas números de documento, datos bancarios ni adjuntes documentos confidenciales en este primer mensaje.</p>
@@ -989,39 +991,46 @@
             </div>
             <div class="form-row">
               <div class="form-group">
-                <label for="nombre">Nombre completo</label>
-                <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" required>
+                <label for="nombre">Nombre completo <span class="required-mark" aria-hidden="true">*</span></label>
+                <input type="text" id="nombre" name="nombre" placeholder="Juan Pérez" autocomplete="name" required>
               </div>
               <div class="form-group">
                 <label for="telefono">Teléfono</label>
-                <input type="tel" id="telefono" name="telefono" placeholder="+51 999 999 999">
+                <input type="tel" id="telefono" name="telefono" placeholder="+51 999 999 999" autocomplete="tel" inputmode="tel">
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group">
+                <label for="email">Correo electrónico <span class="required-mark" aria-hidden="true">*</span></label>
+                <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" autocomplete="email" required>
+              </div>
+              <div class="form-group">
+                <label for="area">Área o servicio de consulta</label>
+                <select id="area" name="area">
+                  <option value="">Seleccione un área o servicio</option>
+                  <optgroup label="Áreas de Derecho">
+                    <option value="penal">Defensa Penal Estratégica</option>
+                    <option value="admin-publica">Delitos contra la Administración Pública</option>
+                    <option value="penal-tributario">Penal Tributario y Financiero</option>
+                    <option value="civil">Derecho Civil y Patrimonial</option>
+                    <option value="municipal">Derecho Administrativo y Municipal</option>
+                    <option value="laboral">Derecho Laboral y Corporativo</option>
+                    <option value="familia">Familia y Sucesiones</option>
+                    <option value="agrario">Derecho Agrario y Tierras</option>
+                    <option value="ambiental-maritimo">Derecho Ambiental y Marítimo</option>
+                    <option value="digital">Derecho Digital</option>
+                    <option value="constitucional">Derecho Constitucional</option>
+                    <option value="inmobiliario">Propiedad Inmobiliaria</option>
+                  </optgroup>
+                  <optgroup label="Consultoría">
+                    <option value="consultoria-municipal">Consultoría municipal</option>
+                  </optgroup>
+                  <option value="otro">Otro tema</option>
+                </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="email">Correo electrónico</label>
-              <input type="email" id="email" name="email" placeholder="correo@ejemplo.com" required>
-            </div>
-            <div class="form-group">
-              <label for="area">Área de consulta</label>
-              <select id="area" name="area">
-                <option value="">Seleccione un área</option>
-                <option value="penal">Defensa Penal Estratégica</option>
-                <option value="admin-publica">Delitos contra la Administración Pública</option>
-                <option value="penal-tributario">Penal Tributario y Financiero</option>
-                <option value="civil">Derecho Civil y Patrimonial</option>
-                <option value="municipal">Derecho Administrativo y Municipal</option>
-                <option value="laboral">Derecho Laboral y Corporativo</option>
-                <option value="familia">Familia y Sucesiones</option>
-                <option value="agrario">Derecho Agrario y Tierras</option>
-                <option value="ambiental-maritimo">Derecho Ambiental y Marítimo</option>
-                <option value="digital">Derecho Digital</option>
-                <option value="constitucional">Derecho Constitucional</option>
-                <option value="inmobiliario">Propiedad Inmobiliaria</option>
-                <option value="otro">Otro tema</option>
-              </select>
-            </div>
-            <div class="form-group">
-              <label for="mensaje">Mensaje</label>
+              <label for="mensaje">Cuéntanos brevemente tu consulta <span class="required-mark" aria-hidden="true">*</span></label>
               <textarea id="mensaje" name="mensaje" placeholder="Describe brevemente tu situación, ciudad y fechas importantes. No incluyas datos sensibles." aria-describedby="contactFormGuidance" required></textarea>
             </div>
             <button type="submit" class="btn-submit">
