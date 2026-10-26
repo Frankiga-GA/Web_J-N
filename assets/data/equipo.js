@@ -43,7 +43,7 @@
       {
         nombre: 'Abg. Walter Llerena Peña',
         cargo: 'Especialista en Derecho Municipal, Administrativo y Laboral',
-        foto: 'assets/img/abg-walter-llerena-pena-nuevo.webp',
+        foto: 'assets/img/abg-walter-llerena-pena-20261026.webp',
         isCutout: true,
         bio: 'Abogado de la Universidad Nacional San Luis Gonzaga de Ica, con más de 25 años de experiencia. Se especializa en Derecho Municipal, Administrativo y Laboral.',
         bioCompleta: 'Walter Llerena Peña es abogado egresado de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 25 años de experiencia profesional. Su práctica se enfoca en Derecho Municipal, Administrativo y Laboral. Tiene estudios de maestría en Derecho Penal y realizó el mismo curso en el Centro de Altos Estudios Nacionales (CAEN) que la Dra. Zinthia Garay Paucar.',
