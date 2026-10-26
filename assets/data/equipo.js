@@ -9,13 +9,13 @@
     const equipoPageData = [
       {
         nombre: 'Zinthia Garay Paucar',
-        cargo: 'Fundadora y Directora',
+        cargo: 'Directora',
         foto: 'assets/img/zinthia-garay-equipo.webp', // PNG recortado con fondo transparente
         isCutout: true,
-        bio: 'Fundadora y directora de J&N, con más de 18 años de experiencia profesional y académica. Es magíster en Gestión Pública y cuenta con formación en el CAEN.',
-        bioCompleta: 'Zinthia Garay Paucar (Reg. CAI N.º 3534) es abogada egresada de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 18 años de experiencia profesional y académica. Es magíster en Gestión Pública y cuenta con formación en el Centro de Altos Estudios Nacionales (CAEN). Como fundadora y directora de J&N Asesoría Legal y Consultoría, brinda asesoría y patrocinio legal a personas, empresas e instituciones.',
+        bio: 'Directora de J&N Asesoría Legal y Consultoría. Cuenta con más de 18 años de experiencia profesional y académica, es Magíster en Gestión Pública y especialista en Derecho Civil, Derecho Comercial y Recursos Hídricos.',
+        bioCompleta: 'Zinthia Garay Paucar (Reg. CAI 3534) es egresada de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 18 años de experiencia profesional y académica. Es Magíster en Gestión Pública y cuenta con una especialización en Gestión Pública por el Centro de Altos Estudios Nacionales (CAEN). Dirige J&N Asesoría Legal y Consultoría y es especialista en Derecho Civil, Derecho Comercial y Recursos Hídricos.',
         idiomas: 'Español ' + FLAG_ES + ' • Quechua ' + FLAG_PE + ' • Inglés ' + FLAG_GB,
-        cred: 'Reg. CAI Nº 3534 • Magíster en Gestión Pública • Especialista CAEN'
+        cred: 'Reg. CAI 3534 • Magíster en Gestión Pública • Especialización en Gestión Pública (CAEN) • Derecho Civil, Comercial y Recursos Hídricos'
       },
       // ================= MIEMBRO 2: WALTER LLERENA =================
       {
