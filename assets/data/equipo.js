@@ -43,7 +43,7 @@
       {
         nombre: 'Abg. Walter Llerena Peña',
         cargo: 'Especialista en Derecho Municipal, Derecho Administrativo y Derecho Laboral',
-        foto: 'assets/img/abg-walter-llerena-pena-20261026.webp',
+        foto: 'assets/img/walter-llerena-retrato-20261026.png',
         isCutout: true,
         bio: 'Abogado con más de 25 años de experiencia profesional. Cuenta con estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN. Es especialista en Derecho Municipal, Derecho Administrativo y Derecho Laboral.',
         bioCompleta: 'Walter Llerena Peña es abogado y cuenta con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN. Su especialidad comprende el Derecho Municipal, el Derecho Administrativo y el Derecho Laboral.',
