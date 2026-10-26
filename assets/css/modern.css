@@ -2004,6 +2004,7 @@ body::after {
 }
 .member-modal-bio { padding-top: 22px; border-top: 1px solid var(--silver-200); font-size: 0.94rem; line-height: 1.8; }
 .member-modal-bio-text { color: var(--muted); text-align: left !important; }
+.member-modal-bio-text strong { color: var(--navy-800); font-weight: 700; }
 .member-modal-vermas {
   display: inline-flex;
   margin-top: 10px;

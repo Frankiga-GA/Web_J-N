@@ -721,8 +721,7 @@
       });
 
       const bioText = document.getElementById('memberModalBio');
-      // Capturar el botón ANTES de sobrescribir el innerHTML (el innerHTML lo
-      // saca del DOM si vive dentro del párrafo; la referencia sobrevive)
+      // Guardar el botón antes de reconstruir los nodos del párrafo.
       const btnVerMas = document.getElementById('memberModalVerMas');
       if (m.bioCompleta) {
         // Resumen: corte por JS en límite de palabra (sin "..." automático del CSS)
@@ -733,12 +732,13 @@
           : texto;
         modal.dataset.bioShort = corto;
         modal.dataset.bioFull = texto;
+        modal.dataset.bioHighlights = JSON.stringify(m.bioResaltados || []);
         bioText.classList.remove('expanded');
-        bioText.textContent = corto + ' ';
+        renderMemberBio(bioText, corto + ' ', m.bioResaltados || []);
         btnVerMas.style.display = 'inline-block';
         btnVerMas.textContent = 'Ver más';
       } else {
-        bioText.textContent = m.bio;
+        renderMemberBio(bioText, m.bio || '', m.bioResaltados || []);
         btnVerMas.style.display = 'none';
       }
       // Colocar el botón "Ver más" inline al final del texto resumido
@@ -747,6 +747,32 @@
       modal.style.display = 'flex';
       document.body.style.overflow = 'hidden';
       if (window.JNMotion && window.JNMotion.lockScroll) window.JNMotion.lockScroll(true);
+    }
+
+    function renderMemberBio(target, text, highlights) {
+      target.replaceChildren();
+      const terms = [...new Set(highlights.filter(Boolean))].sort((a, b) => b.length - a.length);
+      let cursor = 0;
+      while (cursor < text.length) {
+        let nextIndex = -1;
+        let nextTerm = '';
+        terms.forEach(term => {
+          const index = text.indexOf(term, cursor);
+          if (index !== -1 && (nextIndex === -1 || index < nextIndex)) {
+            nextIndex = index;
+            nextTerm = term;
+          }
+        });
+        if (nextIndex === -1) {
+          target.appendChild(document.createTextNode(text.slice(cursor)));
+          break;
+        }
+        if (nextIndex > cursor) target.appendChild(document.createTextNode(text.slice(cursor, nextIndex)));
+        const strong = document.createElement('strong');
+        strong.textContent = nextTerm;
+        target.appendChild(strong);
+        cursor = nextIndex + nextTerm.length;
+      }
     }
 
     function closeMemberModal() {
@@ -763,7 +789,8 @@
       const txt = document.getElementById('memberModalBio');
       const btn = document.getElementById('memberModalVerMas');
       const expanded = txt.classList.toggle('expanded');
-      txt.textContent = expanded ? modal.dataset.bioFull : (modal.dataset.bioShort + ' ');
+      const highlights = JSON.parse(modal.dataset.bioHighlights || '[]');
+      renderMemberBio(txt, expanded ? modal.dataset.bioFull : (modal.dataset.bioShort + ' '), highlights);
       txt.appendChild(btn);
       btn.textContent = expanded ? 'Ver menos' : 'Ver más';
     }
