@@ -1110,7 +1110,8 @@ body::after {
 .cta-asesoria-curve-svg path:nth-of-type(1),
 .cta-asesoria-curve-svg path:nth-of-type(3) { fill: rgba(255, 255, 255, 0.03); }
 .cta-asesoria-curve-svg path:nth-of-type(2) { fill: rgba(203, 213, 225, 0.08); }
-.cta-asesoria-img { height: 440px; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35)); }
+.cta-asesoria-img { height: 440px; transform: translateY(20px); filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35)); }
+.cta-asesoria-visual:hover .cta-asesoria-img { transform: translateY(16px) scale(1.02); }
 .cta-asesoria-content {
   align-items: flex-start;
   text-align: left;
