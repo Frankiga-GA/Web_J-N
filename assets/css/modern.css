@@ -818,6 +818,9 @@ body::after {
   height: auto;
   padding: 28px 28px 0 0;
 }
+@media (min-width: 769px) {
+  .about-figure-col { transform: translateY(-60px); }
+}
 .figure-curve-bg,
 .figure-mask {
   grid-area: 1 / 1;
