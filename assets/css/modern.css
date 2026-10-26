@@ -1934,6 +1934,7 @@ body::after {
   object-position: center bottom;
   filter: drop-shadow(0 16px 20px rgba(7, 21, 41, 0.14));
 }
+.member-modal-photo img.is-cutout { object-position: center 25%; }
 .member-modal-photo img:not(.is-cutout) { height: 100%; object-fit: cover; object-position: center top; }
 .member-modal-info {
   align-self: center;
