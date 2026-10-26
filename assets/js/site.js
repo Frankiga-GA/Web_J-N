@@ -831,7 +831,7 @@
           submitBtn.disabled = false;
         }
         if (status) {
-          status.textContent = '¡Gracias por su consulta! Se abrirá WhatsApp para que envíe su mensaje con los datos de su caso.';
+          status.textContent = 'WhatsApp se abrirá con tu mensaje listo. Revísalo y toca Enviar allí para completar el envío.';
           status.classList.add('is-visible');
         }
         form.reset();
