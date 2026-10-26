@@ -42,13 +42,13 @@
       // ================= MIEMBRO 4: WALTER LLERENA PEÑA =================
       {
         nombre: 'Abg. Walter Llerena Peña',
-        cargo: 'Especialista en Derecho Municipal, Administrativo y Laboral',
+        cargo: 'Especialista en Derecho Municipal, Derecho Administrativo y Derecho Laboral',
         foto: 'assets/img/abg-walter-llerena-pena-20261026.webp',
         isCutout: true,
-        bio: 'Abogado de la Universidad Nacional San Luis Gonzaga de Ica, con más de 25 años de experiencia. Se especializa en Derecho Municipal, Administrativo y Laboral.',
-        bioCompleta: 'Walter Llerena Peña es abogado egresado de la Universidad Nacional San Luis Gonzaga de Ica y cuenta con más de 25 años de experiencia profesional. Su práctica se enfoca en Derecho Municipal, Administrativo y Laboral. Tiene estudios de maestría en Derecho Penal y realizó el mismo curso en el Centro de Altos Estudios Nacionales (CAEN) que la Dra. Zinthia Garay Paucar.',
+        bio: 'Abogado con más de 25 años de experiencia profesional. Cuenta con estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN. Es especialista en Derecho Municipal, Derecho Administrativo y Derecho Laboral.',
+        bioCompleta: 'Walter Llerena Peña es abogado y cuenta con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN. Su especialidad comprende el Derecho Municipal, el Derecho Administrativo y el Derecho Laboral.',
         idiomas: 'Español ' + FLAG_ES,
-        cred: 'Universidad Nacional San Luis Gonzaga de Ica • +25 años de experiencia • Estudios de maestría en Derecho Penal • Curso de especialización en el CAEN'
+        cred: 'Más de 25 años de experiencia • Estudios de maestría en Derecho Penal • Alta especialización en Administración y Gestión Pública (CAEN) • Derecho Municipal, Administrativo y Laboral'
       },
       // ================= MIEMBRO 5: JIMENA LLERENA =================
       {
