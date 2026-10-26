@@ -2051,6 +2051,11 @@ body::after {
   .member-modal-credentials-block { margin-bottom: 20px; }
   .member-modal-footer { padding: 12px 16px; }
 }
+@media (min-width: 761px) {
+  .member-modal-photo[data-member-index="0"]::before,
+  .member-modal-photo[data-member-index="1"]::before,
+  .member-modal-photo[data-member-index="4"]::before { top: 15%; }
+}
 @media (max-height: 680px) and (min-width: 761px) {
   .member-modal-overlay { padding: 12px; }
   .member-modal-panel { max-height: 96vh; }

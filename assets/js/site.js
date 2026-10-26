@@ -704,7 +704,9 @@
       const modal = ensureMemberModal();
       if (!m || !modal) return;
 
-      document.getElementById('memberModalPhoto').innerHTML =
+      const modalPhoto = document.getElementById('memberModalPhoto');
+      modalPhoto.dataset.memberIndex = String(i);
+      modalPhoto.innerHTML =
         '<img loading="lazy" decoding="async" src="' + m.foto + '" alt="' + m.nombre + '" class="' + (m.isCutout ? 'is-cutout' : '') + '">';
       document.getElementById('memberModalName').textContent = m.nombre;
       document.getElementById('memberModalRole').textContent = m.cargo;
