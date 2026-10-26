@@ -519,21 +519,28 @@
         <template id="memberModalTpl">
           <div class="member-modal-overlay" id="memberModal" onclick="closeMemberModal()">
             <div class="member-modal-panel" role="dialog" aria-modal="true" data-lenis-prevent onclick="event.stopPropagation();">
+              <button type="button" class="member-modal-dismiss" aria-label="Cerrar perfil" onclick="closeMemberModal()"><i class="fas fa-times" aria-hidden="true"></i></button>
               <div class="member-modal-body">
                 <div class="member-modal-photo" id="memberModalPhoto"></div>
                 <div class="member-modal-info">
+                  <span class="member-modal-kicker">Perfil profesional · Equipo J&amp;N</span>
                   <h3 class="member-modal-name" id="memberModalName"></h3>
                   <div class="member-modal-role" id="memberModalRole"></div>
                   <div class="member-modal-idiomas" id="memberModalIdiomas"></div>
+                  <div class="member-modal-credentials-block">
+                    <strong>Trayectoria y formación</strong>
+                    <div class="member-modal-credentials" id="memberModalCredentials"></div>
+                  </div>
                   <div class="member-modal-bio">
-                    <strong>Biografía:</strong>
+                    <strong>Sobre su experiencia</strong>
                     <p class="member-modal-bio-text" id="memberModalBio"></p>
                     <button type="button" class="member-modal-vermas" id="memberModalVerMas" onclick="toggleMemberBio()">Ver más</button>
                   </div>
                 </div>
               </div>
               <div class="member-modal-footer">
-                <button type="button" class="member-modal-close" onclick="closeMemberModal()">Cerrar</button>
+                <span>J&amp;N Asesoría Legal y Consultoría</span>
+                <button type="button" class="member-modal-close" onclick="closeMemberModal()">Cerrar perfil <i class="fas fa-arrow-right" aria-hidden="true"></i></button>
               </div>
             </div>
           </div>
@@ -702,6 +709,14 @@
       document.getElementById('memberModalName').textContent = m.nombre;
       document.getElementById('memberModalRole').textContent = m.cargo;
       document.getElementById('memberModalIdiomas').innerHTML = '<strong>Idiomas:</strong> ' + (m.idiomas || 'Español');
+      const credentials = document.getElementById('memberModalCredentials');
+      credentials.replaceChildren();
+      String(m.cred || '').split(/[•,]/).map(item => item.trim()).filter(Boolean).forEach(item => {
+        const chip = document.createElement('span');
+        chip.className = 'member-modal-credential';
+        chip.textContent = item;
+        credentials.appendChild(chip);
+      });
 
       const bioText = document.getElementById('memberModalBio');
       // Capturar el botón ANTES de sobrescribir el innerHTML (el innerHTML lo
