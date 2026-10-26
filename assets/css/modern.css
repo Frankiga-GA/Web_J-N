@@ -1098,8 +1098,16 @@ body::after {
 
 /* ============ 14. CTA DE ASESORÍA ============ */
 .cta-asesoria-section {
+  position: relative;
   overflow: hidden;
   border: 0;
+  background: transparent;
+}
+.cta-asesoria-section::before {
+  content: "";
+  position: absolute;
+  inset: 0 0 28px;
+  pointer-events: none;
   background:
     radial-gradient(ellipse 70% 90% at 80% 0%, rgba(30, 58, 95, 0.75) 0%, transparent 60%),
     var(--navy-900);
@@ -1569,6 +1577,10 @@ body::after {
   .cta-asesoria-img { height: 380px; }
   .cta-asesoria-img { transform: translateY(18px); }
   .cta-asesoria-visual:hover .cta-asesoria-img { transform: translateY(14px) scale(1.02); }
+}
+
+@media (max-width: 900px) {
+  .cta-asesoria-section::before { bottom: 0; }
 }
 
 @media (max-width: 991px) {
