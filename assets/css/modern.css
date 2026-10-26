@@ -1106,11 +1106,11 @@ body::after {
 .cta-asesoria-section::before {
   content: "";
   position: absolute;
-  inset: 0 0 28px;
+  inset: 0;
   pointer-events: none;
   background:
     radial-gradient(ellipse 70% 90% at 80% 0%, rgba(30, 58, 95, 0.75) 0%, transparent 60%),
-    var(--navy-900);
+    linear-gradient(to bottom, var(--navy-900) 0%, var(--navy-900) calc(100% - 32px), #f8fafc 100%);
 }
 .cta-asesoria-container { max-width: 1320px; min-height: 460px; padding: 0 clamp(20px, 4vw, 48px); gap: 40px; }
 .cta-asesoria-visual { width: 460px; height: 460px; }
@@ -1580,7 +1580,11 @@ body::after {
 }
 
 @media (max-width: 900px) {
-  .cta-asesoria-section::before { bottom: 0; }
+  .cta-asesoria-section::before {
+    background:
+      radial-gradient(ellipse 70% 90% at 80% 0%, rgba(30, 58, 95, 0.75) 0%, transparent 60%),
+      var(--navy-900);
+  }
 }
 
 @media (max-width: 991px) {
