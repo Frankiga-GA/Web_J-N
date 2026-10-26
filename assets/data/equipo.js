@@ -47,9 +47,9 @@
         isCutout: true,
         bio: 'Abogado con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN. Sus especialidades son Derecho Municipal, Derecho Administrativo y Derecho Laboral.',
         bioCompleta: 'Abogado con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN. Sus especialidades son Derecho Municipal, Derecho Administrativo y Derecho Laboral.',
-        bioResaltados: ['Abogado', 'más de 25 años de experiencia profesional', 'estudios de maestría en Derecho Penal', 'alta especialización en Administración y Gestión Pública por el CAEN', 'Sus especialidades son', 'Derecho Municipal', 'Derecho Administrativo', 'Derecho Laboral'],
         idiomas: 'Español ' + FLAG_ES,
-        cred: 'Más de 25 años de experiencia • Estudios de maestría en Derecho Penal • Alta especialización en Administración y Gestión Pública (CAEN) • Derecho Municipal, Administrativo y Laboral'
+        cred: 'Más de 25 años de experiencia • Estudios de maestría en Derecho Penal • Alta especialización en Administración y Gestión Pública (CAEN) • Derecho Municipal, Administrativo y Laboral',
+        credEmphasis: true
       },
       // ================= MIEMBRO 5: JIMENA LLERENA =================
       {

@@ -712,6 +712,7 @@
       document.getElementById('memberModalRole').textContent = m.cargo;
       document.getElementById('memberModalIdiomas').innerHTML = '<strong>Idiomas:</strong> ' + (m.idiomas || 'Español');
       const credentials = document.getElementById('memberModalCredentials');
+      credentials.classList.toggle('is-highlighted', Boolean(m.credEmphasis));
       credentials.replaceChildren();
       String(m.cred || '').split(/[•,]/).map(item => item.trim()).filter(Boolean).forEach(item => {
         const chip = document.createElement('span');
