@@ -338,7 +338,7 @@
                 <path d="M -30,210 L 220,210 C 260,210 280,225 280,240 C 280,255 260,265 220,265 L -30,265 Z" fill="url(#ctaSilverAccentArea)" />
                 <path d="M -30,340 L 85,340 L 155,245 L 45,245 L -30,340 Z" fill="url(#ctaNavyGradArea)" opacity="0.92" />
               </svg>
-              <img loading="lazy" decoding="async" src="assets/img/cta-consultor-phone-jn2.webp" alt="Asesor de J&N mostrando la asesoría legal por celular" class="cta-asesoria-img">
+              <img width="1131" height="1600" loading="lazy" decoding="async" src="assets/img/cta-asesoria-consultor.webp" alt="Asesor de J&N mostrando a la Dra. Zinthia Garay en el teléfono" class="cta-asesoria-img">
             </div>
 
             <div class="cta-asesoria-content">
