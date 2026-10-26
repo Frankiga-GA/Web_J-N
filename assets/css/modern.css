@@ -2055,8 +2055,8 @@ body::after {
   .member-modal-photo[data-member-index="0"]::before,
   .member-modal-photo[data-member-index="1"]::before,
   .member-modal-photo[data-member-index="4"]::before { top: 15%; }
-  .member-modal-photo[data-member-index="0"] img.is-cutout,
-  .member-modal-photo[data-member-index="3"] img.is-cutout { transform: translateY(-50px); }
+  .member-modal-photo[data-member-index="0"] img.is-cutout { transform: translateY(-50px); }
+  .member-modal-photo[data-member-index="3"] img.is-cutout { transform: translateY(-100px); }
 }
 @media (max-height: 680px) and (min-width: 761px) {
   .member-modal-overlay { padding: 12px; }
