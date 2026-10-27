@@ -1713,6 +1713,7 @@ body::after {
   .faq-list details[open] summary::after { width: 38px; height: 38px; }
 
   .contacto-grid { grid-template-columns: 1fr; }
+  .contacto-photo img { height: auto; object-fit: contain; object-position: center top; }
   .form-row { grid-template-columns: 1fr; }
   .contacto-form { border-radius: 22px; }
 
