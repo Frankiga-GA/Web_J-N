@@ -270,7 +270,7 @@
       };
     })();
 
-    // ============ PÁGINA SEPARADA "ASESORÍAS Y CONSULTORÍAS" (mini-SPA, mismo sistema que Noticias) ============
+    // ============ PÁGINA SEPARADA "CONSULTORÍAS" (mini-SPA, mismo sistema que Noticias) ============
     (function initAsesoriasModule() {
       const GRUPOS_ASESORIAS = [
         {
@@ -437,13 +437,13 @@
               </div>`).join('\n\n          ');
 
         container.innerHTML = `
-          <!-- Hero Banner: Asesorías y Consultorías -->
+          <!-- Hero Banner: Consultorías -->
           <section class="area-page-hero">
-            <img loading="lazy" decoding="async" src="assets/img/boardroom-executive.webp" alt="Asesorías y Consultorías J&N" class="area-page-hero-bg">
+            <img loading="lazy" decoding="async" src="assets/img/boardroom-executive.webp" alt="Consultorías J&N" class="area-page-hero-bg">
             <div class="area-page-hero-overlay"></div>
             <div class="container area-page-hero-content">
               <span class="equipo-hero-tag">ASESORÍA LEGAL Y CONSULTORÍA</span>
-              <h1 class="area-page-hero-title">Asesorías y Consultorías</h1>
+              <h1 class="area-page-hero-title">Consultorías</h1>
               <p class="ases-hero-sub">Brindamos asesoría legal y consultoría a personas, empresas privadas e instituciones públicas. Atendemos presencialmente en Chincha Alta y coordinamos consultas virtuales según cada caso.</p>
               <div class="ases-hero-registro-wrap">
                 <span class="ases-hero-registro"><i class="fas fa-certificate"></i> Objeto social inscrito en SUNARP · Partida Electrónica N° 11049198</span>
@@ -457,7 +457,7 @@
               <nav class="area-page-breadcrumbs">
                 <a href="javascript:void(0)" onclick="returnToHome('#inicio')"><i class="fas fa-arrow-left"></i> Inicio</a>
                 <span class="breadcrumb-sep">/</span>
-                <span class="breadcrumb-current">Asesorías y Consultorías</span>
+                <span class="breadcrumb-current">Consultorías</span>
               </nav>
             </div>
           </div>
