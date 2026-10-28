@@ -297,6 +297,11 @@
                     </div>
                   `).join('')}
                 </div>
+                <div class="area-detail-cta" data-anim="fade">
+                  <a class="btn-pill btn-pill--dark" href="https://wa.me/51958212450?text=${encodeURIComponent('Hola, deseo solicitar asesoría para el área de ' + data.title + '.') }" target="_blank" rel="noopener noreferrer" data-magnetic>
+                    <span>Solicitar asesoría</span><i class="fas fa-arrow-right" aria-hidden="true"></i>
+                  </a>
+                </div>
               </div>
 
               <!-- Columna Derecha: Foto de Consulta / Oficina -->

@@ -1499,6 +1499,7 @@ body::after {
 .area-page-hero-title { font-size: clamp(2.6rem, 7vw, 6rem); color: #fff; }
 .equipo-hero-tag { letter-spacing: 0.22em; font-size: 0.72rem; }
 .area-page-detail-title { font-family: var(--font-heading); font-weight: 300; font-size: clamp(2rem, 3.6vw, 3rem); }
+.area-detail-cta { margin-top: 28px; }
 .area-subcard { border-radius: 18px; }
 .area-subcard-title { font-family: var(--font-heading); font-weight: 400; }
 .area-detail-img-wrap { overflow: hidden; border-radius: var(--radius); }
