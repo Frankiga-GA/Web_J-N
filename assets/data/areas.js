@@ -20,23 +20,23 @@
           }
         ]
       },
-      'admin-publica': {
-        title: 'Delitos contra la Administración Pública',
-        heroImg: 'assets/img/areas/area-admin.webp',
-        sideImg: 'assets/img/areas/area-admin.webp',
-        intro: 'Asesoramos y ejercemos la defensa de autoridades, servidores públicos, exfuncionarios y particulares investigados por presuntos delitos vinculados con la función pública. Revisamos la imputación, los documentos y las actuaciones fiscales para explicar las opciones de defensa en cada etapa.',
+      'notarial-registral': {
+        title: 'Derecho Notarial y Registral',
+        heroImg: 'assets/img/areas/area-inmobiliario.webp',
+        sideImg: 'assets/img/areas/area-inmobiliario.webp',
+        intro: 'Asesoramos en la preparación y revisión de documentos notariales y en trámites ante los registros públicos. Revisamos los requisitos y antecedentes para orientar cada gestión de inscripción, rectificación o publicidad registral.',
         subcards: [
           {
-            title: 'Colusión y Contrataciones Estatales',
-            desc: 'Asesoría y defensa en investigaciones relacionadas con contrataciones públicas, procesos de selección, licitaciones y ejecución de obras.'
+            title: 'Documentos y Actos Notariales',
+            desc: 'Orientación para preparar y revisar minutas, poderes, declaraciones juradas y otros documentos que deban formalizarse ante notario.'
           },
           {
-            title: 'Peculado y Malversación de Fondos',
-            desc: 'Revisión de imputaciones, documentación y elementos contables en investigaciones por presunta apropiación o uso irregular de recursos públicos.'
+            title: 'Inscripciones en Registros Públicos',
+            desc: 'Asesoría para presentar títulos y dar seguimiento a inscripciones de actos y derechos, de acuerdo con los requisitos registrales aplicables.'
           },
           {
-            title: 'Cohecho, Concusión y Negociación Incompatible',
-            desc: 'Defensa en investigaciones por presunto favorecimiento, beneficios indebidos o conflictos de interés en decisiones y contratos públicos.'
+            title: 'Rectificación y Observaciones Registrales',
+            desc: 'Revisión de observaciones, asientos y antecedentes para orientar la subsanación de documentos o la rectificación de información registral.'
           }
         ]
       },
