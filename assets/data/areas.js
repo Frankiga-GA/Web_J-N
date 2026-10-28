@@ -22,8 +22,8 @@
       },
       'notarial-registral': {
         title: 'Derecho Notarial y Registral',
-        heroImg: 'assets/img/areas/area-inmobiliario.webp',
-        sideImg: 'assets/img/areas/area-inmobiliario.webp',
+        heroImg: 'assets/img/areas/area-notarial-registral.png',
+        sideImg: 'assets/img/areas/area-notarial-registral.png',
         intro: 'Asesoramos en la preparación y revisión de documentos notariales y en trámites ante los registros públicos. Revisamos los requisitos y antecedentes para orientar cada gestión de inscripción, rectificación o publicidad registral.',
         subcards: [
           {
