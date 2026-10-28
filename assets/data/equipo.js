@@ -12,8 +12,8 @@
         cargo: 'Directora',
         foto: 'assets/img/zinthia-garay-equipo.webp', // PNG recortado con fondo transparente
         isCutout: true,
-        bio: 'Abogada (CAI N° 3534), con estudios en la Universidad Nacional San Luis Gonzaga de Ica y más de 18 años de experiencia profesional. Magíster en Gestión Pública y cuenta con especialización en Gestión Pública (CAEN). Dirige J&N Asesoría Legal y Consultoría.\n\nEspecialidades:\nDerecho Civil\nComercial y Recursos Hídricos.',
-        bioCompleta: 'Abogada (CAI N° 3534), con estudios en la Universidad Nacional San Luis Gonzaga de Ica y más de 18 años de experiencia profesional. Magíster en Gestión Pública y cuenta con especialización en Gestión Pública (CAEN). Dirige J&N Asesoría Legal y Consultoría.\n\nEspecialidades:\nDerecho Civil\nComercial y Recursos Hídricos.',
+        bio: 'Abogada (CAI N° 3534), con estudios en la Universidad Nacional San Luis Gonzaga de Ica y más de 18 años de experiencia profesional. Magíster en Gestión Pública y cuenta con especialización en Gestión Pública (CAEN). Dirige J&N Asesoría Legal y Consultoría.\n\nESPECIALIDADES:\nDerecho Civil\nComercial y Recursos Hídricos.',
+        bioCompleta: 'Abogada (CAI N° 3534), con estudios en la Universidad Nacional San Luis Gonzaga de Ica y más de 18 años de experiencia profesional. Magíster en Gestión Pública y cuenta con especialización en Gestión Pública (CAEN). Dirige J&N Asesoría Legal y Consultoría.\n\nESPECIALIDADES:\nDerecho Civil\nComercial y Recursos Hídricos.',
         idiomas: 'Español ' + FLAG_ES + ' • Quechua ' + FLAG_PE + ' • Inglés ' + FLAG_GB,
         cred: 'Reg. CAI 3534 • Magíster en Gestión Pública • Especialización en Gestión Pública (CAEN) • Derecho Civil - Comercial • Recursos Hídricos'
       },
@@ -23,8 +23,8 @@
         cargo: 'Abogado especialista en Derecho Notarial, Registral y Civil',
         foto: 'assets/img/abg-david-llerena-nuevo.webp',
         isCutout: true,
-        bio: 'Abogado con más de 10 años de experiencia. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo.\n\nEspecialidades:\nDerecho Notarial\nDerecho Registral\nDerecho Civil.',
-        bioCompleta: 'Abogado colegiado y habilitado (Reg. CAL 72306, CAV 143), con más de 10 años de experiencia profesional. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo.\n\nEspecialidades:\nDerecho Notarial\nDerecho Registral\nDerecho Civil.',
+        bio: 'Abogado con más de 10 años de experiencia. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo.\n\nESPECIALIDADES:\nDerecho Notarial\nDerecho Registral\nDerecho Civil.',
+        bioCompleta: 'Abogado colegiado y habilitado (Reg. CAL 72306, CAV 143), con más de 10 años de experiencia profesional. Tiene estudios de maestría en Derecho Notarial y Registral y especialización en Derecho Administrativo.\n\nESPECIALIDADES:\nDerecho Notarial\nDerecho Registral\nDerecho Civil.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Reg. CAL 72306 • CAV 143 • Estudios de maestría en Derecho Notarial y Registral • Especialización en Derecho Administrativo'
       },
@@ -34,8 +34,8 @@
         cargo: 'Abogado penalista',
         foto: 'assets/img/abg-jhony-zapata.webp?v=2',
         isCutout: true,
-        bio: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Procesal Penal.\n\nEspecialidades:\nDerecho Penal\nProcesal Penal.',
-        bioCompleta: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial del Poder Judicial y diez como defensor público. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Procesal Penal.\n\nEspecialidades:\nDerecho Penal\nProcesal Penal.',
+        bio: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Procesal Penal.\n\nESPECIALIDADES:\nDerecho Penal\nProcesal Penal.',
+        bioCompleta: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial del Poder Judicial y diez como defensor público. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Procesal Penal.\n\nESPECIALIDADES:\nDerecho Penal\nProcesal Penal.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Más de 20 años en el sistema de justicia • Estudios de maestría en Derecho Penal • Especialización en Derecho Penal y Derecho Procesal Penal'
       },
@@ -45,8 +45,8 @@
         cargo: 'Abogado con más de 25 años de experiencia municipal',
         foto: 'assets/img/walter-llerena-retrato-20261026.png',
         isCutout: true,
-        bio: 'Abogado con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN.\n\nEspecialidades:\nDerecho Municipal\nDerecho Administrativo\nDerecho Laboral.',
-        bioCompleta: 'Abogado con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN.\n\nEspecialidades:\nDerecho Municipal\nDerecho Administrativo\nDerecho Laboral.',
+        bio: 'Abogado con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN.\n\nESPECIALIDADES:\nDerecho Municipal\nDerecho Administrativo\nDerecho Laboral.',
+        bioCompleta: 'Abogado con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN.\n\nESPECIALIDADES:\nDerecho Municipal\nDerecho Administrativo\nDerecho Laboral.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Más de 25 años de experiencia • Estudios de maestría en Derecho Penal • Alta especialización en Administración y Gestión Pública (CAEN) • Derecho Municipal, Administrativo y Laboral'
       },
