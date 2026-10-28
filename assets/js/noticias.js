@@ -378,13 +378,14 @@
             {
               icono: 'fa-building-columns',
               titulo: 'Gestión Pública y Contrataciones del Estado',
-              desc: 'Acompañamiento a entidades y empresas en la gestión pública y la contratación estatal.',
+              desc: 'Consultoría para entidades públicas en la elaboración y actualización de documentos e instrumentos de gestión.',
               bullets: [
-                'Elaboración de instrumentos de gestión municipal',
-                'Capacitación en procedimientos administrativos',
-                'Contrataciones y adquisiciones con el Estado'
+                'Elaboración de perfiles y fichas',
+                'Elaboración y actualización de instrumentos de gestión: RIC, RIT, ROF y Cuadro de Perfiles',
+                'Elaboración de otros documentos de gestión según las necesidades de la entidad',
+                'Orientación en contrataciones y adquisiciones con el Estado'
               ],
-              chips: ['Municipalidades', 'Empresas']
+              chips: ['Entidades públicas', 'Municipalidades']
             },
             {
               icono: 'fa-compass-drafting',
