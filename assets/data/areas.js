@@ -61,7 +61,7 @@
         ]
       },
       'civil': {
-        title: 'Derecho Civil y Patrimonial',
+        title: 'Derecho Civil, Comercial',
         heroImg: 'assets/img/areas/area-civil.webp',
         sideImg: 'assets/img/areas/area-civil.webp',
         intro: 'Brindamos asesoría en contratos, obligaciones y conflictos patrimoniales para personas, familias y empresas. Revisamos los documentos y los hechos para explicar las alternativas de negociación o las acciones legales que podrían corresponder.',
