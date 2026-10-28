@@ -34,8 +34,8 @@
         cargo: 'Abogado penalista',
         foto: 'assets/img/abg-jhony-zapata.webp?v=2',
         isCutout: true,
-        bio: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Derecho Procesal Penal.\n\nSus especialidades son:\nDerecho Penal\nDerecho Procesal Penal.',
-        bioCompleta: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial del Poder Judicial y diez como defensor público. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Derecho Procesal Penal.\n\nSus especialidades son:\nDerecho Penal\nDerecho Procesal Penal.',
+        bio: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Procesal Penal.\n\nSus especialidades son:\nDerecho Penal\nProcesal Penal.',
+        bioCompleta: 'Abogado penalista con más de 20 años de experiencia en el sistema de justicia: diez años como secretario judicial del Poder Judicial y diez como defensor público. Cuenta con estudios de maestría en Derecho Penal y especialización en Derecho Penal y Procesal Penal.\n\nSus especialidades son:\nDerecho Penal\nProcesal Penal.',
         idiomas: 'Español ' + FLAG_ES,
         cred: 'Más de 20 años en el sistema de justicia • Estudios de maestría en Derecho Penal • Especialización en Derecho Penal y Derecho Procesal Penal'
       },
