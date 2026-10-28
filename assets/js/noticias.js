@@ -444,7 +444,7 @@
             <div class="container area-page-hero-content">
               <span class="equipo-hero-tag">ASESORÍA LEGAL Y CONSULTORÍA</span>
               <h1 class="area-page-hero-title">Asesorías y Consultorías</h1>
-              <p class="ases-hero-sub">Asesoría legal y consultoría para personas, empresas e instituciones. Atención presencial en Chincha Alta y consultas virtuales coordinadas.</p>
+              <p class="ases-hero-sub">Brindamos asesoría legal y consultoría a personas, empresas privadas e instituciones públicas. Atendemos presencialmente en Chincha Alta y coordinamos consultas virtuales según cada caso.</p>
               <div class="ases-hero-registro-wrap">
                 <span class="ases-hero-registro"><i class="fas fa-certificate"></i> Objeto social inscrito en SUNARP · Partida Electrónica N° 11049198</span>
               </div>
