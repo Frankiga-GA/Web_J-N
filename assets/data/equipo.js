@@ -56,9 +56,9 @@
         cargo: 'Asistente Administrativa y de Dirección',
         foto: 'assets/img/asistente-jimena-llerena.webp',
         isCutout: true,
-        bio: 'Apoya la gestión administrativa y asiste a la Dra. Zinthia. Tiene conocimientos de computación, inglés y herramientas de inteligencia artificial.',
-        bioCompleta: 'Asistente administrativa y de dirección. Apoya la gestión administrativa y asiste a la Dra. Zinthia. Tiene conocimientos de computación, inglés y herramientas de inteligencia artificial.',
+        bio: 'Apoya la gestión administrativa, de dirección y marketing. Tiene conocimientos de computación, inglés y herramientas de inteligencia artificial.',
+        bioCompleta: 'Asistente administrativa y de dirección. Apoya la gestión administrativa y de marketing. Tiene conocimientos de computación, inglés y herramientas de inteligencia artificial.',
         idiomas: 'Español ' + FLAG_ES,
-        cred: 'Apoyo administrativo • Computación • Inglés • Herramientas de IA'
+        cred: 'Apoyo administrativo • Marketing • Computación • Inglés • Herramientas de IA'
       }
     ];
