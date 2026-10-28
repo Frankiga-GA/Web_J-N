@@ -481,7 +481,7 @@
               <div class="ases-contact-strip" data-aos="fade-up">
                 <div>
                   <h4>Coordina una consulta</h4>
-                  <p>Escríbenos para consultar disponibilidad o visitar la oficina en Calle Grau 246A, Chincha Alta.</p>
+                  <p>Escríbenos por WhatsApp o <a href="mailto:asesorialegal.jyn@gmail.com">correo electrónico</a> para consultar disponibilidad. También puedes visitarnos en Calle Grau 227, segundo piso, Chincha Alta.</p>
                 </div>
                 <a class="ases-wa-btn" href="https://wa.me/51958212450" target="_blank" rel="noopener"><i class="fab fa-whatsapp icon-lg" aria-hidden="true"></i> WhatsApp +51 958 212 450</a>
               </div>
