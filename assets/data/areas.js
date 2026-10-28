@@ -41,7 +41,7 @@
         ]
       },
       'penal-tributario': {
-        title: 'Penal Tributario y Financiero',
+        title: 'Penal, Tributario y Financiero',
         heroImg: 'assets/img/areas/area-tributario-nueva.webp',
         sideImg: 'assets/img/areas/area-tributario-nueva.webp',
         intro: 'Asesoramos a empresas y directivos ante controversias tributarias y financieras que puedan tener implicancias legales o penales. Revisamos la información disponible, identificamos los puntos que requieren atención y explicamos las opciones de respuesta o defensa.',
