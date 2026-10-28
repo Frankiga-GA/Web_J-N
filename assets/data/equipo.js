@@ -12,10 +12,10 @@
         cargo: 'Directora',
         foto: 'assets/img/zinthia-garay-equipo.webp', // PNG recortado con fondo transparente
         isCutout: true,
-        bio: 'Abogada (CAI N° 3534), con estudios en la Universidad Nacional San Luis Gonzaga de Ica y más de 18 años de experiencia profesional. Magíster en Gestión Pública y cuenta con especialización en Gestión Pública (CAEN). Dirige J&N Asesoría Legal y Consultoría.\n\nESPECIALIDADES:\nDerecho Civil\nComercial y Recursos Hídricos.',
-        bioCompleta: 'Abogada (CAI N° 3534), con estudios en la Universidad Nacional San Luis Gonzaga de Ica y más de 18 años de experiencia profesional. Magíster en Gestión Pública y cuenta con especialización en Gestión Pública (CAEN). Dirige J&N Asesoría Legal y Consultoría.\n\nESPECIALIDADES:\nDerecho Civil\nComercial y Recursos Hídricos.',
+        bio: 'Abogada con registro CAI N° 3534 y más de 18 años de experiencia profesional. Magíster en Gestión Pública, con especialización en Gestión Pública por el CAEN. Fundadora y directora de J&N Asesoría Legal y Consultoría.\n\nESPECIALIZACIÓN:\nDerecho Civil\nDerecho Comercial\nRecursos Hídricos.',
+        bioCompleta: 'Abogada con registro CAI N° 3534 y más de 18 años de experiencia profesional. Magíster en Gestión Pública, con especialización en Gestión Pública por el CAEN. Fundadora y directora de J&N Asesoría Legal y Consultoría.\n\nESPECIALIZACIÓN:\nDerecho Civil\nDerecho Comercial\nRecursos Hídricos.',
         idiomas: 'Español ' + FLAG_ES + ' • Quechua ' + FLAG_PE + ' • Inglés ' + FLAG_GB,
-        cred: 'Reg. CAI 3534 • Magíster en Gestión Pública • Especialización en Gestión Pública (CAEN) • Derecho Civil - Comercial • Recursos Hídricos'
+        cred: 'Reg. CAI 3534 • Más de 18 años de experiencia • Magíster en Gestión Pública • Especialización en Gestión Pública (CAEN) • Derecho Civil • Derecho Comercial • Recursos Hídricos'
       },
       // ================= MIEMBRO 2: WALTER LLERENA =================
       {
