@@ -42,7 +42,7 @@
       // ================= MIEMBRO 4: WALTER LLERENA PEÑA =================
       {
         nombre: 'Abg. Walter Llerena Peña',
-        cargo: 'Especialista en Derecho Municipal, Derecho Administrativo y Derecho Laboral',
+        cargo: 'Abogado con más de 25 años de experiencia municipal',
         foto: 'assets/img/walter-llerena-retrato-20261026.png',
         isCutout: true,
         bio: 'Abogado con más de 25 años de experiencia profesional. Tiene estudios de maestría en Derecho Penal y alta especialización en Administración y Gestión Pública por el CAEN. Sus especialidades son: Derecho Municipal, Derecho Administrativo y Derecho Laboral.',
