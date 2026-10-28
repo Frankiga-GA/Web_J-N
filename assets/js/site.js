@@ -751,6 +751,12 @@
 
     function renderMemberBio(target, text, highlights) {
       target.replaceChildren();
+      const appendText = (value) => {
+        value.split('\n').forEach((line, index) => {
+          if (index > 0) target.appendChild(document.createElement('br'));
+          if (line) target.appendChild(document.createTextNode(line));
+        });
+      };
       const terms = [...new Set(highlights.filter(Boolean))].sort((a, b) => b.length - a.length);
       let cursor = 0;
       while (cursor < text.length) {
@@ -764,10 +770,10 @@
           }
         });
         if (nextIndex === -1) {
-          target.appendChild(document.createTextNode(text.slice(cursor)));
+          appendText(text.slice(cursor));
           break;
         }
-        if (nextIndex > cursor) target.appendChild(document.createTextNode(text.slice(cursor, nextIndex)));
+        if (nextIndex > cursor) appendText(text.slice(cursor, nextIndex));
         const strong = document.createElement('strong');
         strong.textContent = nextTerm;
         target.appendChild(strong);
